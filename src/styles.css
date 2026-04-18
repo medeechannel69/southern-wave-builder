@@ -68,8 +68,8 @@
   --color-teal-foreground: var(--teal-foreground);
   --color-orange: var(--orange);
   --color-orange-foreground: var(--orange-foreground);
-  --font-display: "Prompt", "Sarabun", system-ui, sans-serif;
-  --font-sans: "Sarabun", "Prompt", system-ui, sans-serif;
+  --font-display: "Prompt", "Sarabun", sans-serif;
+  --font-sans: "Sarabun", sans-serif;
   --gradient-hero: linear-gradient(135deg, var(--navy) 0%, var(--primary) 50%, var(--teal) 100%);
   --gradient-wave: linear-gradient(180deg, var(--teal) 0%, var(--primary) 100%);
   --gradient-sunset: linear-gradient(135deg, var(--orange) 0%, oklch(0.72 0.18 45) 100%);
