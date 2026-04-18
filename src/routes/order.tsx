@@ -43,6 +43,7 @@ function OrderPage() {
   const [addons, setAddons] = useState<typeof ADDONS>([]);
   const [customer, setCustomer] = useState({ name: "", phone: "", email: "", line_id: "", business_type: "", notes: "" });
   const [payment, setPayment] = useState("promptpay");
+  const [slipFile, setSlipFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   const total = useMemo(() => pkg.price + addons.reduce((s, a) => s + a.price, 0), [pkg, addons]);
@@ -53,7 +54,29 @@ function OrderPage() {
 
   const submit = async () => {
     if (!customer.name || !customer.phone) { toast.error("กรุณากรอกชื่อและเบอร์โทร"); setStep(2); return; }
+    if (slipFile) {
+      if (slipFile.size > 5 * 1024 * 1024) { toast.error("ไฟล์สลิปต้องไม่เกิน 5MB"); return; }
+      if (!/^image\/(png|jpeg|jpg|webp)$/i.test(slipFile.type) && slipFile.type !== "application/pdf") {
+        toast.error("รองรับเฉพาะ JPG/PNG/WEBP/PDF"); return;
+      }
+    }
     setLoading(true);
+
+    let slip_url: string | null = null;
+    if (slipFile) {
+      const ext = slipFile.name.split(".").pop()?.toLowerCase() ?? "bin";
+      const path = `${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.${ext}`;
+      const { error: upErr } = await supabase.storage.from("payment-slips").upload(path, slipFile, {
+        contentType: slipFile.type, upsert: false,
+      });
+      if (upErr) {
+        setLoading(false);
+        toast.error("อัปโหลดสลิปไม่สำเร็จ: " + upErr.message);
+        return;
+      }
+      slip_url = supabase.storage.from("payment-slips").getPublicUrl(path).data.publicUrl;
+    }
+
     const { data, error } = await supabase.from("orders").insert({
       customer_name: customer.name, customer_phone: customer.phone,
       customer_email: customer.email, customer_line: customer.line_id,
@@ -61,6 +84,7 @@ function OrderPage() {
       package_name: pkg.name, package_price: pkg.price,
       addons: addons.map((a) => ({ name: a.name, price: a.price })),
       total, payment_method: payment, notes: customer.notes,
+      slip_url,
     }).select("order_code").single();
     setLoading(false);
     if (error || !data) { toast.error("เกิดข้อผิดพลาด: " + (error?.message ?? "")); return; }
