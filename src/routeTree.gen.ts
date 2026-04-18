@@ -9,23 +9,40 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrackRouteImport } from './routes/track'
 import { Route as TopupRouteImport } from './routes/topup'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PackagesRouteImport } from './routes/packages'
+import { Route as OrderRouteImport } from './routes/order'
+import { Route as InterestRouteImport } from './routes/interest'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrackOrderCodeRouteImport } from './routes/track.$orderCode'
+import { Route as OrderSuccessRouteImport } from './routes/order.success'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const TrackRoute = TrackRouteImport.update({
+  id: '/track',
+  path: '/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TopupRoute = TopupRouteImport.update({
   id: '/topup',
   path: '/topup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -43,6 +60,11 @@ const ReviewsRoute = ReviewsRouteImport.update({
   path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -56,6 +78,16 @@ const PortfolioRoute = PortfolioRouteImport.update({
 const PackagesRoute = PackagesRouteImport.update({
   id: '/packages',
   path: '/packages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderRoute = OrderRouteImport.update({
+  id: '/order',
+  path: '/order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterestRoute = InterestRouteImport.update({
+  id: '/interest',
+  path: '/interest',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -83,6 +115,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackOrderCodeRoute = TrackOrderCodeRouteImport.update({
+  id: '/$orderCode',
+  path: '/$orderCode',
+  getParentRoute: () => TrackRoute,
+} as any)
+const OrderSuccessRoute = OrderSuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => OrderRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -95,14 +137,21 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/interest': typeof InterestRoute
+  '/order': typeof OrderRouteWithChildren
   '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
+  '/track': typeof TrackRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/order/success': typeof OrderSuccessRoute
+  '/track/$orderCode': typeof TrackOrderCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,14 +159,21 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/interest': typeof InterestRoute
+  '/order': typeof OrderRouteWithChildren
   '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
+  '/track': typeof TrackRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/order/success': typeof OrderSuccessRoute
+  '/track/$orderCode': typeof TrackOrderCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -126,14 +182,21 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/interest': typeof InterestRoute
+  '/order': typeof OrderRouteWithChildren
   '/packages': typeof PackagesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
+  '/track': typeof TrackRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/order/success': typeof OrderSuccessRoute
+  '/track/$orderCode': typeof TrackOrderCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -143,14 +206,21 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/faq'
+    | '/interest'
+    | '/order'
     | '/packages'
     | '/portfolio'
     | '/privacy'
+    | '/quote'
     | '/reviews'
     | '/services'
     | '/terms'
+    | '/thank-you'
     | '/topup'
+    | '/track'
     | '/blog/$slug'
+    | '/order/success'
+    | '/track/$orderCode'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -158,14 +228,21 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/faq'
+    | '/interest'
+    | '/order'
     | '/packages'
     | '/portfolio'
     | '/privacy'
+    | '/quote'
     | '/reviews'
     | '/services'
     | '/terms'
+    | '/thank-you'
     | '/topup'
+    | '/track'
     | '/blog/$slug'
+    | '/order/success'
+    | '/track/$orderCode'
   id:
     | '__root__'
     | '/'
@@ -173,14 +250,21 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/faq'
+    | '/interest'
+    | '/order'
     | '/packages'
     | '/portfolio'
     | '/privacy'
+    | '/quote'
     | '/reviews'
     | '/services'
     | '/terms'
+    | '/thank-you'
     | '/topup'
+    | '/track'
     | '/blog/$slug'
+    | '/order/success'
+    | '/track/$orderCode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -189,22 +273,41 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  InterestRoute: typeof InterestRoute
+  OrderRoute: typeof OrderRouteWithChildren
   PackagesRoute: typeof PackagesRoute
   PortfolioRoute: typeof PortfolioRoute
   PrivacyRoute: typeof PrivacyRoute
+  QuoteRoute: typeof QuoteRoute
   ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
+  ThankYouRoute: typeof ThankYouRoute
   TopupRoute: typeof TopupRoute
+  TrackRoute: typeof TrackRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/track': {
+      id: '/track'
+      path: '/track'
+      fullPath: '/track'
+      preLoaderRoute: typeof TrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/topup': {
       id: '/topup'
       path: '/topup'
       fullPath: '/topup'
       preLoaderRoute: typeof TopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -228,6 +331,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -247,6 +357,20 @@ declare module '@tanstack/react-router' {
       path: '/packages'
       fullPath: '/packages'
       preLoaderRoute: typeof PackagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order': {
+      id: '/order'
+      path: '/order'
+      fullPath: '/order'
+      preLoaderRoute: typeof OrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interest': {
+      id: '/interest'
+      path: '/interest'
+      fullPath: '/interest'
+      preLoaderRoute: typeof InterestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -284,6 +408,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/track/$orderCode': {
+      id: '/track/$orderCode'
+      path: '/$orderCode'
+      fullPath: '/track/$orderCode'
+      preLoaderRoute: typeof TrackOrderCodeRouteImport
+      parentRoute: typeof TrackRoute
+    }
+    '/order/success': {
+      id: '/order/success'
+      path: '/success'
+      fullPath: '/order/success'
+      preLoaderRoute: typeof OrderSuccessRouteImport
+      parentRoute: typeof OrderRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -304,20 +442,54 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface OrderRouteChildren {
+  OrderSuccessRoute: typeof OrderSuccessRoute
+}
+
+const OrderRouteChildren: OrderRouteChildren = {
+  OrderSuccessRoute: OrderSuccessRoute,
+}
+
+const OrderRouteWithChildren = OrderRoute._addFileChildren(OrderRouteChildren)
+
+interface TrackRouteChildren {
+  TrackOrderCodeRoute: typeof TrackOrderCodeRoute
+}
+
+const TrackRouteChildren: TrackRouteChildren = {
+  TrackOrderCodeRoute: TrackOrderCodeRoute,
+}
+
+const TrackRouteWithChildren = TrackRoute._addFileChildren(TrackRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  InterestRoute: InterestRoute,
+  OrderRoute: OrderRouteWithChildren,
   PackagesRoute: PackagesRoute,
   PortfolioRoute: PortfolioRoute,
   PrivacyRoute: PrivacyRoute,
+  QuoteRoute: QuoteRoute,
   ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
+  ThankYouRoute: ThankYouRoute,
   TopupRoute: TopupRoute,
+  TrackRoute: TrackRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
