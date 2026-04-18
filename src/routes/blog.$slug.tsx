@@ -2,22 +2,28 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar } from "lucide-react";
-import { blogPosts } from "./blog";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = blogPosts.find((p) => p.slug === params.slug);
-    if (!post) throw notFound();
-    return { post };
+  loader: async ({ params }) => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, slug, title, excerpt, content, cover_image_url, category, published, published_at")
+      .eq("slug", params.slug)
+      .eq("published", true)
+      .maybeSingle();
+    if (error || !data) throw notFound();
+    return { post: data };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
           { title: `${loaderData.post.title} — MedeeWeb Blog` },
-          { name: "description", content: loaderData.post.excerpt },
+          { name: "description", content: loaderData.post.excerpt ?? "" },
           { property: "og:title", content: loaderData.post.title },
-          { property: "og:description", content: loaderData.post.excerpt },
+          { property: "og:description", content: loaderData.post.excerpt ?? "" },
           { property: "og:type", content: "article" },
+          ...(loaderData.post.cover_image_url ? [{ property: "og:image", content: loaderData.post.cover_image_url }] : []),
         ]
       : [{ title: "บทความ — MedeeWeb" }],
   }),
@@ -44,21 +50,21 @@ function BlogPostPage() {
             <ArrowLeft className="h-4 w-4" /> กลับไปหน้าบล็อก
           </Link>
           <h1 className="mt-4 font-display font-bold text-primary">{post.title}</h1>
-          <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-            <Calendar className="h-4 w-4" /> {post.date}
-          </div>
-          <div className="mt-8 aspect-video rounded-2xl bg-gradient-to-br from-soft-teal to-secondary" />
+          {post.published_at && (
+            <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="h-4 w-4" /> {new Date(post.published_at).toLocaleDateString("th-TH")}
+            </div>
+          )}
+          {post.cover_image_url ? (
+            <img src={post.cover_image_url} alt={post.title} className="mt-8 aspect-video w-full rounded-2xl object-cover" />
+          ) : (
+            <div className="mt-8 aspect-video rounded-2xl bg-gradient-to-br from-soft-teal to-secondary" />
+          )}
           <div className="prose mt-8 max-w-none text-foreground/85" style={{ lineHeight: 1.85 }}>
-            <p className="text-lg font-medium">{post.excerpt}</p>
-            <p className="mt-6">
-              นี่คือเนื้อหาบทความตัวอย่าง สามารถจัดการเนื้อหาได้จากหน้า Admin ในอนาคต — เนื้อหาบทความจะถูกเก็บไว้ในฐานข้อมูลและสามารถแก้ไขได้ผ่าน CMS ของ MedeeWeb
-            </p>
-            <p className="mt-4">
-              MedeeWeb เชื่อว่าเว็บไซต์ที่ดีต้องตอบโจทย์ทั้งผู้ใช้และเจ้าของธุรกิจ — เร็ว สวย ใช้งานง่าย และเข้าถึงลูกค้าได้จริงผ่าน SEO ที่ทำมาอย่างดี
-            </p>
-            <p className="mt-4">
-              หากคุณสนใจสร้างเว็บไซต์ที่จะช่วยให้ธุรกิจของคุณเติบโต ทักทีมงานเราได้ทุกเมื่อ ปรึกษาฟรี ไม่มีค่าใช้จ่าย
-            </p>
+            {post.excerpt && <p className="text-lg font-medium">{post.excerpt}</p>}
+            {post.content && (
+              <div className="mt-6 whitespace-pre-wrap">{post.content}</div>
+            )}
           </div>
           <div className="mt-12 rounded-2xl bg-soft-teal p-6 text-center">
             <p className="font-semibold text-primary">สนใจทำเว็บไซต์? ปรึกษาฟรี</p>

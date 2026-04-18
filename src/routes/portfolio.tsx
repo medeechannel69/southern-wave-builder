@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import mkRestaurant from "@/assets/mockup-restaurant.jpg";
 import mkHotel from "@/assets/mockup-hotel.jpg";
 import mkCompany from "@/assets/mockup-company.jpg";
 import mkRealEstate from "@/assets/mockup-realestate.jpg";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -21,21 +22,50 @@ export const Route = createFileRoute("/portfolio")({
   component: PortfolioPage,
 });
 
-const cats = ["ทั้งหมด", "ร้านอาหาร", "โรงแรม", "บริษัท", "อสังหาฯ"] as const;
-type Cat = typeof cats[number];
+type Item = {
+  id: string;
+  name: string;
+  category: string;
+  image_url: string | null;
+  demo_url: string | null;
+  is_real: boolean;
+};
 
-const items = [
-  { name: "สบายดีโฮม", cat: "อสังหาฯ" as const, img: mkRealEstate, real: true, link: "/demo/sabaidi-home" },
-  { name: "Thai Bistro", cat: "ร้านอาหาร" as const, img: mkRestaurant, real: false, link: "/demo/restaurant" },
-  { name: "Krabi Resort", cat: "โรงแรม" as const, img: mkHotel, real: false, link: "/demo/hotel" },
-  { name: "South Tech", cat: "บริษัท" as const, img: mkCompany, real: false, link: "/demo/company" },
-  { name: "Ocean View Hotel", cat: "โรงแรม" as const, img: mkHotel, real: false, link: "/demo/hotel" },
-  { name: "Andaman Homes", cat: "อสังหาฯ" as const, img: mkRealEstate, real: false, link: "/demo/realestate" },
-];
+// Map category → fallback mockup image when DB row has no image_url
+const fallbackImage = (cat: string) => {
+  switch (cat) {
+    case "ร้านอาหาร": return mkRestaurant;
+    case "โรงแรม": return mkHotel;
+    case "บริษัท": return mkCompany;
+    case "อสังหาฯ": return mkRealEstate;
+    default: return mkCompany;
+  }
+};
 
 function PortfolioPage() {
-  const [active, setActive] = useState<Cat>("ทั้งหมด");
-  const filtered = active === "ทั้งหมด" ? items : items.filter((i) => i.cat === active);
+  const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [active, setActive] = useState<string>("ทั้งหมด");
+
+  useEffect(() => {
+    supabase
+      .from("portfolio_items")
+      .select("id, name, category, image_url, demo_url, is_real")
+      .eq("visible", true)
+      .order("sort_order", { ascending: true })
+      .then(({ data }) => {
+        setItems(data ?? []);
+        setLoading(false);
+      });
+  }, []);
+
+  const cats = useMemo(() => {
+    const set = new Set<string>(items.map((i) => i.category));
+    return ["ทั้งหมด", ...Array.from(set)];
+  }, [items]);
+
+  const filtered = active === "ทั้งหมด" ? items : items.filter((i) => i.category === active);
+
   return (
     <PageShell>
       <PageHero
@@ -58,31 +88,48 @@ function PortfolioPage() {
               </button>
             ))}
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((item, i) => (
-              <Card key={i} className="group overflow-hidden rounded-xl border-border/60 bg-white p-0 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
-                <div className="relative aspect-[4/3] overflow-hidden bg-secondary/30">
-                  <img src={item.img} alt={item.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  {item.real && (
-                    <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-orange px-3 py-1 text-xs font-bold text-white shadow-lg">
-                      <Award className="h-3 w-3" /> ผลงานจริง
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center justify-between gap-3 p-4">
-                  <div>
-                    <p className="text-base font-semibold text-primary">{item.name}</p>
-                    <p className="text-xs text-muted-foreground">{item.cat}</p>
+          {loading ? (
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="h-72 animate-pulse rounded-xl bg-secondary/50" />
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
+            <p className="mt-10 text-center text-muted-foreground">ยังไม่มีผลงาน</p>
+          ) : (
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((item) => (
+                <Card key={item.id} className="group overflow-hidden rounded-xl border-border/60 bg-white p-0 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-secondary/30">
+                    <img
+                      src={item.image_url ?? fallbackImage(item.category)}
+                      alt={item.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {item.is_real && (
+                      <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-orange px-3 py-1 text-xs font-bold text-white shadow-lg">
+                        <Award className="h-3 w-3" /> ผลงานจริง
+                      </span>
+                    )}
                   </div>
-                  <Link to={item.link}>
-                    <Button size="sm" variant="outline" className="rounded-full border-primary text-primary hover:bg-primary hover:text-white">
-                      ดู <ArrowRight className="ml-1 h-3 w-3" />
-                    </Button>
-                  </Link>
-                </div>
-              </Card>
-            ))}
-          </div>
+                  <div className="flex items-center justify-between gap-3 p-4">
+                    <div>
+                      <p className="text-base font-semibold text-primary">{item.name}</p>
+                      <p className="text-xs text-muted-foreground">{item.category}</p>
+                    </div>
+                    {item.demo_url && (
+                      <a href={item.demo_url}>
+                        <Button size="sm" variant="outline" className="rounded-full border-primary text-primary hover:bg-primary hover:text-white">
+                          ดู <ArrowRight className="ml-1 h-3 w-3" />
+                        </Button>
+                      </a>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </PageShell>
