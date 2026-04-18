@@ -14,7 +14,230 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      leads: {
+        Row: {
+          budget: string | null
+          business_type: string | null
+          created_at: string
+          id: string
+          line_id: string | null
+          message: string | null
+          name: string
+          notes: string | null
+          phone: string
+          preferred_time: string | null
+          source: string | null
+          status: Database["public"]["Enums"]["lead_status"]
+          updated_at: string
+        }
+        Insert: {
+          budget?: string | null
+          business_type?: string | null
+          created_at?: string
+          id?: string
+          line_id?: string | null
+          message?: string | null
+          name: string
+          notes?: string | null
+          phone: string
+          preferred_time?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["lead_status"]
+          updated_at?: string
+        }
+        Update: {
+          budget?: string | null
+          business_type?: string | null
+          created_at?: string
+          id?: string
+          line_id?: string | null
+          message?: string | null
+          name?: string
+          notes?: string | null
+          phone?: string
+          preferred_time?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["lead_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          addons: Json
+          business_type: string | null
+          created_at: string
+          customer_email: string | null
+          customer_line: string | null
+          customer_name: string
+          customer_phone: string
+          id: string
+          notes: string | null
+          order_code: string
+          package_name: string
+          package_price: number
+          payment_method: string | null
+          slip_url: string | null
+          status: Database["public"]["Enums"]["order_status"]
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          addons?: Json
+          business_type?: string | null
+          created_at?: string
+          customer_email?: string | null
+          customer_line?: string | null
+          customer_name: string
+          customer_phone: string
+          id?: string
+          notes?: string | null
+          order_code?: string
+          package_name: string
+          package_price?: number
+          payment_method?: string | null
+          slip_url?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          addons?: Json
+          business_type?: string | null
+          created_at?: string
+          customer_email?: string | null
+          customer_line?: string | null
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          notes?: string | null
+          order_code?: string
+          package_name?: string
+          package_price?: number
+          payment_method?: string | null
+          slip_url?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          total?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      project_updates: {
+        Row: {
+          created_at: string
+          id: string
+          is_complete: boolean
+          message: string | null
+          order_id: string
+          step: number
+          step_name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_complete?: boolean
+          message?: string | null
+          order_id: string
+          step?: number
+          step_name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_complete?: boolean
+          message?: string | null
+          order_id?: string
+          step?: number
+          step_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_updates_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      promotions: {
+        Row: {
+          button_url: string | null
+          created_at: string
+          enabled: boolean
+          end_at: string | null
+          id: string
+          text: string
+          updated_at: string
+        }
+        Insert: {
+          button_url?: string | null
+          created_at?: string
+          enabled?: boolean
+          end_at?: string | null
+          id?: string
+          text: string
+          updated_at?: string
+        }
+        Update: {
+          button_url?: string | null
+          created_at?: string
+          enabled?: boolean
+          end_at?: string | null
+          id?: string
+          text?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      quotes: {
+        Row: {
+          addons: Json | null
+          budget: string | null
+          business_type: string | null
+          created_at: string
+          details: string | null
+          email: string | null
+          id: string
+          line_id: string | null
+          name: string
+          package_name: string | null
+          phone: string
+          status: Database["public"]["Enums"]["quote_status"]
+          updated_at: string
+        }
+        Insert: {
+          addons?: Json | null
+          budget?: string | null
+          business_type?: string | null
+          created_at?: string
+          details?: string | null
+          email?: string | null
+          id?: string
+          line_id?: string | null
+          name: string
+          package_name?: string | null
+          phone: string
+          status?: Database["public"]["Enums"]["quote_status"]
+          updated_at?: string
+        }
+        Update: {
+          addons?: Json | null
+          budget?: string | null
+          business_type?: string | null
+          created_at?: string
+          details?: string | null
+          email?: string | null
+          id?: string
+          line_id?: string | null
+          name?: string
+          package_name?: string | null
+          phone?: string
+          status?: Database["public"]["Enums"]["quote_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +246,21 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      lead_status:
+        | "new"
+        | "pending_call"
+        | "contacted"
+        | "negotiating"
+        | "closed"
+        | "not_interested"
+      order_status:
+        | "pending_slip"
+        | "confirmed"
+        | "in_progress"
+        | "delivered"
+        | "completed"
+        | "cancelled"
+      quote_status: "new" | "sent" | "accepted" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +387,24 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      lead_status: [
+        "new",
+        "pending_call",
+        "contacted",
+        "negotiating",
+        "closed",
+        "not_interested",
+      ],
+      order_status: [
+        "pending_slip",
+        "confirmed",
+        "in_progress",
+        "delivered",
+        "completed",
+        "cancelled",
+      ],
+      quote_status: ["new", "sent", "accepted", "rejected"],
+    },
   },
 } as const
