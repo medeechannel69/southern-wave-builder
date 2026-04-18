@@ -14,8 +14,8 @@ const nav = [
   { to: "/admin/promotions", label: "โปรโมชั่น", icon: Megaphone },
 ];
 
-const adminOnlyNav = [
-  { to: "/admin/users", label: "ผู้ใช้ระบบ", icon: UserCog },
+const adminOnlyNav: typeof nav = [
+  { to: "/admin/users", label: "ผู้ใช้ระบบ", icon: UserCog, exact: false },
 ];
 
 export function AdminShell({ children }: { children: ReactNode }) {
