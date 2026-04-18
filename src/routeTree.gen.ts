@@ -22,6 +22,7 @@ import { Route as PackagesRouteImport } from './routes/packages'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as InterestRouteImport } from './routes/interest'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as DemoRouteImport } from './routes/demo'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
@@ -95,6 +96,11 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -136,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
+    | '/demo'
     | '/faq'
     | '/interest'
     | '/order'
@@ -227,6 +237,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
+    | '/demo'
     | '/faq'
     | '/interest'
     | '/order'
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
+    | '/demo'
     | '/faq'
     | '/interest'
     | '/order'
@@ -272,6 +284,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
+  DemoRoute: typeof DemoRoute
   FaqRoute: typeof FaqRoute
   InterestRoute: typeof InterestRoute
   OrderRoute: typeof OrderRouteWithChildren
@@ -380,6 +393,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demo': {
+      id: '/demo'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -467,6 +487,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
+  DemoRoute: DemoRoute,
   FaqRoute: FaqRoute,
   InterestRoute: InterestRoute,
   OrderRoute: OrderRouteWithChildren,
@@ -484,3 +505,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
