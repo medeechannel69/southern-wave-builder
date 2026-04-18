@@ -15,6 +15,22 @@ export const Route = createFileRoute("/interest")({
     meta: [
       { title: "ฝากเบอร์ให้ติดต่อกลับ — MedeeWeb" },
       { name: "description", content: "ฝากเบอร์โทร ทีมงาน MedeeWeb ติดต่อกลับโดยเร็ว" },
+      { property: "og:title", content: "ฝากเบอร์ให้ติดต่อกลับ — MedeeWeb" },
+      { property: "og:description", content: "ฝากเบอร์โทร ทีมงาน MedeeWeb ติดต่อกลับโดยเร็ว" },
+    ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/interest" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "ฝากเบอร์", item: "https://medeeweb.com/interest" },
+          ],
+        }),
+      },
     ],
   }),
   component: InterestPage,

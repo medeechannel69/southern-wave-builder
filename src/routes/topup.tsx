@@ -14,6 +14,20 @@ export const Route = createFileRoute("/topup")({
       { property: "og:title", content: "บริการเสริม Top-Up — MedeeWeb" },
       { property: "og:description", content: "เพิ่มความสามารถให้เว็บไซต์ของคุณ" },
     ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/topup" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "บริการเสริม", item: "https://medeeweb.com/topup" },
+          ],
+        }),
+      },
+    ],
   }),
   component: TopupPage,
 });

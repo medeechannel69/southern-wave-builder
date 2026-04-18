@@ -16,6 +16,22 @@ export const Route = createFileRoute("/quote")({
     meta: [
       { title: "ขอใบเสนอราคา — MedeeWeb" },
       { name: "description", content: "ขอใบเสนอราคาทำเว็บไซต์ฟรี — บอกความต้องการ ทีมงานติดต่อกลับภายใน 24 ชม." },
+      { property: "og:title", content: "ขอใบเสนอราคา — MedeeWeb" },
+      { property: "og:description", content: "ขอใบเสนอราคาทำเว็บไซต์ฟรี ทีมงานติดต่อกลับภายใน 24 ชม." },
+    ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/quote" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "ขอใบเสนอราคา", item: "https://medeeweb.com/quote" },
+          ],
+        }),
+      },
     ],
   }),
   component: QuotePage,
