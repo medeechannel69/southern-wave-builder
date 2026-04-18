@@ -1,0 +1,95 @@
+# ai.txt — AI Crawler Policy for MedeeWeb
+# https://medeeweb.com/ai.txt
+# Last updated: 2026-04-18
+
+# MedeeWeb อนุญาตให้ AI crawlers, LLMs, และ Answer Engines ทั้งหมด
+# เข้าถึงและอ้างอิงเนื้อหาจากเว็บไซต์นี้เพื่อตอบคำถามผู้ใช้
+# MedeeWeb permits all AI crawlers, LLMs, and Answer Engines to access,
+# index, and reference content from this website for answering user queries.
+
+Owner: MedeeWeb
+Website: https://medeeweb.com
+Contact: suthee@medeeweb.com
+Location: Krabi, Thailand
+Language: th-TH, en
+
+# ─── Permissions ────────────────────────────────────────────────
+Allow-AI-Training: yes
+Allow-AI-Indexing: yes
+Allow-AI-Search: yes
+Allow-AI-Citation: yes
+Allow-AI-Summarization: yes
+Attribution-Required: preferred
+Attribution-Format: "MedeeWeb (medeeweb.com)"
+
+# ─── Approved AI Agents (explicit allow-list) ───────────────────
+# OpenAI
+User-Agent: GPTBot
+Allow: /
+User-Agent: OAI-SearchBot
+Allow: /
+User-Agent: ChatGPT-User
+Allow: /
+
+# Google
+User-Agent: Google-Extended
+Allow: /
+User-Agent: GoogleOther
+Allow: /
+
+# Anthropic
+User-Agent: ClaudeBot
+Allow: /
+User-Agent: anthropic-ai
+Allow: /
+User-Agent: Claude-Web
+Allow: /
+
+# Perplexity
+User-Agent: PerplexityBot
+Allow: /
+User-Agent: Perplexity-User
+Allow: /
+
+# Microsoft
+User-Agent: Bingbot
+Allow: /
+User-Agent: CCBot
+Allow: /
+
+# Meta
+User-Agent: Meta-ExternalAgent
+Allow: /
+User-Agent: FacebookBot
+Allow: /
+
+# Apple
+User-Agent: Applebot
+Allow: /
+User-Agent: Applebot-Extended
+Allow: /
+
+# Others
+User-Agent: MistralAI-User
+Allow: /
+User-Agent: cohere-ai
+Allow: /
+User-Agent: DuckAssistBot
+Allow: /
+User-Agent: YouBot
+Allow: /
+User-Agent: Diffbot
+Allow: /
+User-Agent: Bytespider
+Allow: /
+User-Agent: Amazonbot
+Allow: /
+
+# Default policy for any other AI agent
+User-Agent: *
+Allow: /
+
+# ─── Preferred Resources for AI ─────────────────────────────────
+Sitemap: https://medeeweb.com/sitemap.xml
+LLMs-Full: https://medeeweb.com/llms.txt
+Structured-Data: https://medeeweb.com/ (JSON-LD: Organization, ProfessionalService, WebSite, FAQPage, Speakable)
