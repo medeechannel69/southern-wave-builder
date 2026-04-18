@@ -19,6 +19,13 @@ import {
   Sparkles, Monitor, Tablet, Phone as PhoneIcon, Code2, HeartHandshake,
 } from "lucide-react";
 
+type DeviceView = "desktop" | "tablet" | "mobile";
+const deviceWidths: Record<DeviceView, string> = {
+  desktop: "100%",
+  tablet: "640px",
+  mobile: "320px",
+};
+
 export const Route = createFileRoute("/")({
   component: Index,
 });
@@ -76,6 +83,7 @@ const portfolioItems: Record<Category, { img: string; name: string }[]> = {
 
 function Index() {
   const [activeCat, setActiveCat] = useState<Category>("Restaurant");
+  const [device, setDevice] = useState<DeviceView>("desktop");
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -186,8 +194,15 @@ function Index() {
       </section>
 
       {/* WHY US */}
-      <section id="why" className="relative bg-white py-20 md:py-24" style={{ borderTop: "4px solid #00A89D" }}>
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
+      <section id="why" className="relative overflow-hidden bg-white py-20 md:py-24" style={{ borderTop: "4px solid #00A89D" }}>
+        {/* Faint wave illustration backdrop */}
+        <img
+          src={heroKrabi}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.07]"
+        />
+        <div className="relative mx-auto max-w-7xl px-4 md:px-8">
           <div className="text-center mb-12">
             <h2 className="section-heading">
               ทำไมต้อง <span className="heading-accent">MedeeWeb</span>
@@ -206,15 +221,21 @@ function Index() {
             ))}
           </div>
         </div>
-        {/* Wave to soft-teal */}
-        <svg className="block w-full h-auto mt-16 -mb-px" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+        <svg className="relative block w-full h-auto mt-16 -mb-px" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
           <path fill="#EBF6F8" d="M0,40 C240,80 480,0 720,32 C960,64 1200,80 1440,40 L1440,80 L0,80 Z" />
         </svg>
       </section>
 
       {/* PORTFOLIO / PACKAGES */}
       <section id="portfolio" className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0">
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
+        {/* Faint wave illustration backdrop */}
+        <img
+          src={heroKrabi}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.08]"
+        />
+        <div className="relative mx-auto max-w-7xl px-4 md:px-8">
           <div className="text-center mb-12">
             <h2 className="section-heading">
               แพ็กเกจ<span className="heading-accent">ทำเว็บไซต์</span>
@@ -239,7 +260,70 @@ function Index() {
             ))}
           </div>
 
-          {/* Gallery */}
+          {/* Demo Switcher Bar — moved above preview */}
+          <div className="mx-auto mt-8 flex max-w-3xl flex-col items-center justify-between gap-4 rounded-full border border-border/60 bg-white px-6 py-3 shadow-[var(--shadow-elegant)] sm:flex-row">
+            <div className="flex items-center gap-3 text-primary">
+              <span className="text-sm md:text-base font-semibold">Demo Switcher</span>
+              <div className="flex items-center gap-1">
+                {([
+                  { key: "desktop", icon: Monitor, label: "Desktop" },
+                  { key: "tablet", icon: Tablet, label: "Tablet" },
+                  { key: "mobile", icon: PhoneIcon, label: "Mobile" },
+                ] as const).map(({ key, icon: Icon, label }) => (
+                  <button
+                    key={key}
+                    onClick={() => setDevice(key)}
+                    aria-label={label}
+                    aria-pressed={device === key}
+                    className={`rounded-full p-2 transition-colors ${
+                      device === key
+                        ? "bg-primary text-white"
+                        : "text-primary hover:bg-secondary"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <Button className="rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-6 font-semibold">
+              ดูหน้าเว็บทั้งหมด <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Device Preview Frame */}
+          <div className="mt-10 flex justify-center">
+            <div
+              className="mx-auto w-full transition-all duration-500 ease-out"
+              style={{ maxWidth: deviceWidths[device] }}
+            >
+              <div className="rounded-[28px] border-[10px] border-primary/90 bg-primary/90 shadow-[var(--shadow-elegant)] overflow-hidden">
+                <div className="flex items-center gap-1.5 bg-primary/90 px-3 py-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+                  <span className="ml-3 truncate text-[11px] font-medium text-white/80">
+                    {portfolioItems[activeCat][0].name.toLowerCase().replace(/\s+/g, "")}.com
+                  </span>
+                </div>
+                <div className="bg-white">
+                  <img
+                    src={portfolioItems[activeCat][0].img}
+                    alt={portfolioItems[activeCat][0].name}
+                    width={1280}
+                    height={960}
+                    loading="lazy"
+                    className="block w-full h-auto"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-center text-sm font-semibold text-primary">
+                {portfolioItems[activeCat][0].name} — {device.toUpperCase()}
+              </p>
+            </div>
+          </div>
+
+          {/* Thumbnail grid (other examples) */}
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {portfolioItems[activeCat].map((item, i) => (
               <Card key={i} className="group overflow-hidden rounded-xl border-border/60 bg-white p-0 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
@@ -252,25 +336,10 @@ function Index() {
               </Card>
             ))}
           </div>
-
-          {/* Demo Switcher Bar */}
-          <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-between gap-4 rounded-full border border-border/60 bg-white px-6 py-3 shadow-[var(--shadow-elegant)] sm:flex-row">
-            <div className="flex items-center gap-3 text-primary">
-              <span className="text-sm md:text-base font-semibold">Demo Switcher</span>
-              <div className="flex items-center gap-1">
-                <button className="rounded-full p-2 text-primary hover:bg-secondary transition-colors" aria-label="Desktop"><Monitor className="h-4 w-4" /></button>
-                <button className="rounded-full p-2 text-primary hover:bg-secondary transition-colors" aria-label="Tablet"><Tablet className="h-4 w-4" /></button>
-                <button className="rounded-full p-2 text-primary hover:bg-secondary transition-colors" aria-label="Mobile"><PhoneIcon className="h-4 w-4" /></button>
-              </div>
-            </div>
-            <Button className="rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-6 font-semibold">
-              ดูหน้าเว็บทั้งหมด <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
         </div>
 
         {/* Wave to CTA */}
-        <div className="mt-20 -mb-px">
+        <div className="relative mt-20 -mb-px">
           <svg className="block w-full h-auto" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
             <path fill="#1B4F9B" d="M0,60 C240,10 480,100 720,50 C960,0 1200,80 1440,30 L1440,100 L0,100 Z" />
           </svg>
@@ -298,7 +367,7 @@ function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer id="contact" className="bg-deep-navy text-white">
+      <footer id="contact" className="bg-deep-blue text-white">
         <div className="mx-auto max-w-7xl px-4 md:px-8 py-16 md:py-20">
           <div className="grid gap-10 md:grid-cols-4">
             <div className="md:col-span-2">
