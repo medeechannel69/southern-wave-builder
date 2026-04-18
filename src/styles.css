@@ -82,11 +82,12 @@
   --radius: 0.75rem;
   /* MedeeWeb brand */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.18 0.05 260);
+  /* Body text #333333 */
+  --foreground: oklch(0.28 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.05 260);
+  --card-foreground: oklch(0.28 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.05 260);
+  --popover-foreground: oklch(0.28 0 0);
   /* Primary Blue #1B4F9B */
   --primary: oklch(0.42 0.16 258);
   --primary-foreground: oklch(1 0 0);
@@ -94,7 +95,8 @@
   --secondary: oklch(0.97 0.005 250);
   --secondary-foreground: oklch(0.18 0.05 260);
   --muted: oklch(0.97 0.005 250);
-  --muted-foreground: oklch(0.45 0.03 255);
+  /* Stronger muted text #4a4a4a for readability */
+  --muted-foreground: oklch(0.38 0.01 260);
   /* Teal #00A89D */
   --accent: oklch(0.66 0.13 185);
   --accent-foreground: oklch(1 0 0);
