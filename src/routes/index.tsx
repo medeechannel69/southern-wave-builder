@@ -32,10 +32,10 @@ const services = [
 ];
 
 const reasons = [
-  { icon: Wallet, title: "ราคาเริ่มต้น 5,000 บาท", desc: "คุ้มค่า ราคามิตรภาพ ไม่มีค่าซ่อนเร้น", color: "text-orange", bg: "bg-orange/15" },
-  { icon: Send, title: "ทำงานเร็ว ฟรีโดเมน", desc: "ส่งมอบเร็ว พร้อมโดเมน .com ฟรี 1 ปี", color: "text-accent", bg: "bg-accent/15" },
-  { icon: Smartphone, title: "รองรับมือถือทุกเครื่อง", desc: "Responsive Design ใช้งานทุกอุปกรณ์", color: "text-primary", bg: "bg-primary/15" },
-  { icon: TrendingUp, title: "พร้อมระบบ SEO", desc: "ติดอันดับ Google ค้นหาเจอแน่นอน", color: "text-orange", bg: "bg-orange/15" },
+  { icon: Wallet, title: "ราคาเริ่มต้น 5,000 บาท", desc: "คุ้มค่า ราคามิตรภาพ ไม่มีค่าซ่อนเร้น" },
+  { icon: Send, title: "ทำงานเร็ว ฟรีโดเมน", desc: "ส่งมอบเร็ว พร้อมโดเมน .com ฟรี 1 ปี" },
+  { icon: Smartphone, title: "รองรับมือถือทุกเครื่อง", desc: "Responsive Design ใช้งานทุกอุปกรณ์" },
+  { icon: TrendingUp, title: "พร้อมระบบ SEO", desc: "ติดอันดับ Google ค้นหาเจอแน่นอน" },
 ];
 
 const portfolioCategories = ["Restaurant", "Hotel", "Company", "Contractor", "Real Estate"] as const;
