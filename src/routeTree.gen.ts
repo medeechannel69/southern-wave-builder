@@ -35,6 +35,7 @@ import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe
 import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiNotifyRouteImport } from './routes/api.notify'
+import { Route as ApiLineWebhookRouteImport } from './routes/api.line-webhook'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminTopupRouteImport } from './routes/admin.topup'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
@@ -187,6 +188,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 const ApiNotifyRoute = ApiNotifyRouteImport.update({
   id: '/api/notify',
   path: '/api/notify',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLineWebhookRoute = ApiLineWebhookRouteImport.update({
+  id: '/api/line-webhook',
+  path: '/api/line-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
@@ -344,6 +350,7 @@ export interface FileRoutesByFullPath {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/topup': typeof AdminTopupRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/line-webhook': typeof ApiLineWebhookRoute
   '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
@@ -395,6 +402,7 @@ export interface FileRoutesByTo {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/topup': typeof AdminTopupRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/line-webhook': typeof ApiLineWebhookRoute
   '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
@@ -447,6 +455,7 @@ export interface FileRoutesById {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/topup': typeof AdminTopupRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/line-webhook': typeof ApiLineWebhookRoute
   '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
@@ -500,6 +509,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/topup'
     | '/admin/users'
+    | '/api/line-webhook'
     | '/api/notify'
     | '/blog/$slug'
     | '/demo/$slug'
@@ -551,6 +561,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/topup'
     | '/admin/users'
+    | '/api/line-webhook'
     | '/api/notify'
     | '/blog/$slug'
     | '/demo/$slug'
@@ -602,6 +613,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/topup'
     | '/admin/users'
+    | '/api/line-webhook'
     | '/api/notify'
     | '/blog/$slug'
     | '/demo/$slug'
@@ -654,6 +666,7 @@ export interface RootRouteChildren {
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTopupRoute: typeof AdminTopupRoute
   AdminUsersRoute: typeof AdminUsersRoute
+  ApiLineWebhookRoute: typeof ApiLineWebhookRoute
   ApiNotifyRoute: typeof ApiNotifyRoute
   DemoSlugRoute: typeof DemoSlugRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
@@ -849,6 +862,13 @@ declare module '@tanstack/react-router' {
       path: '/api/notify'
       fullPath: '/api/notify'
       preLoaderRoute: typeof ApiNotifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/line-webhook': {
+      id: '/api/line-webhook'
+      path: '/api/line-webhook'
+      fullPath: '/api/line-webhook'
+      preLoaderRoute: typeof ApiLineWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/users': {
@@ -1081,6 +1101,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTopupRoute: AdminTopupRoute,
   AdminUsersRoute: AdminUsersRoute,
+  ApiLineWebhookRoute: ApiLineWebhookRoute,
   ApiNotifyRoute: ApiNotifyRoute,
   DemoSlugRoute: DemoSlugRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,

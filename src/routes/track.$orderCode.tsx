@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { Check, Circle, Clock } from "lucide-react";
+import { Check, Circle, Clock, FileText, Receipt } from "lucide-react";
+import { generateContractPDF } from "@/lib/pdf/generateContract";
+import { generateReceiptPDF } from "@/lib/pdf/generateReceipt";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/track/$orderCode")({
   head: ({ params }) => ({
@@ -71,6 +74,35 @@ function TrackDetail() {
               );
             })}
           </ol>
+
+          <div className="mt-10 rounded-2xl border border-border bg-white p-6">
+            <h3 className="text-xl font-bold text-primary">เอกสาร</h3>
+            <p className="mt-1 text-sm text-muted-foreground">ดาวน์โหลดสัญญาและใบเสร็จในรูปแบบ PDF</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Button
+                onClick={() => generateContractPDF(order).catch((e) => toast.error(e.message))}
+                className="gap-2 rounded-full"
+              >
+                <FileText className="h-4 w-4" /> ดาวน์โหลดสัญญา
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => generateReceiptPDF(order, true).catch((e) => toast.error(e.message))}
+                className="gap-2 rounded-full"
+              >
+                <Receipt className="h-4 w-4" /> ใบเสร็จมัดจำ
+              </Button>
+              {(order.status === "completed" || order.status === "delivered") && (
+                <Button
+                  variant="outline"
+                  onClick={() => generateReceiptPDF(order, false).catch((e) => toast.error(e.message))}
+                  className="gap-2 rounded-full"
+                >
+                  <Receipt className="h-4 w-4" /> ใบเสร็จเต็มจำนวน
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
       </section>
     </PageShell>
