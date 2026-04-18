@@ -153,6 +153,12 @@ function Index() {
             src={heroKrabi}
             alt=""
             aria-hidden="true"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            sizes="100vw"
             className="h-full w-full object-cover"
           />
           {/* Soft readability veil */}
