@@ -15,7 +15,7 @@ import mkCompany from "@/assets/mockup-company.jpg";
 import mkContractor from "@/assets/mockup-contractor.jpg";
 import mkRealEstate from "@/assets/mockup-realestate.jpg";
 import {
-  ArrowRight, Wallet, Send, Smartphone, TrendingUp,
+  ArrowRight, Wallet, Send, Smartphone, TrendingUp, Bot,
   Sparkles, Monitor, Tablet, Phone as PhoneIcon,
 } from "lucide-react";
 
@@ -89,6 +89,7 @@ const reasons = [
   { icon: Send, title: "ทำงานเร็ว ฟรีโดเมน", desc: "ส่งมอบเร็ว พร้อมโดเมน .com ฟรี 1 ปี" },
   { icon: Smartphone, title: "รองรับมือถือทุกเครื่อง", desc: "Responsive Design ใช้งานทุกอุปกรณ์" },
   { icon: TrendingUp, title: "พร้อมระบบ SEO", desc: "ติดอันดับ Google ค้นหาเจอแน่นอน" },
+  { icon: Bot, title: "พร้อมระบบ AEO", desc: "ติดหน้าแรกคำแนะนำของ AI เช่น ChatGPT, Gemini" },
 ];
 
 const portfolioCategories = ["Restaurant", "Hotel", "Company", "Contractor", "Real Estate"] as const;
@@ -210,7 +211,7 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mx-auto max-w-3xl text-center mb-12">
             <h2 className="section-heading">
-              บริการสร้างเว็บไซต์<span className="heading-accent">สำหรับทุกธุรกิจ</span>
+              <span className="whitespace-nowrap">บริการสร้างเว็บไซต์<span className="heading-accent">สำหรับทุกธุรกิจ</span></span>
             </h2>
             <p className="section-sub inline-flex items-center gap-2 flex-wrap justify-center">
               <Sparkles className="h-4 w-4 text-accent" />
@@ -263,7 +264,7 @@ function Index() {
               เหตุผลที่ลูกค้าเลือกเรา มากกว่า 100+ โปรเจกต์
             </p>
           </div>
-          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-5">
             {reasons.map((r) => (
               <div key={r.title} className="text-center">
                 <div className="why-icon-lg mx-auto mb-6">
@@ -412,7 +413,7 @@ function Index() {
             พร้อมเริ่มต้นเว็บไซต์ของคุณแล้วหรือยัง?
           </h2>
           <p className="mt-4 text-base md:text-lg text-white/85" style={{ lineHeight: 1.7 }}>
-            ปรึกษาฟรี ไม่มีค่าใช้จ่าย — ทีมงานพร้อมแนะนำแพ็กเกจที่ใช่สำหรับธุรกิจคุณ
+            <span className="whitespace-nowrap">ปรึกษาฟรี ไม่มีค่าใช้จ่าย — ทีมงานพร้อมแนะนำแพ็กเกจ</span>ที่ใช่สำหรับธุรกิจคุณ
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Link to="/quote">
