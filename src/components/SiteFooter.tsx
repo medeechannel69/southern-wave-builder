@@ -10,7 +10,7 @@ export function SiteFooter() {
           {/* Brand column */}
           <div className="md:col-span-5 flex flex-col">
             <div className="flex items-center">
-              <Logo className="h-auto w-[220px]" />
+              <Logo variant="footer" className="h-auto w-[220px]" />
             </div>
             <p className="footer-desc mt-5">
               เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้ — สร้างสรรค์ทุกโปรเจ็กต์ด้วยใจรักและความเข้าใจในวัฒนธรรมท้องถิ่น
