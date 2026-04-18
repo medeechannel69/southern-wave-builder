@@ -180,8 +180,7 @@ function Index() {
             <h1 className="mt-5 font-display font-bold leading-[1.15] text-primary">
               สร้างเว็บไซต์ธุรกิจ
               <br />
-              เริ่มต้นเพียง{" "}
-              <span className="text-orange">5,000</span> บาท
+              <span className="whitespace-nowrap">เริ่มต้นเพียง <span className="text-orange">5,000</span> บาท</span>
             </h1>
             <p className="mt-5 text-base md:text-lg text-foreground/80 font-medium" style={{ lineHeight: 1.7 }}>
               MedeeWeb ออกแบบสวยงาม รองรับมือถือทุกเครื่อง
