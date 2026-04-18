@@ -12,6 +12,7 @@ const ALLOWED_TEMPLATES = new Set([
   'order-confirmation',
   'lead-notification',
   'quote-received',
+  'order-status-update',
 ])
 
 const SITE_NAME = 'MedeeWeb'
