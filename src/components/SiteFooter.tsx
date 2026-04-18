@@ -5,17 +5,17 @@ import { Heart, Mail, Phone, MapPin } from "lucide-react";
 export function SiteFooter() {
   return (
     <footer id="contact" className="bg-deep-blue text-white">
-      <div className="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-24">
-        <div className="grid gap-12 md:grid-cols-12">
+      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+        <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           {/* Brand column */}
-          <div className="md:col-span-5">
-            <div className="py-2">
-              <Logo className="h-auto w-[200px]" />
+          <div className="md:col-span-5 flex flex-col">
+            <div className="flex items-center">
+              <Logo className="h-auto w-[220px]" />
             </div>
-            <p className="footer-desc mt-6">
+            <p className="footer-desc mt-5">
               เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้ — สร้างสรรค์ทุกโปรเจ็กต์ด้วยใจรักและความเข้าใจในวัฒนธรรมท้องถิ่น
             </p>
-            <div className="footer-tagline mt-5 flex items-center gap-2">
+            <div className="footer-tagline mt-4 flex items-center gap-2">
               <Heart className="h-3.5 w-3.5 text-orange" fill="currentColor" />
               Medee with love from Southern Thailand
             </div>
@@ -68,7 +68,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-8 text-sm text-white/70 md:flex-row md:gap-0">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-8 text-sm text-white/70 md:flex-row md:gap-0">
           <span>© {new Date().getFullYear()} MedeeWeb. All rights reserved.</span>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <Link to="/privacy" className="hover:text-orange">นโยบายความเป็นส่วนตัว</Link>
