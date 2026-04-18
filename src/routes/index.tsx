@@ -242,12 +242,17 @@ function Index() {
       </section>
 
       {/* WHY US */}
-      <section id="why" className="why-section relative overflow-hidden bg-white" style={{ borderTop: "4px solid #00A89D" }}>
+      <section id="why" className="why-section relative overflow-hidden bg-white" style={{ borderTop: "4px solid #00A89D", contentVisibility: "auto", containIntrinsicSize: "0 600px" }}>
         {/* Faint wave illustration backdrop */}
         <img
           src={heroKrabi}
           alt=""
           aria-hidden="true"
+          width={1920}
+          height={1080}
+          loading="lazy"
+          decoding="async"
+          style={{ contentVisibility: "auto" }}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.07]"
         />
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
@@ -277,12 +282,17 @@ function Index() {
       </section>
 
       {/* PORTFOLIO / PACKAGES */}
-      <section id="portfolio" className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0">
+      <section id="portfolio" className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0" style={{ contentVisibility: "auto", containIntrinsicSize: "0 800px" }}>
         {/* Faint wave illustration backdrop */}
         <img
           src={heroKrabi}
           alt=""
           aria-hidden="true"
+          width={1920}
+          height={1080}
+          loading="lazy"
+          decoding="async"
+          style={{ contentVisibility: "auto" }}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.08]"
         />
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
