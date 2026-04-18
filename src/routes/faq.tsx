@@ -12,6 +12,7 @@ export const Route = createFileRoute("/faq")({
       { property: "og:title", content: "คำถามที่พบบ่อย — MedeeWeb" },
       { property: "og:description", content: "ตอบทุกคำถามที่คุณสงสัย" },
     ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/faq" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -21,6 +22,17 @@ export const Route = createFileRoute("/faq")({
           mainEntity: [
             { "@type": "Question", name: "ราคาทำเว็บเริ่มต้นเท่าไหร่?", acceptedAnswer: { "@type": "Answer", text: "เริ่มต้น 5,000 บาท สำหรับแพ็กเกจ Starter" } },
             { "@type": "Question", name: "ใช้เวลาทำเว็บนานเท่าไหร่?", acceptedAnswer: { "@type": "Answer", text: "ขึ้นอยู่กับแพ็กเกจ Starter 7 วัน Business 14 วัน Pro 21 วัน" } },
+          ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "คำถามที่พบบ่อย", item: "https://medeeweb.com/faq" },
           ],
         }),
       },

@@ -13,6 +13,20 @@ export const Route = createFileRoute("/blog")({
       { property: "og:title", content: "บทความและบล็อก — MedeeWeb" },
       { property: "og:description", content: "ความรู้สำหรับธุรกิจในยุคดิจิทัล" },
     ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/blog" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "บล็อก", item: "https://medeeweb.com/blog" },
+          ],
+        }),
+      },
+    ],
   }),
   component: BlogPage,
 });

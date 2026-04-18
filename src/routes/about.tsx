@@ -11,6 +11,20 @@ export const Route = createFileRoute("/about")({
       { property: "og:title", content: "เกี่ยวกับ MedeeWeb" },
       { property: "og:description", content: "ทีมงานคนใต้แท้ — ครอบคลุม 14 จังหวัดภาคใต้" },
     ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/about" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "เกี่ยวกับเรา", item: "https://medeeweb.com/about" },
+          ],
+        }),
+      },
+    ],
   }),
   component: AboutPage,
 });
