@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { Button } from "@/components/ui/button";
 import { Check, X, Flame } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/packages")({
   head: () => ({
@@ -15,29 +17,15 @@ export const Route = createFileRoute("/packages")({
   component: PackagesPage,
 });
 
-const packages = [
-  {
-    name: "STARTER",
-    price: "5,000",
-    badge: null,
-    interest: 12,
-    features: ["เว็บไซต์ 1 หน้า (One-page)", "Mobile Responsive", "ปุ่มติดต่อ + Google Map", "ฟอร์มติดต่อ", "โดเมน + โฮสติ้ง 1 ปี ฟรี", "ส่งมอบภายใน 7 วัน"],
-  },
-  {
-    name: "BUSINESS",
-    price: "9,000",
-    badge: "ยอดนิยม",
-    interest: 28,
-    features: ["เว็บไซต์ 5 หน้า", "หน้าบริการ + แกลเลอรี่", "หน้าเกี่ยวกับเรา + ติดต่อ", "SEO พื้นฐาน", "โดเมน + โฮสติ้ง 1 ปี ฟรี", "ส่งมอบภายใน 14 วัน"],
-  },
-  {
-    name: "PRO",
-    price: "15,000",
-    badge: "แนะนำ",
-    interest: 18,
-    features: ["เว็บไซต์ 10 หน้า", "ระบบบล็อก + บทความ", "SEO ครบเครื่อง + Analytics", "ฟอร์มขั้นสูง", "โดเมน + โฮสติ้ง 1 ปี ฟรี", "ส่งมอบภายใน 21 วัน"],
-  },
-];
+type Pkg = {
+  id: string;
+  name: string;
+  price: number;
+  badge: string | null;
+  recommended: boolean;
+  features: string[];
+  delivery_days: number | null;
+};
 
 const compareRows = [
   ["จำนวนหน้า", "1", "5", "10"],
@@ -52,6 +40,26 @@ const compareRows = [
 ] as const;
 
 function PackagesPage() {
+  const [packages, setPackages] = useState<Pkg[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase
+      .from("packages")
+      .select("id, name, price, badge, recommended, features, delivery_days")
+      .eq("visible", true)
+      .order("sort_order", { ascending: true })
+      .then(({ data }) => {
+        setPackages(
+          (data ?? []).map((p) => ({
+            ...p,
+            features: Array.isArray(p.features) ? (p.features as string[]) : [],
+          })),
+        );
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <PageShell>
       <PageHero
@@ -61,43 +69,55 @@ function PackagesPage() {
       />
       <section className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <div className="grid gap-6 md:grid-cols-3">
-            {packages.map((p) => (
-              <div
-                key={p.name}
-                className={`relative flex flex-col rounded-2xl bg-white p-8 shadow-[0_8px_30px_rgba(0,168,157,0.12)] transition-transform hover:-translate-y-1 ${
-                  p.badge === "ยอดนิยม" ? "border-2 border-orange ring-4 ring-orange/10" : "border border-border"
-                }`}
-              >
-                {p.badge && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-orange px-4 py-1 text-xs font-bold text-white shadow-lg">
-                    {p.badge}
-                  </span>
-                )}
-                <h3 className="text-center text-xl font-bold" style={{ color: "#1B4F9B" }}>{p.name}</h3>
-                <div className="mt-3 text-center">
-                  <span className="text-4xl font-bold" style={{ color: "#1B4F9B" }}>{p.price}</span>
-                  <span className="ml-1 text-sm text-muted-foreground">บาท</span>
+          {loading ? (
+            <div className="grid gap-6 md:grid-cols-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-96 animate-pulse rounded-2xl bg-secondary/50" />
+              ))}
+            </div>
+          ) : packages.length === 0 ? (
+            <p className="text-center text-muted-foreground">ยังไม่มีแพ็กเกจ</p>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-3">
+              {packages.map((p) => (
+                <div
+                  key={p.id}
+                  className={`relative flex flex-col rounded-2xl bg-white p-8 shadow-[0_8px_30px_rgba(0,168,157,0.12)] transition-transform hover:-translate-y-1 ${
+                    p.recommended ? "border-2 border-orange ring-4 ring-orange/10" : "border border-border"
+                  }`}
+                >
+                  {p.badge && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-orange px-4 py-1 text-xs font-bold text-white shadow-lg">
+                      {p.badge}
+                    </span>
+                  )}
+                  <h3 className="text-center text-xl font-bold text-primary">{p.name}</h3>
+                  <div className="mt-3 text-center">
+                    <span className="text-4xl font-bold text-primary">{p.price.toLocaleString()}</span>
+                    <span className="ml-1 text-sm text-muted-foreground">บาท</span>
+                  </div>
+                  {p.delivery_days && (
+                    <div className="mt-2 inline-flex w-fit mx-auto items-center gap-1 rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold text-orange">
+                      <Flame className="h-3 w-3" /> ส่งมอบภายใน {p.delivery_days} วัน
+                    </div>
+                  )}
+                  <ul className="mt-6 flex-1 space-y-3">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm">
+                        <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/quote" className="mt-8">
+                    <Button className="w-full rounded-full bg-orange text-orange-foreground hover:bg-orange/90 font-semibold">
+                      ขอใบเสนอราคา
+                    </Button>
+                  </Link>
                 </div>
-                <div className="mt-2 inline-flex w-fit mx-auto items-center gap-1 rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold text-orange">
-                  <Flame className="h-3 w-3" /> {p.interest} คนสนใจแพ็กเกจนี้
-                </div>
-                <ul className="mt-6 flex-1 space-y-3">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm">
-                      <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/quote" className="mt-8">
-                  <Button className="w-full rounded-full bg-orange text-orange-foreground hover:bg-orange/90 font-semibold">
-                    ขอใบเสนอราคา
-                  </Button>
-                </Link>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* Comparison */}
           <div className="mt-16">

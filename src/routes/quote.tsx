@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { notify, ADMIN_EMAILS } from "@/lib/email/notify";
+import { sanitizeText } from "@/lib/sanitize";
 
 export const Route = createFileRoute("/quote")({
   head: () => ({
@@ -38,7 +39,17 @@ function QuotePage() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.from("quotes").insert({ ...form, addons });
+    const { error } = await supabase.from("quotes").insert({
+      name: sanitizeText(form.name, 200),
+      phone: sanitizeText(form.phone, 50),
+      email: sanitizeText(form.email, 255),
+      line_id: sanitizeText(form.line_id, 100),
+      business_type: sanitizeText(form.business_type, 100),
+      package_name: sanitizeText(form.package_name, 100),
+      budget: sanitizeText(form.budget, 100),
+      details: sanitizeText(form.details, 2000),
+      addons,
+    });
     setLoading(false);
     if (error) { toast.error("เกิดข้อผิดพลาด: " + error.message); return; }
     if (form.email) {

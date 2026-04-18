@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Check } from "lucide-react";
 import { notify } from "@/lib/email/notify";
+import { sanitizeText } from "@/lib/sanitize";
 
 export const Route = createFileRoute("/order")({
   head: () => ({
@@ -74,16 +75,24 @@ function OrderPage() {
         toast.error("อัปโหลดสลิปไม่สำเร็จ: " + upErr.message);
         return;
       }
-      slip_url = supabase.storage.from("payment-slips").getPublicUrl(path).data.publicUrl;
+      // Bucket must be set to private in Supabase storage settings.
+      // We issue a signed URL valid for 7 days so admins can preview the slip
+      // without exposing it via a public URL.
+      const { data: signedData } = await supabase.storage
+        .from("payment-slips")
+        .createSignedUrl(path, 60 * 60 * 24 * 7);
+      slip_url = signedData?.signedUrl ?? null;
     }
 
     const { data, error } = await supabase.from("orders").insert({
-      customer_name: customer.name, customer_phone: customer.phone,
-      customer_email: customer.email, customer_line: customer.line_id,
-      business_type: customer.business_type,
+      customer_name: sanitizeText(customer.name, 200),
+      customer_phone: sanitizeText(customer.phone, 50),
+      customer_email: sanitizeText(customer.email, 255),
+      customer_line: sanitizeText(customer.line_id, 100),
+      business_type: sanitizeText(customer.business_type, 100),
       package_name: pkg.name, package_price: pkg.price,
       addons: addons.map((a) => ({ name: a.name, price: a.price })),
-      total, payment_method: payment, notes: customer.notes,
+      total, payment_method: payment, notes: sanitizeText(customer.notes, 2000),
       slip_url,
     }).select("order_code").single();
     setLoading(false);

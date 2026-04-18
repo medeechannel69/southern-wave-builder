@@ -64,6 +64,23 @@ export const Route = createFileRoute('/api/notify')({
         }
 
         const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
+        // Simple IP-based rate limiting: 5 requests / 60s per IP per template
+        const clientIp = request.headers.get('cf-connecting-ip')
+          || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+          || 'unknown'
+        const windowMs = 60 * 1000
+        const maxRequests = 5
+        const windowKey = `notify:${templateName}:${clientIp}:${Math.floor(Date.now() / windowMs)}`
+        const { count } = await supabase
+          .from('rate_limits')
+          .select('*', { count: 'exact', head: true })
+          .eq('key', windowKey)
+        if ((count ?? 0) >= maxRequests) {
+          return Response.json({ error: 'Too many requests' }, { status: 429 })
+        }
+        await supabase.from('rate_limits').insert({ key: windowKey })
+
         const messageId = crypto.randomUUID()
         const normalized = effectiveRecipient.toLowerCase()
 
