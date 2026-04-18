@@ -269,6 +269,39 @@
   box-shadow: 0 4px 14px rgba(0, 168, 157, 0.15);
 }
 
+/* Why-us — larger emphasis (homepage) */
+.why-section { padding-top: 100px; padding-bottom: 100px; }
+.why-icon-lg {
+  background: #EBF6F8;
+  color: #00A89D;
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 168, 157, 0.18);
+}
+.why-heading {
+  font-size: clamp(1.75rem, 4.5vw, 2.625rem); /* up to 42px */
+  font-weight: 700;
+  color: #1B4F9B;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.why-feature-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1B4F9B;
+  line-height: 1.4;
+}
+.why-feature-desc {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+}
+
 /* Section headings */
 .section-heading {
   font-size: clamp(1.75rem, 4.5vw, 2.25rem);
@@ -285,3 +318,36 @@
   margin-top: 0.75rem;
 }
 .heading-accent { color: #F7941D; }
+
+/* Footer */
+.footer-col-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #F7941D;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.footer-link {
+  font-size: 14px;
+  line-height: 2.2;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s ease;
+}
+.footer-link:hover { color: #F7941D; }
+.footer-contact {
+  font-size: 14px;
+  line-height: 2.0;
+  color: rgba(255, 255, 255, 0.85);
+}
+.footer-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 300px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.footer-tagline {
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
