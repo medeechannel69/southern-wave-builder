@@ -2,7 +2,10 @@ import { type ReactNode } from "react";
 import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LogOut, ShoppingCart, Users, FileText, ListChecks, Megaphone, LayoutDashboard, UserCog } from "lucide-react";
+import {
+  LogOut, ShoppingCart, Users, FileText, ListChecks, Megaphone, LayoutDashboard, UserCog,
+  Settings, Globe, Image, Package, Plus, Star, Newspaper, HelpCircle, BarChart3, Search,
+} from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 const nav = [
@@ -12,6 +15,16 @@ const nav = [
   { to: "/admin/quotes", label: "ใบเสนอราคา", icon: FileText },
   { to: "/admin/projects", label: "โปรเจกต์", icon: ListChecks },
   { to: "/admin/promotions", label: "โปรโมชั่น", icon: Megaphone },
+  { to: "/admin/portfolio", label: "ผลงาน", icon: Image },
+  { to: "/admin/packages", label: "แพ็กเกจ", icon: Package },
+  { to: "/admin/topup", label: "บริการเสริม", icon: Plus },
+  { to: "/admin/reviews", label: "รีวิว", icon: Star },
+  { to: "/admin/blog", label: "บล็อก", icon: Newspaper },
+  { to: "/admin/faq", label: "FAQ", icon: HelpCircle },
+  { to: "/admin/domains", label: "โดเมน/โฮสต์", icon: Globe },
+  { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+  { to: "/admin/seo", label: "SEO", icon: Search },
+  { to: "/admin/settings", label: "ตั้งค่าเว็บไซต์", icon: Settings },
 ];
 
 const adminOnlyNav: typeof nav = [
@@ -34,7 +47,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
         <div className="px-5 py-4 border-b">
           <Link to="/admin" className="font-display font-bold text-primary text-lg">MedeeWeb Admin</Link>
         </div>
-        <nav className="flex-1 p-3 space-y-1">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {[...nav, ...(role === "admin" ? adminOnlyNav : [])].map((item) => {
             const active = item.exact ? location.pathname === item.to : location.pathname.startsWith(item.to);
             const Icon = item.icon;
