@@ -36,12 +36,22 @@ import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiNotifyRouteImport } from './routes/api.notify'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminTopupRouteImport } from './routes/admin.topup'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminSeoRouteImport } from './routes/admin.seo'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
 import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminPortfolioRouteImport } from './routes/admin.portfolio'
+import { Route as AdminPackagesRouteImport } from './routes/admin.packages'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
+import { Route as AdminFaqRouteImport } from './routes/admin.faq'
+import { Route as AdminDomainsRouteImport } from './routes/admin.domains'
+import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -184,6 +194,26 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminTopupRoute = AdminTopupRouteImport.update({
+  id: '/admin/topup',
+  path: '/admin/topup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSeoRoute = AdminSeoRouteImport.update({
+  id: '/admin/seo',
+  path: '/admin/seo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/admin/reviews',
+  path: '/admin/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminQuotesRoute = AdminQuotesRouteImport.update({
   id: '/admin/quotes',
   path: '/admin/quotes',
@@ -199,6 +229,16 @@ const AdminProjectsRoute = AdminProjectsRouteImport.update({
   path: '/admin/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPortfolioRoute = AdminPortfolioRouteImport.update({
+  id: '/admin/portfolio',
+  path: '/admin/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPackagesRoute = AdminPackagesRouteImport.update({
+  id: '/admin/packages',
+  path: '/admin/packages',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminOrdersRoute = AdminOrdersRouteImport.update({
   id: '/admin/orders',
   path: '/admin/orders',
@@ -212,6 +252,26 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
 const AdminLeadsRoute = AdminLeadsRouteImport.update({
   id: '/admin/leads',
   path: '/admin/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminFaqRoute = AdminFaqRouteImport.update({
+  id: '/admin/faq',
+  path: '/admin/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDomainsRoute = AdminDomainsRouteImport.update({
+  id: '/admin/domains',
+  path: '/admin/domains',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminBlogRoute = AdminBlogRouteImport.update({
+  id: '/admin/blog',
+  path: '/admin/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/admin/analytics',
+  path: '/admin/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
@@ -267,12 +327,22 @@ export interface FileRoutesByFullPath {
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/domains': typeof AdminDomainsRoute
+  '/admin/faq': typeof AdminFaqRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/packages': typeof AdminPackagesRoute
+  '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/topup': typeof AdminTopupRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -308,12 +378,22 @@ export interface FileRoutesByTo {
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/domains': typeof AdminDomainsRoute
+  '/admin/faq': typeof AdminFaqRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/packages': typeof AdminPackagesRoute
+  '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/topup': typeof AdminTopupRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -350,12 +430,22 @@ export interface FileRoutesById {
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/domains': typeof AdminDomainsRoute
+  '/admin/faq': typeof AdminFaqRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/packages': typeof AdminPackagesRoute
+  '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/topup': typeof AdminTopupRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -393,12 +483,22 @@ export interface FileRouteTypes {
     | '/topup'
     | '/track'
     | '/unsubscribe'
+    | '/admin/analytics'
+    | '/admin/blog'
+    | '/admin/domains'
+    | '/admin/faq'
     | '/admin/leads'
     | '/admin/login'
     | '/admin/orders'
+    | '/admin/packages'
+    | '/admin/portfolio'
     | '/admin/projects'
     | '/admin/promotions'
     | '/admin/quotes'
+    | '/admin/reviews'
+    | '/admin/seo'
+    | '/admin/settings'
+    | '/admin/topup'
     | '/admin/users'
     | '/api/notify'
     | '/blog/$slug'
@@ -434,12 +534,22 @@ export interface FileRouteTypes {
     | '/topup'
     | '/track'
     | '/unsubscribe'
+    | '/admin/analytics'
+    | '/admin/blog'
+    | '/admin/domains'
+    | '/admin/faq'
     | '/admin/leads'
     | '/admin/login'
     | '/admin/orders'
+    | '/admin/packages'
+    | '/admin/portfolio'
     | '/admin/projects'
     | '/admin/promotions'
     | '/admin/quotes'
+    | '/admin/reviews'
+    | '/admin/seo'
+    | '/admin/settings'
+    | '/admin/topup'
     | '/admin/users'
     | '/api/notify'
     | '/blog/$slug'
@@ -475,12 +585,22 @@ export interface FileRouteTypes {
     | '/topup'
     | '/track'
     | '/unsubscribe'
+    | '/admin/analytics'
+    | '/admin/blog'
+    | '/admin/domains'
+    | '/admin/faq'
     | '/admin/leads'
     | '/admin/login'
     | '/admin/orders'
+    | '/admin/packages'
+    | '/admin/portfolio'
     | '/admin/projects'
     | '/admin/promotions'
     | '/admin/quotes'
+    | '/admin/reviews'
+    | '/admin/seo'
+    | '/admin/settings'
+    | '/admin/topup'
     | '/admin/users'
     | '/api/notify'
     | '/blog/$slug'
@@ -517,12 +637,22 @@ export interface RootRouteChildren {
   TopupRoute: typeof TopupRoute
   TrackRoute: typeof TrackRouteWithChildren
   UnsubscribeRoute: typeof UnsubscribeRoute
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminBlogRoute: typeof AdminBlogRoute
+  AdminDomainsRoute: typeof AdminDomainsRoute
+  AdminFaqRoute: typeof AdminFaqRoute
   AdminLeadsRoute: typeof AdminLeadsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
+  AdminPackagesRoute: typeof AdminPackagesRoute
+  AdminPortfolioRoute: typeof AdminPortfolioRoute
   AdminProjectsRoute: typeof AdminProjectsRoute
   AdminPromotionsRoute: typeof AdminPromotionsRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
+  AdminSeoRoute: typeof AdminSeoRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminTopupRoute: typeof AdminTopupRoute
   AdminUsersRoute: typeof AdminUsersRoute
   ApiNotifyRoute: typeof ApiNotifyRoute
   DemoSlugRoute: typeof DemoSlugRoute
@@ -728,6 +858,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/topup': {
+      id: '/admin/topup'
+      path: '/admin/topup'
+      fullPath: '/admin/topup'
+      preLoaderRoute: typeof AdminTopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/seo': {
+      id: '/admin/seo'
+      path: '/admin/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AdminSeoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/quotes': {
       id: '/admin/quotes'
       path: '/admin/quotes'
@@ -749,6 +907,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/portfolio': {
+      id: '/admin/portfolio'
+      path: '/admin/portfolio'
+      fullPath: '/admin/portfolio'
+      preLoaderRoute: typeof AdminPortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/packages': {
+      id: '/admin/packages'
+      path: '/admin/packages'
+      fullPath: '/admin/packages'
+      preLoaderRoute: typeof AdminPackagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/orders': {
       id: '/admin/orders'
       path: '/admin/orders'
@@ -768,6 +940,34 @@ declare module '@tanstack/react-router' {
       path: '/admin/leads'
       fullPath: '/admin/leads'
       preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/faq': {
+      id: '/admin/faq'
+      path: '/admin/faq'
+      fullPath: '/admin/faq'
+      preLoaderRoute: typeof AdminFaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/domains': {
+      id: '/admin/domains'
+      path: '/admin/domains'
+      fullPath: '/admin/domains'
+      preLoaderRoute: typeof AdminDomainsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/blog': {
+      id: '/admin/blog'
+      path: '/admin/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AdminBlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/admin/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lovable/email/suppression': {
@@ -864,12 +1064,22 @@ const rootRouteChildren: RootRouteChildren = {
   TopupRoute: TopupRoute,
   TrackRoute: TrackRouteWithChildren,
   UnsubscribeRoute: UnsubscribeRoute,
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminBlogRoute: AdminBlogRoute,
+  AdminDomainsRoute: AdminDomainsRoute,
+  AdminFaqRoute: AdminFaqRoute,
   AdminLeadsRoute: AdminLeadsRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminOrdersRoute: AdminOrdersRoute,
+  AdminPackagesRoute: AdminPackagesRoute,
+  AdminPortfolioRoute: AdminPortfolioRoute,
   AdminProjectsRoute: AdminProjectsRoute,
   AdminPromotionsRoute: AdminPromotionsRoute,
   AdminQuotesRoute: AdminQuotesRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
+  AdminSeoRoute: AdminSeoRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminTopupRoute: AdminTopupRoute,
   AdminUsersRoute: AdminUsersRoute,
   ApiNotifyRoute: ApiNotifyRoute,
   DemoSlugRoute: DemoSlugRoute,

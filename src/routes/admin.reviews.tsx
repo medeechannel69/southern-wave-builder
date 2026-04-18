@@ -39,7 +39,8 @@ function ReviewsPage() {
   }
 
   async function toggle(r: Review, key: "visible" | "verified") {
-    await supabase.from("reviews").update({ [key]: !r[key] }).eq("id", r.id); load();
+    const update = key === "visible" ? { visible: !r.visible } : { verified: !r.verified };
+    await supabase.from("reviews").update(update).eq("id", r.id); load();
   }
   async function remove(id: string) { if (confirm("ลบ?")) { await supabase.from("reviews").delete().eq("id", id); load(); } }
 
