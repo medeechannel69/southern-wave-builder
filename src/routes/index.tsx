@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import heroBg from "@/assets/hero-bg-pro.jpg";
+import heroBg from "@/assets/hero-coast-pro.jpg";
 import { Code2, Smartphone, Search, Zap, Palette, HeartHandshake, Waves, ArrowRight, Check } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -13,9 +13,9 @@ function Index() {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       {/* NAV */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
-          <Logo className="h-12 md:h-14 w-auto" />
+      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
+          <Logo className="h-16 md:h-20 w-auto" />
           <nav className="hidden items-center gap-6 lg:gap-8 md:flex">
             <a href="#services" className="text-base font-medium text-primary transition-colors hover:text-accent">บริการ</a>
             <a href="#portfolio" className="text-base font-medium text-primary transition-colors hover:text-accent">ผลงาน</a>
@@ -38,27 +38,27 @@ function Index() {
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
-        {/* Subtle white wash on the left so text is always readable */}
+        {/* Teal + dark blue gradient overlay so brand colors stay dominant and text is readable */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(232,244,248,0.85) 0%, rgba(232,244,248,0.55) 45%, rgba(197,232,238,0.15) 100%)",
+              "linear-gradient(110deg, rgba(27,79,155,0.92) 0%, rgba(27,79,155,0.75) 35%, rgba(0,168,157,0.55) 70%, rgba(197,232,238,0.35) 100%)",
           }}
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-32">
           <div className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/70 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-md">
-              <Waves className="h-4 w-4 text-accent" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-md">
+              <Waves className="h-4 w-4" style={{ color: "#C5E8EE" }} />
               <span>Medee with love from Southern Thailand</span>
             </div>
-            <h1 className="font-display font-bold leading-tight text-primary">
+            <h1 className="hero-text-shadow font-display font-bold leading-tight text-white">
               เว็บไซต์ทำเว็บ
               <br />
-              <span className="text-accent">อันดับ 1 ของคนใต้</span>
+              <span style={{ color: "#F7941D" }}>อันดับ 1 ของคนใต้</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base md:text-lg text-foreground/85" style={{ lineHeight: 1.7 }}>
+            <p className="hero-text-shadow mt-6 max-w-2xl text-base md:text-lg text-white/95" style={{ lineHeight: 1.7 }}>
               ออกแบบและพัฒนาเว็บไซต์คุณภาพสูง โดยทีมงานคนใต้ที่เข้าใจธุรกิจของคุณ
               ใช้งานง่าย สวยงาม รองรับทุกอุปกรณ์
             </p>
@@ -66,14 +66,14 @@ function Index() {
               <Button size="lg" className="h-14 bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] text-base font-medium">
                 ปรึกษาฟรี <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="h-14 border-primary/30 bg-white/60 text-primary backdrop-blur-md hover:bg-white/80 hover:text-primary text-base font-medium">
+              <Button size="lg" variant="outline" className="h-14 border-white/50 bg-white/15 text-white backdrop-blur-md hover:bg-white/25 hover:text-white text-base font-medium">
                 ดูผลงาน
               </Button>
             </div>
-            <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm md:text-base text-primary font-medium">
+            <div className="hero-text-shadow mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm md:text-base text-white font-medium">
               {["100+ โปรเจ็กต์", "รีวิว 5 ดาว", "บริการหลังการขาย", "ราคามิตรภาพ"].map((t) => (
                 <div key={t} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-accent" /> {t}
+                  <Check className="h-4 w-4" style={{ color: "#C5E8EE" }} /> {t}
                 </div>
               ))}
             </div>
