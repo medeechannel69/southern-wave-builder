@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import heroIllustration from "@/assets/hero-illustration.jpg";
+import heroKrabi from "@/assets/hero-krabi-waves.jpg";
 import svcBusiness from "@/assets/service-business.jpg";
 import svcHotel from "@/assets/service-hotel.jpg";
 import svcRestaurant from "@/assets/service-restaurant.jpg";
@@ -96,36 +96,57 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #BEE7F5 0%, #4FB3DB 60%, #1B4F9B 100%)" }}>
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-16 md:grid-cols-2 md:px-8 md:py-24">
-          <div className="relative z-10 max-w-xl text-center md:text-left">
-            <h1 className="font-display font-bold leading-[1.15] text-white" style={{ textShadow: "0 2px 16px rgba(13,43,94,0.4)" }}>
+      <section className="relative overflow-hidden bg-[#F4FAFC]">
+        {/* Background illustration */}
+        <div className="absolute inset-0">
+          <img
+            src={heroKrabi}
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover"
+          />
+          {/* Soft readability veil */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(100deg, rgba(244,250,252,0.92) 0%, rgba(244,250,252,0.78) 45%, rgba(244,250,252,0.35) 75%, rgba(244,250,252,0.15) 100%)",
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-20 md:grid-cols-12 md:px-8 md:py-32">
+          <div className="relative z-10 max-w-xl text-center md:col-span-7 md:text-left">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/80 px-4 py-1.5 text-xs md:text-sm font-semibold text-primary backdrop-blur">
+              <Sparkles className="h-3.5 w-3.5 text-orange" />
+              เว็บไซต์ทำเงินอันดับ 1 ของคนใต้
+            </span>
+            <h1 className="mt-5 font-display font-bold leading-[1.15] text-primary">
               สร้างเว็บไซต์ธุรกิจ
               <br />
               เริ่มต้นเพียง{" "}
-              <span style={{ color: "#FFD93D" }}>5,000</span> บาท
+              <span className="text-orange">5,000</span> บาท
             </h1>
-            <p className="mt-5 text-base md:text-lg text-white/95 font-medium" style={{ lineHeight: 1.7, textShadow: "0 1px 6px rgba(0,0,0,0.25)" }}>
-              MedeeWeb เว็บไซต์ทำเงินอันดับ 1 ของคนใต้
-              <br />
-              ออกแบบสวยงาม รองรับมือถือ พร้อมระบบหลังบ้านใช้งานจริง
+            <p className="mt-5 text-base md:text-lg text-foreground/80 font-medium" style={{ lineHeight: 1.7 }}>
+              MedeeWeb ออกแบบสวยงาม รองรับมือถือทุกเครื่อง
+              <br className="hidden sm:block" />
+              พร้อมระบบหลังบ้านใช้งานจริง — แรงบันดาลใจจากท้องทะเลกระบี่
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
               <Button size="lg" className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold">
                 ดูแพ็กเกจ <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" className="h-14 rounded-full bg-white text-primary hover:bg-white/90 shadow-md px-8 text-base font-semibold">
+              <Button size="lg" variant="outline" className="h-14 rounded-full border-2 border-primary bg-white/90 text-primary hover:bg-white px-8 text-base font-semibold backdrop-blur">
                 ดูเว็บตัวอย่าง
               </Button>
             </div>
           </div>
-          <div className="relative">
-            <img src={heroIllustration} alt="MedeeWeb hero illustration" width={1600} height={1080} className="w-full h-auto drop-shadow-2xl" />
-          </div>
+          <div className="hidden md:block md:col-span-5" aria-hidden="true" />
         </div>
-        {/* Wave divider SVG */}
-        <svg className="block w-full h-auto" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-          <path fill="#ffffff" d="M0,64 C240,120 480,0 720,40 C960,80 1200,120 1440,72 L1440,120 L0,120 Z" />
+
+        {/* Wave divider into white */}
+        <svg className="relative block w-full h-auto" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
+          <path fill="#ffffff" d="M0,50 C240,100 480,10 720,40 C960,70 1200,100 1440,55 L1440,100 L0,100 Z" />
         </svg>
       </section>
 
