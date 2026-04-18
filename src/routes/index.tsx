@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import watermark from "@/assets/teal-watermark.png";
+import heroBg from "@/assets/hero-bg-pro.jpg";
 import { Code2, Smartphone, Search, Zap, Palette, HeartHandshake, Waves, ArrowRight, Check } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -29,15 +29,21 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[var(--gradient-hero)]">
-        {/* Watermark boat / waves */}
+      <section className="relative overflow-hidden">
+        <img
+          src={heroBg}
+          alt=""
+          width={1920}
+          height={1080}
+          className="absolute inset-0 h-full w-full object-cover"
+          aria-hidden="true"
+        />
+        {/* Subtle white wash on the left so text is always readable */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-40"
+          className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: `url(${watermark})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            mixBlendMode: "multiply",
+            background:
+              "linear-gradient(90deg, rgba(232,244,248,0.85) 0%, rgba(232,244,248,0.55) 45%, rgba(197,232,238,0.15) 100%)",
           }}
           aria-hidden="true"
         />
