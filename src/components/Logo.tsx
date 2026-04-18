@@ -2,7 +2,7 @@ import logoHeader from "@/assets/medeeweb-logo-header.png";
 import logoFooter from "@/assets/medeeweb-logo-footer.png";
 
 export function Logo({
-  className = "h-10",
+  className = "",
   textClassName = "",
   variant = "header",
 }: {
@@ -22,8 +22,7 @@ export function Logo({
         loading="eager"
         fetchPriority="high"
         decoding="sync"
-        style={{ height: "auto" }}
-        className={`${className} w-auto object-contain`}
+        className={`${className} object-contain`}
       />
     </div>
   );
