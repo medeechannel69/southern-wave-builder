@@ -1,77 +1,33 @@
 import * as React from 'react'
-
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Link,
-  Preview,
-  Text,
-} from '@react-email/components'
+import { Body, Button, Container, Head, Heading, Html, Preview, Section, Text } from '@react-email/components'
+import { styles, SITE_NAME } from './_brand'
 
 interface InviteEmailProps {
-  siteName: string
-  siteUrl: string
-  confirmationUrl: string
+  siteName?: string
+  siteUrl?: string
+  confirmationUrl?: string
 }
 
-export const InviteEmail = ({
-  siteName,
-  siteUrl,
-  confirmationUrl,
-}: InviteEmailProps) => (
-  <Html lang="en" dir="ltr">
+export const InviteEmail = ({ siteName = SITE_NAME, confirmationUrl = '#' }: InviteEmailProps) => (
+  <Html lang="th" dir="ltr">
     <Head />
-    <Preview>You've been invited to join {siteName}</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Heading style={h1}>You've been invited</Heading>
-        <Text style={text}>
-          You've been invited to join{' '}
-          <Link href={siteUrl} style={link}>
-            <strong>{siteName}</strong>
-          </Link>
-          . Click the button below to accept the invitation and create your
-          account.
-        </Text>
-        <Button style={button} href={confirmationUrl}>
-          Accept Invitation
-        </Button>
-        <Text style={footer}>
-          If you weren't expecting this invitation, you can safely ignore this
-          email.
-        </Text>
+    <Preview>คุณได้รับเชิญให้เข้าร่วม {siteName}</Preview>
+    <Body style={styles.main}>
+      <Container style={styles.container}>
+        <Section style={styles.brandBar}>{siteName}</Section>
+        <Section style={styles.card}>
+          <Heading style={styles.h1}>คุณได้รับเชิญ</Heading>
+          <Text style={styles.text}>
+            คุณได้รับเชิญให้เข้าร่วมทีม <strong>{siteName}</strong> — กดปุ่มด้านล่างเพื่อตอบรับและสร้างบัญชี
+          </Text>
+          <div style={{ textAlign: 'center', margin: '24px 0' }}>
+            <Button style={styles.button} href={confirmationUrl}>ตอบรับคำเชิญ</Button>
+          </div>
+          <Text style={styles.footer}>หากไม่ได้คาดหวังคำเชิญนี้ สามารถละเว้นอีเมลได้</Text>
+        </Section>
       </Container>
     </Body>
   </Html>
 )
 
 export default InviteEmail
-
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
-const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: '#000000',
-  margin: '0 0 20px',
-}
-const text = {
-  fontSize: '14px',
-  color: '#55575d',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
-}
-const link = { color: 'inherit', textDecoration: 'underline' }
-const button = {
-  backgroundColor: '#000000',
-  color: '#ffffff',
-  fontSize: '14px',
-  borderRadius: '8px',
-  padding: '12px 20px',
-  textDecoration: 'none',
-}
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
