@@ -351,3 +351,54 @@
   font-style: italic;
   color: rgba(255, 255, 255, 0.7);
 }
+
+/* ===== Accessibility & Performance (Phase 2) ===== */
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #1B4F9B;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #1B4F9B;
+  outline-offset: 3px;
+}
+
+/* Ensure WCAG AA contrast on orange elements */
+.text-orange-foreground {
+  font-weight: 700;
+}
+
+/* Body text token */
+.text-body {
+  color: #444444;
+}
+
+/* Prevent text overflow on small screens */
+h1, h2, h3, h4 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Better Thai text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Minimum tap target size (WCAG 2.5.5) */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Exception for inline text links */
+p a, nav a, .footer-link, [data-inline-link] {
+  min-height: unset;
+  min-width: unset;
+}
+

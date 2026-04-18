@@ -33,20 +33,25 @@ export const Route = createRootRoute({
       { title: "MedeeWeb — เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้" },
       { name: "description", content: "MedeeWeb รับทำเว็บไซต์คุณภาพสูงโดยทีมงานคนใต้ ออกแบบสวย ใช้งานง่าย รองรับทุกอุปกรณ์" },
       { name: "author", content: "MedeeWeb" },
-      { property: "og:title", content: "MedeeWeb — เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้" },
-      { property: "og:description", content: "MedeeWeb รับทำเว็บไซต์คุณภาพสูงโดยทีมงานคนใต้ ออกแบบสวย ใช้งานง่าย รองรับทุกอุปกรณ์" },
+      { property: "og:site_name", content: "MedeeWeb" },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "th_TH" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "MedeeWeb — เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้" },
-      { name: "twitter:description", content: "MedeeWeb รับทำเว็บไซต์คุณภาพสูงโดยทีมงานคนใต้ ออกแบบสวย ใช้งานง่าย รองรับทุกอุปกรณ์" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/37QmCFaIWfUQ1fNHgkVUwNfcw2p2/social-images/social-1776521635003-Untitled_design_(3).webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/37QmCFaIWfUQ1fNHgkVUwNfcw2p2/social-images/social-1776521635003-Untitled_design_(3).webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "dns-prefetch", href: "https://images.unsplash.com" },
+      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&family=Sarabun:wght@300;400;500;700&display=swap" },
+      {
+        rel: "preload",
+        as: "font",
+        href: "https://fonts.gstatic.com/s/sarabun/v15/DtVmJx26TKEr37c9YHZJmnYI5gnOpg.woff2",
+        crossOrigin: "anonymous",
+        type: "font/woff2",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -61,6 +66,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg"
+        >
+          ข้ามไปเนื้อหาหลัก
+        </a>
         {children}
         <Scripts />
       </body>
