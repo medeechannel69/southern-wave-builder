@@ -5,12 +5,13 @@
  */
 interface NotifyParams {
   templateName: 'order-confirmation' | 'lead-notification' | 'quote-received'
-  recipientEmail: string
+  /** Single email or array of emails — when array, sends to each individually. */
+  recipientEmail: string | string[]
   idempotencyKey?: string
   templateData?: Record<string, any>
 }
 
-export async function notify(params: NotifyParams) {
+async function postOne(params: Omit<NotifyParams, 'recipientEmail'> & { recipientEmail: string }) {
   try {
     const res = await fetch('/api/notify', {
       method: 'POST',
@@ -25,5 +26,31 @@ export async function notify(params: NotifyParams) {
   }
 }
 
-/** Admin email for internal notifications (lead alerts). */
-export const ADMIN_EMAIL = 'admin@medeeweb.com'
+export async function notify(params: NotifyParams) {
+  const recipients = Array.isArray(params.recipientEmail)
+    ? params.recipientEmail
+    : [params.recipientEmail]
+  const results = await Promise.all(
+    recipients.filter(Boolean).map((to, i) =>
+      postOne({
+        ...params,
+        recipientEmail: to,
+        idempotencyKey: params.idempotencyKey
+          ? `${params.idempotencyKey}-${i}`
+          : undefined,
+      }),
+    ),
+  )
+  return results.every(Boolean)
+}
+
+/**
+ * Admin emails for internal notifications (Lead/Order/Quote alerts).
+ * Add more team emails (เช่น sales@) ในรายการนี้ได้เลย.
+ */
+export const ADMIN_EMAILS: string[] = [
+  'medeechannel69@gmail.com',
+]
+
+/** Backward-compatible alias — primary admin email (first in list). */
+export const ADMIN_EMAIL: string = ADMIN_EMAILS[0]

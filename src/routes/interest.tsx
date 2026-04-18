@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { notify, ADMIN_EMAIL } from "@/lib/email/notify";
+import { notify, ADMIN_EMAILS } from "@/lib/email/notify";
 
 export const Route = createFileRoute("/interest")({
   head: () => ({
@@ -32,7 +32,7 @@ function InterestPage() {
     if (error) { toast.error("เกิดข้อผิดพลาด: " + error.message); return; }
     void notify({
       templateName: 'lead-notification',
-      recipientEmail: ADMIN_EMAIL,
+      recipientEmail: ADMIN_EMAILS,
       idempotencyKey: `lead-${form.phone}-${Date.now()}`,
       templateData: {
         leadName: form.name, phone: form.phone, lineId: form.line_id,
