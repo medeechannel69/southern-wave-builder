@@ -38,7 +38,7 @@ function Index() {
           <div className="max-w-3xl">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm text-white backdrop-blur-md">
               <Waves className="h-4 w-4 text-teal" />
-              <span>Made with love from Southern Thailand</span>
+              <span>Madee with love from Southern Thailand</span>
             </div>
             <h1 className="font-display text-5xl font-extrabold leading-tight text-white md:text-7xl">
               เว็บไซต์ทำเว็บ
