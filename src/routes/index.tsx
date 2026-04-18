@@ -50,10 +50,22 @@ type Category = typeof portfolioCategories[number];
 
 const portfolioItems: Record<Category, { img: string; name: string }[]> = {
   Restaurant: [
-    { img: mkRestaurant, name: "Thai Bistro" },
-    { img: mkRestaurant, name: "Spicy Kitchen" },
-    { img: mkRestaurant, name: "Ocean Cafe" },
-    { img: mkRestaurant, name: "Green Garden" },
+    {
+      img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1280&q=80&auto=format&fit=crop",
+      name: "ครัวไทยต้นตำรับ",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1280&q=80&auto=format&fit=crop",
+      name: "Green Leaf Cafe",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1280&q=80&auto=format&fit=crop",
+      name: "Andaman Seafood",
+    },
+    {
+      img: mkRestaurant,
+      name: "Spicy Kitchen",
+    },
   ],
   Hotel: [
     { img: mkHotel, name: "Krabi Resort" },
@@ -178,7 +190,7 @@ function Index() {
       </section>
 
       {/* WHY US */}
-      <section id="why" className="relative overflow-hidden bg-white py-20 md:py-24" style={{ borderTop: "4px solid #00A89D" }}>
+      <section id="why" className="why-section relative overflow-hidden bg-white" style={{ borderTop: "4px solid #00A89D" }}>
         {/* Faint wave illustration backdrop */}
         <img
           src={heroKrabi}
@@ -187,20 +199,22 @@ function Index() {
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.07]"
         />
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
-          <div className="text-center mb-12">
-            <h2 className="section-heading">
+          <div className="text-center mb-16">
+            <h2 className="why-heading">
               ทำไมต้อง <span className="heading-accent">MedeeWeb</span>
             </h2>
-            <p className="section-sub">เหตุผลที่ลูกค้าเลือกเรา มากกว่า 100+ โปรเจกต์</p>
+            <p className="mt-4 text-base md:text-lg text-[#555]" style={{ lineHeight: 1.7 }}>
+              เหตุผลที่ลูกค้าเลือกเรา มากกว่า 100+ โปรเจกต์
+            </p>
           </div>
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             {reasons.map((r) => (
               <div key={r.title} className="text-center">
-                <div className="why-icon mx-auto mb-5">
+                <div className="why-icon-lg mx-auto mb-6">
                   <r.icon className="h-9 w-9" />
                 </div>
-                <h3 className="text-[15px] font-semibold" style={{ color: "#1B4F9B" }}>{r.title}</h3>
-                <p className="mt-2 text-[13px]" style={{ color: "#666" }}>{r.desc}</p>
+                <h3 className="why-feature-title">{r.title}</h3>
+                <p className="why-feature-desc mt-3">{r.desc}</p>
               </div>
             ))}
           </div>
