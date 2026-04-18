@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageShell } from "@/components/PageShell";
-import heroKrabi from "@/assets/hero-krabi-waves.jpg";
+import heroKrabi from "@/assets/hero-krabi-waves.webp";
 import svcBusiness from "@/assets/service-business.jpg";
 import svcHotel from "@/assets/service-hotel.jpg";
 import svcRestaurant from "@/assets/service-restaurant.jpg";
@@ -27,6 +27,52 @@ const deviceWidths: Record<DeviceView, string> = {
 };
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [{ rel: "canonical", href: "https://medeeweb.com/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "MedeeWeb",
+          description: "รับทำเว็บไซต์และ Web Application สำหรับธุรกิจในภาคใต้ 14 จังหวัด",
+          url: "https://medeeweb.com",
+          telephone: "099-625-2499",
+          email: "suthee@medeeweb.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "355/70 หมู่ 6 ต.กระบี่น้อย อ.เมือง",
+            addressLocality: "กระบี่",
+            addressRegion: "กระบี่",
+            postalCode: "81000",
+            addressCountry: "TH",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: 8.0863, longitude: 98.9063 },
+          openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            opens: "09:00",
+            closes: "18:00",
+          },
+          priceRange: "฿฿",
+          areaServed: [
+            "สงขลา", "นครศรีธรรมราช", "สุราษฎร์ธานี", "ภูเก็ต", "กระบี่",
+            "ตรัง", "พัทลุง", "ชุมพร", "ระนอง", "สตูล", "ปัตตานี", "ยะลา", "นราธิวาส", "พังงา",
+          ],
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "แพ็กเกจทำเว็บไซต์",
+            itemListElement: [
+              { "@type": "Offer", name: "Starter Package", price: "5000", priceCurrency: "THB", description: "เว็บ 1 หน้า พร้อม domain + hosting 1 ปี" },
+              { "@type": "Offer", name: "Business Package", price: "9000", priceCurrency: "THB", description: "เว็บ 5 หน้า พร้อม SEO พื้นฐาน" },
+              { "@type": "Offer", name: "Pro Package", price: "15000", priceCurrency: "THB", description: "เว็บ 10 หน้า พร้อม Blog + SEO ครบ" },
+            ],
+          },
+        }),
+      },
+    ],
+  }),
   component: Index,
 });
 
