@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import heroBg from "@/assets/hero-bg-pro.jpg";
+import heroBg from "@/assets/hero-coast-pro.jpg";
 import { Code2, Smartphone, Search, Zap, Palette, HeartHandshake, Waves, ArrowRight, Check } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -13,9 +13,9 @@ function Index() {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       {/* NAV */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
-          <Logo className="h-12 md:h-14 w-auto" />
+      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
+          <Logo className="h-16 md:h-20 w-auto" />
           <nav className="hidden items-center gap-6 lg:gap-8 md:flex">
             <a href="#services" className="text-base font-medium text-primary transition-colors hover:text-accent">บริการ</a>
             <a href="#portfolio" className="text-base font-medium text-primary transition-colors hover:text-accent">ผลงาน</a>
@@ -38,12 +38,12 @@ function Index() {
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
-        {/* Subtle white wash on the left so text is always readable */}
+        {/* Teal + dark blue gradient overlay so brand colors stay dominant and text is readable */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgba(232,244,248,0.85) 0%, rgba(232,244,248,0.55) 45%, rgba(197,232,238,0.15) 100%)",
+              "linear-gradient(110deg, rgba(27,79,155,0.92) 0%, rgba(27,79,155,0.75) 35%, rgba(0,168,157,0.55) 70%, rgba(197,232,238,0.35) 100%)",
           }}
           aria-hidden="true"
         />
