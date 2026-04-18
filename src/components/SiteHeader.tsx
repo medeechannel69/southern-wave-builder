@@ -20,7 +20,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-white/95 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-8">
         <Link to="/" className="shrink-0">
-          <Logo variant="header" className="h-7 w-auto md:h-9" />
+          <Logo variant="header" className="h-8 w-auto md:h-10" />
         </Link>
         <nav className="hidden items-center gap-5 lg:flex">
           {nav.map((n) => (
