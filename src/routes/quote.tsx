@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { notify, ADMIN_EMAIL } from "@/lib/email/notify";
 
 export const Route = createFileRoute("/quote")({
   head: () => ({
@@ -40,6 +41,24 @@ function QuotePage() {
     const { error } = await supabase.from("quotes").insert({ ...form, addons });
     setLoading(false);
     if (error) { toast.error("เกิดข้อผิดพลาด: " + error.message); return; }
+    if (form.email) {
+      void notify({
+        templateName: 'quote-received',
+        recipientEmail: form.email,
+        idempotencyKey: `quote-${form.email}-${Date.now()}`,
+        templateData: { customerName: form.name, packageName: form.package_name, budget: form.budget },
+      });
+    }
+    void notify({
+      templateName: 'lead-notification',
+      recipientEmail: ADMIN_EMAIL,
+      idempotencyKey: `quote-admin-${form.phone}-${Date.now()}`,
+      templateData: {
+        leadName: form.name, phone: form.phone, lineId: form.line_id,
+        businessType: form.business_type, budget: form.budget,
+        message: `ขอใบเสนอราคา: ${form.package_name} | ${form.details}`,
+      },
+    });
     toast.success("ส่งคำขอใบเสนอราคาสำเร็จ!");
     nav({ to: "/thank-you" });
   };
