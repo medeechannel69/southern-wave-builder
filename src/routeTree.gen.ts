@@ -33,6 +33,7 @@ import { Route as OrderSuccessRouteImport } from './routes/order.success'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as ApiNotifyRouteImport } from './routes/api.notify'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
 import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
@@ -167,6 +168,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const ApiNotifyRoute = ApiNotifyRouteImport.update({
+  id: '/api/notify',
+  path: '/api/notify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/admin/users',
   path: '/admin/users',
@@ -262,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
@@ -301,6 +308,7 @@ export interface FileRoutesByTo {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
@@ -341,6 +349,7 @@ export interface FileRoutesById {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/admin/users': typeof AdminUsersRoute
+  '/api/notify': typeof ApiNotifyRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
@@ -382,6 +391,7 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quotes'
     | '/admin/users'
+    | '/api/notify'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/email/unsubscribe'
@@ -421,6 +431,7 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quotes'
     | '/admin/users'
+    | '/api/notify'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/email/unsubscribe'
@@ -460,6 +471,7 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quotes'
     | '/admin/users'
+    | '/api/notify'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/email/unsubscribe'
@@ -500,6 +512,7 @@ export interface RootRouteChildren {
   AdminPromotionsRoute: typeof AdminPromotionsRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
   AdminUsersRoute: typeof AdminUsersRoute
+  ApiNotifyRoute: typeof ApiNotifyRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   AdminIndexRoute: typeof AdminIndexRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -680,6 +693,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/api/notify': {
+      id: '/api/notify'
+      path: '/api/notify'
+      fullPath: '/api/notify'
+      preLoaderRoute: typeof ApiNotifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/users': {
       id: '/admin/users'
       path: '/admin/users'
@@ -840,6 +860,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminPromotionsRoute: AdminPromotionsRoute,
   AdminQuotesRoute: AdminQuotesRoute,
   AdminUsersRoute: AdminUsersRoute,
+  ApiNotifyRoute: ApiNotifyRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   AdminIndexRoute: AdminIndexRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,

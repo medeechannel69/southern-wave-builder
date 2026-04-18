@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Check } from "lucide-react";
+import { notify } from "@/lib/email/notify";
 
 export const Route = createFileRoute("/order")({
   head: () => ({
@@ -63,6 +64,20 @@ function OrderPage() {
     }).select("order_code").single();
     setLoading(false);
     if (error || !data) { toast.error("เกิดข้อผิดพลาด: " + (error?.message ?? "")); return; }
+    if (customer.email) {
+      void notify({
+        templateName: 'order-confirmation',
+        recipientEmail: customer.email,
+        idempotencyKey: `order-${data.order_code}`,
+        templateData: {
+          customerName: customer.name,
+          orderCode: data.order_code,
+          packageName: pkg.name,
+          total,
+          trackUrl: `${window.location.origin}/track/${data.order_code}`,
+        },
+      });
+    }
     nav({ to: "/order/success", search: { code: data.order_code } });
   };
 
