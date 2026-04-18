@@ -3,10 +3,12 @@ import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { FloatingActions } from "./FloatingActions";
 import { CookieBanner } from "./CookieBanner";
+import { HotSaleBanner } from "./HotSaleBanner";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
+      <HotSaleBanner />
       <SiteHeader />
       <main>{children}</main>
       <SiteFooter />
