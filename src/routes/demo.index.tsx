@@ -4,7 +4,7 @@ import { PageShell, PageHero } from "@/components/PageShell";
 import { Button } from "@/components/ui/button";
 import { DEMOS } from "@/components/demo/demoData";
 
-export const Route = createFileRoute("/demo")({
+export const Route = createFileRoute("/demo/")({
   head: () => ({
     meta: [
       { title: "ตัวอย่างเว็บไซต์ 8 ธุรกิจ — MedeeWeb" },
