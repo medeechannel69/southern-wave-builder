@@ -32,6 +32,7 @@ import { Route as TrackOrderCodeRouteImport } from './routes/track.$orderCode'
 import { Route as OrderSuccessRouteImport } from './routes/order.success'
 import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
 import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
@@ -154,6 +155,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminQuotesRoute = AdminQuotesRouteImport.update({
   id: '/admin/quotes',
   path: '/admin/quotes',
@@ -210,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/users': typeof AdminUsersRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
@@ -241,6 +248,7 @@ export interface FileRoutesByTo {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/users': typeof AdminUsersRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
@@ -273,6 +281,7 @@ export interface FileRoutesById {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/users': typeof AdminUsersRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/promotions'
     | '/admin/quotes'
+    | '/admin/users'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/order/success'
@@ -337,6 +347,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/promotions'
     | '/admin/quotes'
+    | '/admin/users'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/order/success'
@@ -368,6 +379,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/promotions'
     | '/admin/quotes'
+    | '/admin/users'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/order/success'
@@ -400,6 +412,7 @@ export interface RootRouteChildren {
   AdminProjectsRoute: typeof AdminProjectsRoute
   AdminPromotionsRoute: typeof AdminPromotionsRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -566,6 +579,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/quotes': {
       id: '/admin/quotes'
       path: '/admin/quotes'
@@ -676,6 +696,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminProjectsRoute: AdminProjectsRoute,
   AdminPromotionsRoute: AdminPromotionsRoute,
   AdminQuotesRoute: AdminQuotesRoute,
+  AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
