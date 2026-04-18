@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { PageShell } from "@/components/PageShell";
 import heroKrabi from "@/assets/hero-krabi-waves.jpg";
 import svcBusiness from "@/assets/service-business.jpg";
 import svcHotel from "@/assets/service-hotel.jpg";
@@ -16,7 +16,7 @@ import mkContractor from "@/assets/mockup-contractor.jpg";
 import mkRealEstate from "@/assets/mockup-realestate.jpg";
 import {
   ArrowRight, Wallet, Send, Smartphone, TrendingUp,
-  Sparkles, Monitor, Tablet, Phone as PhoneIcon, Code2, HeartHandshake,
+  Sparkles, Monitor, Tablet, Phone as PhoneIcon,
 } from "lucide-react";
 
 type DeviceView = "desktop" | "tablet" | "mobile";
@@ -86,23 +86,7 @@ function Index() {
   const [device, setDevice] = useState<DeviceView>("desktop");
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
-      {/* NAV */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
-          <Logo className="h-16 md:h-20 w-auto" />
-          <nav className="hidden items-center gap-6 lg:gap-8 md:flex">
-            <a href="#services" className="text-base font-medium text-primary transition-colors hover:text-accent">บริการ</a>
-            <a href="#why" className="text-base font-medium text-primary transition-colors hover:text-accent">ทำไมเรา</a>
-            <a href="#portfolio" className="text-base font-medium text-primary transition-colors hover:text-accent">ผลงาน</a>
-            <a href="#contact" className="text-base font-medium text-primary transition-colors hover:text-accent">ติดต่อ</a>
-          </nav>
-          <Button className="bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] rounded-full px-6 text-sm md:text-base font-semibold">
-            เริ่มต้นเลย
-          </Button>
-        </div>
-      </header>
-
+    <PageShell>
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#F4FAFC]">
         {/* Background illustration */}
