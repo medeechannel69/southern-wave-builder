@@ -321,12 +321,12 @@
 
 /* Footer */
 .footer-col-heading {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
   color: #F7941D;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 .footer-link {
   font-size: 14px;

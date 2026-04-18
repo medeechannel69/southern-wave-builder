@@ -1,4 +1,4 @@
-import logo from "@/assets/medeeweb-logo.webp";
+import logo from "@/assets/medeeweb-logo-v2.png";
 
 export function Logo({ className = "h-10", textClassName = "" }: { className?: string; showText?: boolean; textClassName?: string }) {
   return (
