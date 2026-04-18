@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TrackRouteImport } from './routes/track'
 import { Route as TopupRouteImport } from './routes/topup'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
@@ -48,6 +49,11 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrackRoute = TrackRouteImport.update({
   id: '/track',
   path: '/track',
@@ -261,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
+  '/unsubscribe': typeof UnsubscribeRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
@@ -301,6 +308,7 @@ export interface FileRoutesByTo {
   '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
+  '/unsubscribe': typeof UnsubscribeRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
@@ -342,6 +350,7 @@ export interface FileRoutesById {
   '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
+  '/unsubscribe': typeof UnsubscribeRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
@@ -384,6 +393,7 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/topup'
     | '/track'
+    | '/unsubscribe'
     | '/admin/leads'
     | '/admin/login'
     | '/admin/orders'
@@ -424,6 +434,7 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/topup'
     | '/track'
+    | '/unsubscribe'
     | '/admin/leads'
     | '/admin/login'
     | '/admin/orders'
@@ -464,6 +475,7 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/topup'
     | '/track'
+    | '/unsubscribe'
     | '/admin/leads'
     | '/admin/login'
     | '/admin/orders'
@@ -505,6 +517,7 @@ export interface RootRouteChildren {
   ThankYouRoute: typeof ThankYouRoute
   TopupRoute: typeof TopupRoute
   TrackRoute: typeof TrackRouteWithChildren
+  UnsubscribeRoute: typeof UnsubscribeRoute
   AdminLeadsRoute: typeof AdminLeadsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
@@ -525,6 +538,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/track': {
       id: '/track'
       path: '/track'
@@ -853,6 +873,7 @@ const rootRouteChildren: RootRouteChildren = {
   ThankYouRoute: ThankYouRoute,
   TopupRoute: TopupRoute,
   TrackRoute: TrackRouteWithChildren,
+  UnsubscribeRoute: UnsubscribeRoute,
   AdminLeadsRoute: AdminLeadsRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminOrdersRoute: AdminOrdersRoute,
