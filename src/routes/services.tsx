@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Building2, Store, UtensilsCrossed, Hotel, Home, Shield, Stethoscope } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -16,13 +16,48 @@ export const Route = createFileRoute("/services")({
 });
 
 const services = [
-  { icon: Store, title: "เว็บไซต์ธุรกิจ", desc: "เว็บแนะนำธุรกิจ ร้านค้า ออกแบบสวย ใช้งานง่าย เริ่มต้น 5,000 บาท" },
-  { icon: Building2, title: "เว็บไซต์บริษัท", desc: "เว็บองค์กรขนาดใหญ่ ดูเป็นมืออาชีพ น่าเชื่อถือ พร้อม CMS" },
-  { icon: UtensilsCrossed, title: "เว็บไซต์ร้านอาหาร", desc: "เมนู จองโต๊ะ สั่งออนไลน์ ครบจบในเว็บเดียว" },
-  { icon: Hotel, title: "เว็บไซต์โรงแรม", desc: "ระบบจองห้องพัก แสดงห้อง พร้อมระบบหลังบ้าน" },
-  { icon: Home, title: "เว็บไซต์อสังหาริมทรัพย์", desc: "ค้นหาบ้าน คอนโด ระบบฟิลเตอร์อัจฉริยะ พร้อมแบบบ้าน 360°" },
-  { icon: Shield, title: "เว็บไซต์ตัวแทนประกัน", desc: "แสดงแผนประกัน คำนวณเบี้ย ระบบขอใบเสนอราคา และ LINE CTA" },
-  { icon: Stethoscope, title: "เว็บไซต์ราชการ / รพ.สต.", desc: "เว็บหน่วยงาน ข่าวสาร นัดหมายออนไลน์ ดีไซน์เป็นทางการ" },
+  {
+    title: "เว็บไซต์ธุรกิจ",
+    desc: "เว็บแนะนำธุรกิจ ร้านค้า ออกแบบสวย ใช้งานง่าย เริ่มต้น 5,000 บาท",
+    img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&q=80&auto=format&fit=crop",
+    alt: "หน้าร้านธุรกิจไทยสไตล์โมเดิร์น",
+  },
+  {
+    title: "เว็บไซต์บริษัท",
+    desc: "เว็บองค์กรขนาดใหญ่ ดูเป็นมืออาชีพ น่าเชื่อถือ พร้อม CMS",
+    img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop",
+    alt: "อาคารสำนักงานสมัยใหม่",
+  },
+  {
+    title: "เว็บไซต์ร้านอาหาร",
+    desc: "เมนู จองโต๊ะ สั่งออนไลน์ ครบจบในเว็บเดียว",
+    img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop",
+    alt: "ภายในร้านอาหารไทย",
+  },
+  {
+    title: "เว็บไซต์โรงแรม",
+    desc: "ระบบจองห้องพัก แสดงห้อง พร้อมระบบหลังบ้าน",
+    img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80&auto=format&fit=crop",
+    alt: "รีสอร์ทริมทะเลพร้อมสระว่ายน้ำ",
+  },
+  {
+    title: "เว็บไซต์อสังหาริมทรัพย์",
+    desc: "ค้นหาบ้าน คอนโด ระบบฟิลเตอร์อัจฉริยะ พร้อมแบบบ้าน 360°",
+    img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop",
+    alt: "บ้านสมัยใหม่สไตล์ไทย",
+  },
+  {
+    title: "เว็บไซต์ตัวแทนประกัน",
+    desc: "แสดงแผนประกัน คำนวณเบี้ย ระบบขอใบเสนอราคา และ LINE CTA",
+    img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80&auto=format&fit=crop",
+    alt: "ตัวแทนประกันให้คำปรึกษา",
+  },
+  {
+    title: "เว็บไซต์ราชการ / รพ.สต.",
+    desc: "เว็บหน่วยงาน ข่าวสาร นัดหมายออนไลน์ ดีไซน์เป็นทางการ",
+    img: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1200&q=80&auto=format&fit=crop",
+    alt: "บุคลากรทางการแพทย์",
+  },
 ];
 
 function ServicesPage() {
@@ -37,13 +72,20 @@ function ServicesPage() {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
-              <div key={s.title} className="service-card">
-                <div className="flex flex-1 flex-col items-center p-6 text-center">
-                  <div className="why-icon mb-4">
-                    <s.icon className="h-9 w-9" />
-                  </div>
+              <div key={s.title} className="service-card group">
+                <div className="aspect-[4/3] overflow-hidden bg-secondary/40">
+                  <img
+                    src={s.img}
+                    alt={s.alt}
+                    width={1200}
+                    height={900}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6 text-center">
                   <h3 className="text-lg font-semibold" style={{ color: "#1B4F9B" }}>{s.title}</h3>
-                  <p className="mt-2 flex-1 text-sm" style={{ color: "#555" }}>{s.desc}</p>
+                  <p className="mt-2 flex-1 text-sm" style={{ color: "#555", lineHeight: 1.6 }}>{s.desc}</p>
                   <div className="mt-5 flex flex-col gap-2 w-full">
                     <Link to="/demo">
                       <Button variant="outline" className="w-full rounded-full border-primary text-primary hover:bg-primary hover:text-white">
