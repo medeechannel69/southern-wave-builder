@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LogOut, ShoppingCart, Users, FileText, ListChecks, Megaphone, LayoutDashboard } from "lucide-react";
+import { LogOut, ShoppingCart, Users, FileText, ListChecks, Megaphone, LayoutDashboard, UserCog } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 const nav = [
@@ -12,6 +12,10 @@ const nav = [
   { to: "/admin/quotes", label: "ใบเสนอราคา", icon: FileText },
   { to: "/admin/projects", label: "โปรเจกต์", icon: ListChecks },
   { to: "/admin/promotions", label: "โปรโมชั่น", icon: Megaphone },
+];
+
+const adminOnlyNav = [
+  { to: "/admin/users", label: "ผู้ใช้ระบบ", icon: UserCog },
 ];
 
 export function AdminShell({ children }: { children: ReactNode }) {
@@ -31,7 +35,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
           <Link to="/admin" className="font-display font-bold text-primary text-lg">MedeeWeb Admin</Link>
         </div>
         <nav className="flex-1 p-3 space-y-1">
-          {nav.map((item) => {
+          {[...nav, ...(role === "admin" ? adminOnlyNav : [])].map((item) => {
             const active = item.exact ? location.pathname === item.to : location.pathname.startsWith(item.to);
             const Icon = item.icon;
             return (
@@ -62,7 +66,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
           <Button onClick={logout} size="sm" variant="outline"><LogOut className="h-4 w-4" /></Button>
         </header>
         <nav className="md:hidden border-b bg-background px-2 py-2 flex gap-1 overflow-x-auto">
-          {nav.map((item) => {
+          {[...nav, ...(role === "admin" ? adminOnlyNav : [])].map((item) => {
             const active = item.exact ? location.pathname === item.to : location.pathname.startsWith(item.to);
             return (
               <Link key={item.to} to={item.to} className={`whitespace-nowrap rounded-md px-3 py-1.5 text-xs ${active ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
