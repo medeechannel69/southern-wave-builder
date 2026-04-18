@@ -27,10 +27,17 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as TrackOrderCodeRouteImport } from './routes/track.$orderCode'
 import { Route as OrderSuccessRouteImport } from './routes/order.success'
 import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
+import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
+import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 
 const TrackRoute = TrackRouteImport.update({
   id: '/track',
@@ -122,6 +129,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrackOrderCodeRoute = TrackOrderCodeRouteImport.update({
   id: '/$orderCode',
   path: '/$orderCode',
@@ -141,6 +153,36 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BlogRoute,
+} as any)
+const AdminQuotesRoute = AdminQuotesRouteImport.update({
+  id: '/admin/quotes',
+  path: '/admin/quotes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPromotionsRoute = AdminPromotionsRouteImport.update({
+  id: '/admin/promotions',
+  path: '/admin/promotions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProjectsRoute = AdminProjectsRouteImport.update({
+  id: '/admin/projects',
+  path: '/admin/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminOrdersRoute = AdminOrdersRouteImport.update({
+  id: '/admin/orders',
+  path: '/admin/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/admin/leads',
+  path: '/admin/leads',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -162,10 +204,17 @@ export interface FileRoutesByFullPath {
   '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/promotions': typeof AdminPromotionsRoute
+  '/admin/quotes': typeof AdminQuotesRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -186,10 +235,17 @@ export interface FileRoutesByTo {
   '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/promotions': typeof AdminPromotionsRoute
+  '/admin/quotes': typeof AdminQuotesRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -211,10 +267,17 @@ export interface FileRoutesById {
   '/thank-you': typeof ThankYouRoute
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/promotions': typeof AdminPromotionsRoute
+  '/admin/quotes': typeof AdminQuotesRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -237,10 +300,17 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/topup'
     | '/track'
+    | '/admin/leads'
+    | '/admin/login'
+    | '/admin/orders'
+    | '/admin/projects'
+    | '/admin/promotions'
+    | '/admin/quotes'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/order/success'
     | '/track/$orderCode'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -261,10 +331,17 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/topup'
     | '/track'
+    | '/admin/leads'
+    | '/admin/login'
+    | '/admin/orders'
+    | '/admin/projects'
+    | '/admin/promotions'
+    | '/admin/quotes'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/order/success'
     | '/track/$orderCode'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -285,10 +362,17 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/topup'
     | '/track'
+    | '/admin/leads'
+    | '/admin/login'
+    | '/admin/orders'
+    | '/admin/projects'
+    | '/admin/promotions'
+    | '/admin/quotes'
     | '/blog/$slug'
     | '/demo/$slug'
     | '/order/success'
     | '/track/$orderCode'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -310,6 +394,13 @@ export interface RootRouteChildren {
   ThankYouRoute: typeof ThankYouRoute
   TopupRoute: typeof TopupRoute
   TrackRoute: typeof TrackRouteWithChildren
+  AdminLeadsRoute: typeof AdminLeadsRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminOrdersRoute: typeof AdminOrdersRoute
+  AdminProjectsRoute: typeof AdminProjectsRoute
+  AdminPromotionsRoute: typeof AdminPromotionsRoute
+  AdminQuotesRoute: typeof AdminQuotesRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -440,6 +531,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/track/$orderCode': {
       id: '/track/$orderCode'
       path: '/$orderCode'
@@ -467,6 +565,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
+    }
+    '/admin/quotes': {
+      id: '/admin/quotes'
+      path: '/admin/quotes'
+      fullPath: '/admin/quotes'
+      preLoaderRoute: typeof AdminQuotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/promotions': {
+      id: '/admin/promotions'
+      path: '/admin/promotions'
+      fullPath: '/admin/promotions'
+      preLoaderRoute: typeof AdminPromotionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/admin/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/orders': {
+      id: '/admin/orders'
+      path: '/admin/orders'
+      fullPath: '/admin/orders'
+      preLoaderRoute: typeof AdminOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/admin/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -530,6 +670,13 @@ const rootRouteChildren: RootRouteChildren = {
   ThankYouRoute: ThankYouRoute,
   TopupRoute: TopupRoute,
   TrackRoute: TrackRouteWithChildren,
+  AdminLeadsRoute: AdminLeadsRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminOrdersRoute: AdminOrdersRoute,
+  AdminProjectsRoute: AdminProjectsRoute,
+  AdminPromotionsRoute: AdminPromotionsRoute,
+  AdminQuotesRoute: AdminQuotesRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
