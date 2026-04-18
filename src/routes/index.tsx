@@ -49,16 +49,16 @@ function Index() {
         />
         <div className="relative mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-32">
           <div className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/70 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-md">
-              <Waves className="h-4 w-4 text-accent" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-md">
+              <Waves className="h-4 w-4" style={{ color: "#C5E8EE" }} />
               <span>Medee with love from Southern Thailand</span>
             </div>
-            <h1 className="font-display font-bold leading-tight text-primary">
+            <h1 className="hero-text-shadow font-display font-bold leading-tight text-white">
               เว็บไซต์ทำเว็บ
               <br />
-              <span className="text-accent">อันดับ 1 ของคนใต้</span>
+              <span style={{ color: "#F7941D" }}>อันดับ 1 ของคนใต้</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base md:text-lg text-foreground/85" style={{ lineHeight: 1.7 }}>
+            <p className="hero-text-shadow mt-6 max-w-2xl text-base md:text-lg text-white/95" style={{ lineHeight: 1.7 }}>
               ออกแบบและพัฒนาเว็บไซต์คุณภาพสูง โดยทีมงานคนใต้ที่เข้าใจธุรกิจของคุณ
               ใช้งานง่าย สวยงาม รองรับทุกอุปกรณ์
             </p>
@@ -66,14 +66,14 @@ function Index() {
               <Button size="lg" className="h-14 bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] text-base font-medium">
                 ปรึกษาฟรี <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="h-14 border-primary/30 bg-white/60 text-primary backdrop-blur-md hover:bg-white/80 hover:text-primary text-base font-medium">
+              <Button size="lg" variant="outline" className="h-14 border-white/50 bg-white/15 text-white backdrop-blur-md hover:bg-white/25 hover:text-white text-base font-medium">
                 ดูผลงาน
               </Button>
             </div>
-            <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm md:text-base text-primary font-medium">
+            <div className="hero-text-shadow mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm md:text-base text-white font-medium">
               {["100+ โปรเจ็กต์", "รีวิว 5 ดาว", "บริการหลังการขาย", "ราคามิตรภาพ"].map((t) => (
                 <div key={t} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-accent" /> {t}
+                  <Check className="h-4 w-4" style={{ color: "#C5E8EE" }} /> {t}
                 </div>
               ))}
             </div>
