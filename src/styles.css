@@ -309,6 +309,9 @@
   color: #1B4F9B;
   text-align: center;
   line-height: 1.25;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 .section-sub {
   font-size: 1rem;
@@ -316,8 +319,19 @@
   font-weight: 400;
   text-align: center;
   margin-top: 0.75rem;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
 }
-.heading-accent { color: #F7941D; }
+.heading-accent {
+  color: #F7941D;
+  display: inline-block;
+}
+.why-heading {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
 
 /* Footer */
 .footer-col-heading {
