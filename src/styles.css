@@ -233,3 +233,55 @@
 }
 
 .animate-wave-float { animation: wave-float 6s ease-in-out infinite; }
+
+/* Section background utilities */
+.bg-soft-teal { background-color: #EBF6F8; }
+.bg-deep-blue { background-color: #1B4F9B; }
+.bg-deep-navy { background-color: #0D2B5E; }
+
+/* Service card */
+.service-card {
+  background: #FFFFFF;
+  border-top: 3px solid #00A89D;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 168, 157, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 168, 157, 0.18);
+}
+
+/* Why-us icon circle */
+.why-icon {
+  background: #EBF6F8;
+  color: #00A89D;
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 168, 157, 0.15);
+}
+
+/* Section headings */
+.section-heading {
+  font-size: clamp(1.75rem, 4.5vw, 2.25rem);
+  font-weight: 700;
+  color: #1B4F9B;
+  text-align: center;
+  line-height: 1.25;
+}
+.section-sub {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+.heading-accent { color: #F7941D; }

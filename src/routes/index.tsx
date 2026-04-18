@@ -32,10 +32,10 @@ const services = [
 ];
 
 const reasons = [
-  { icon: Wallet, title: "ราคาเริ่มต้น 5,000 บาท", desc: "คุ้มค่า ราคามิตรภาพ ไม่มีค่าซ่อนเร้น", color: "text-orange", bg: "bg-orange/15" },
-  { icon: Send, title: "ทำงานเร็ว ฟรีโดเมน", desc: "ส่งมอบเร็ว พร้อมโดเมน .com ฟรี 1 ปี", color: "text-accent", bg: "bg-accent/15" },
-  { icon: Smartphone, title: "รองรับมือถือทุกเครื่อง", desc: "Responsive Design ใช้งานทุกอุปกรณ์", color: "text-primary", bg: "bg-primary/15" },
-  { icon: TrendingUp, title: "พร้อมระบบ SEO", desc: "ติดอันดับ Google ค้นหาเจอแน่นอน", color: "text-orange", bg: "bg-orange/15" },
+  { icon: Wallet, title: "ราคาเริ่มต้น 5,000 บาท", desc: "คุ้มค่า ราคามิตรภาพ ไม่มีค่าซ่อนเร้น" },
+  { icon: Send, title: "ทำงานเร็ว ฟรีโดเมน", desc: "ส่งมอบเร็ว พร้อมโดเมน .com ฟรี 1 ปี" },
+  { icon: Smartphone, title: "รองรับมือถือทุกเครื่อง", desc: "Responsive Design ใช้งานทุกอุปกรณ์" },
+  { icon: TrendingUp, title: "พร้อมระบบ SEO", desc: "ติดอันดับ Google ค้นหาเจอแน่นอน" },
 ];
 
 const portfolioCategories = ["Restaurant", "Hotel", "Company", "Contractor", "Real Estate"] as const;
@@ -151,76 +151,79 @@ function Index() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="bg-white py-16 md:py-24">
+      <section id="services" className="bg-soft-teal py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-primary">
-              บริการสร้างเว็บไซต์<span style={{ color: "#F7941D" }}>สำหรับทุกธุรกิจ</span>
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="section-heading">
+              บริการสร้างเว็บไซต์<span className="heading-accent">สำหรับทุกธุรกิจ</span>
             </h2>
-            <p className="mt-4 text-base md:text-lg text-foreground/80 inline-flex items-center gap-2 flex-wrap justify-center">
-              <Sparkles className="h-5 w-5 text-accent" />
+            <p className="section-sub inline-flex items-center gap-2 flex-wrap justify-center">
+              <Sparkles className="h-4 w-4 text-accent" />
               MedeeWeb เว็บไซต์ทำเงินอันดับ 1 ของคนใต้
             </p>
           </div>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {services.map((s) => (
-              <Card key={s.title} className="group overflow-hidden rounded-2xl border-border/60 bg-white p-0 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
+              <div key={s.title} className="service-card group">
                 <div className="aspect-[4/3] overflow-hidden bg-secondary/40">
                   <img src={s.img} alt={s.title} width={1024} height={768} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
-                <div className="p-5 text-center">
-                  <h3 className="text-primary text-lg">{s.title}</h3>
-                  <p className="mt-2 text-sm text-foreground/75 min-h-[2.5rem]">{s.desc}</p>
-                  <Button size="sm" className="mt-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-5 font-medium">
+                <div className="flex flex-1 flex-col p-5 text-center">
+                  <h3 className="text-[16px] font-semibold" style={{ color: "#1B4F9B" }}>{s.title}</h3>
+                  <p className="mt-2 text-[14px] flex-1" style={{ color: "#555" }}>{s.desc}</p>
+                  <Button size="sm" className="mx-auto mt-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-5 font-medium">
                     ดูรายละเอียด <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                   </Button>
                 </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY US */}
-      <section id="why" className="relative overflow-hidden py-16 md:py-24" style={{ background: "linear-gradient(180deg, #E8F4F8 0%, #C5E8EE 100%)" }}>
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <div className="text-center">
-            <h2 className="text-primary">
-              ทำไมต้อง <span style={{ color: "#F7941D" }}>MedeeWeb</span>
-            </h2>
-          </div>
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {reasons.map((r) => (
-              <div key={r.title} className="text-center">
-                <div className={`mx-auto mb-5 inline-flex h-20 w-20 items-center justify-center rounded-2xl ${r.bg} shadow-sm`}>
-                  <r.icon className={`h-10 w-10 ${r.color}`} />
-                </div>
-                <h3 className="text-primary text-lg">{r.title}</h3>
-                <p className="mt-2 text-base text-foreground/80">{r.desc}</p>
               </div>
             ))}
           </div>
         </div>
-        {/* Bottom wave divider */}
-        <svg className="block w-full h-auto mt-12" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-          <path fill="#ffffff" d="M0,40 C240,100 480,0 720,50 C960,100 1200,30 1440,80 L1440,120 L0,120 Z" />
+        {/* Wave to white */}
+        <svg className="block w-full h-auto mt-16 -mb-px" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+          <path fill="#ffffff" d="M0,40 C240,80 480,0 720,32 C960,64 1200,80 1440,40 L1440,80 L0,80 Z" />
+        </svg>
+      </section>
+
+      {/* WHY US */}
+      <section id="why" className="relative bg-white py-20 md:py-24" style={{ borderTop: "4px solid #00A89D" }}>
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <div className="text-center mb-12">
+            <h2 className="section-heading">
+              ทำไมต้อง <span className="heading-accent">MedeeWeb</span>
+            </h2>
+            <p className="section-sub">เหตุผลที่ลูกค้าเลือกเรา มากกว่า 100+ โปรเจกต์</p>
+          </div>
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {reasons.map((r) => (
+              <div key={r.title} className="text-center">
+                <div className="why-icon mx-auto mb-5">
+                  <r.icon className="h-9 w-9" />
+                </div>
+                <h3 className="text-[15px] font-semibold" style={{ color: "#1B4F9B" }}>{r.title}</h3>
+                <p className="mt-2 text-[13px]" style={{ color: "#666" }}>{r.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Wave to soft-teal */}
+        <svg className="block w-full h-auto mt-16 -mb-px" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+          <path fill="#EBF6F8" d="M0,40 C240,80 480,0 720,32 C960,64 1200,80 1440,40 L1440,80 L0,80 Z" />
         </svg>
       </section>
 
       {/* PORTFOLIO / PACKAGES */}
-      <section id="portfolio" className="relative overflow-hidden bg-white pt-16 md:pt-24 pb-0">
+      <section id="portfolio" className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <div className="text-center">
-            <h2 className="text-primary">
-              แพ็กเกจ<span style={{ color: "#F7941D" }}>ทำเว็บไซต์</span>
+          <div className="text-center mb-12">
+            <h2 className="section-heading">
+              แพ็กเกจ<span className="heading-accent">ทำเว็บไซต์</span>
             </h2>
-            <p className="mt-4 text-base md:text-lg text-foreground/80">
-              เลือกประเภทธุรกิจของคุณ ดูตัวอย่างเว็บที่เราทำมา
-            </p>
+            <p className="section-sub">เลือกประเภทธุรกิจของคุณ ดูตัวอย่างเว็บที่เราทำมา</p>
           </div>
 
           {/* Tabs */}
-          <div className="mt-10 flex flex-wrap justify-center gap-2 md:gap-3">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
             {portfolioCategories.map((cat) => (
               <button
                 key={cat}
@@ -228,7 +231,7 @@ function Index() {
                 className={`rounded-full px-5 py-2.5 text-sm md:text-base font-semibold transition-all ${
                   activeCat === cat
                     ? "bg-primary text-white shadow-[var(--shadow-elegant)]"
-                    : "bg-secondary text-primary hover:bg-secondary/70"
+                    : "bg-white text-primary hover:bg-white/80 border border-border/60"
                 }`}
               >
                 {cat}
@@ -266,16 +269,36 @@ function Index() {
           </div>
         </div>
 
-        {/* Wave transition into footer */}
-        <div className="mt-16 -mb-px">
-          <svg className="block w-full h-auto" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-            <path fill="#1B4F9B" d="M0,80 C240,20 480,120 720,60 C960,0 1200,80 1440,40 L1440,120 L0,120 Z" />
+        {/* Wave to CTA */}
+        <div className="mt-20 -mb-px">
+          <svg className="block w-full h-auto" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
+            <path fill="#1B4F9B" d="M0,60 C240,10 480,100 720,50 C960,0 1200,80 1440,30 L1440,100 L0,100 Z" />
           </svg>
         </div>
       </section>
 
+      {/* CTA */}
+      <section className="bg-deep-blue text-white py-20 md:py-24">
+        <div className="mx-auto max-w-4xl px-4 md:px-8 text-center">
+          <h2 className="text-white" style={{ fontSize: "clamp(1.75rem, 4.5vw, 2.25rem)", fontWeight: 700, color: "#ffffff" }}>
+            พร้อมเริ่มต้นเว็บไซต์ของคุณแล้วหรือยัง?
+          </h2>
+          <p className="mt-4 text-base md:text-lg text-white/85" style={{ lineHeight: 1.7 }}>
+            ปรึกษาฟรี ไม่มีค่าใช้จ่าย — ทีมงานพร้อมแนะนำแพ็กเกจที่ใช่สำหรับธุรกิจคุณ
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <Button size="lg" className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold">
+              ปรึกษาฟรี <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button size="lg" variant="outline" className="h-14 rounded-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary px-8 text-base font-semibold">
+              โทร 099-625-2499
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
-      <footer id="contact" className="bg-primary text-white">
+      <footer id="contact" className="bg-deep-navy text-white">
         <div className="mx-auto max-w-7xl px-4 md:px-8 py-16 md:py-20">
           <div className="grid gap-10 md:grid-cols-4">
             <div className="md:col-span-2">
