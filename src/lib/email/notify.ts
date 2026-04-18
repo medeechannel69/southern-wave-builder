@@ -4,7 +4,7 @@
  * Fails silently so UI flow continues even if email is degraded.
  */
 interface NotifyParams {
-  templateName: 'order-confirmation' | 'lead-notification' | 'quote-received'
+  templateName: 'order-confirmation' | 'lead-notification' | 'quote-received' | 'order-status-update'
   /** Single email or array of emails — when array, sends to each individually. */
   recipientEmail: string | string[]
   idempotencyKey?: string

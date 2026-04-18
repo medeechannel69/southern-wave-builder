@@ -43,6 +43,7 @@ function OrderPage() {
   const [addons, setAddons] = useState<typeof ADDONS>([]);
   const [customer, setCustomer] = useState({ name: "", phone: "", email: "", line_id: "", business_type: "", notes: "" });
   const [payment, setPayment] = useState("promptpay");
+  const [slipFile, setSlipFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   const total = useMemo(() => pkg.price + addons.reduce((s, a) => s + a.price, 0), [pkg, addons]);
@@ -53,7 +54,29 @@ function OrderPage() {
 
   const submit = async () => {
     if (!customer.name || !customer.phone) { toast.error("กรุณากรอกชื่อและเบอร์โทร"); setStep(2); return; }
+    if (slipFile) {
+      if (slipFile.size > 5 * 1024 * 1024) { toast.error("ไฟล์สลิปต้องไม่เกิน 5MB"); return; }
+      if (!/^image\/(png|jpeg|jpg|webp)$/i.test(slipFile.type) && slipFile.type !== "application/pdf") {
+        toast.error("รองรับเฉพาะ JPG/PNG/WEBP/PDF"); return;
+      }
+    }
     setLoading(true);
+
+    let slip_url: string | null = null;
+    if (slipFile) {
+      const ext = slipFile.name.split(".").pop()?.toLowerCase() ?? "bin";
+      const path = `${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.${ext}`;
+      const { error: upErr } = await supabase.storage.from("payment-slips").upload(path, slipFile, {
+        contentType: slipFile.type, upsert: false,
+      });
+      if (upErr) {
+        setLoading(false);
+        toast.error("อัปโหลดสลิปไม่สำเร็จ: " + upErr.message);
+        return;
+      }
+      slip_url = supabase.storage.from("payment-slips").getPublicUrl(path).data.publicUrl;
+    }
+
     const { data, error } = await supabase.from("orders").insert({
       customer_name: customer.name, customer_phone: customer.phone,
       customer_email: customer.email, customer_line: customer.line_id,
@@ -61,6 +84,7 @@ function OrderPage() {
       package_name: pkg.name, package_price: pkg.price,
       addons: addons.map((a) => ({ name: a.name, price: a.price })),
       total, payment_method: payment, notes: customer.notes,
+      slip_url,
     }).select("order_code").single();
     setLoading(false);
     if (error || !data) { toast.error("เกิดข้อผิดพลาด: " + (error?.message ?? "")); return; }
@@ -164,6 +188,18 @@ function OrderPage() {
                   <p>ส่วนที่เหลือ 50% : <b>{(total / 2).toLocaleString()} บาท</b> เมื่อส่งมอบงาน</p>
                 </TabsContent>
               </Tabs>
+              <div className="rounded-xl border border-dashed border-orange/40 bg-orange/5 p-5">
+                <Label className="text-base font-semibold text-primary">แนบสลิปการโอนเงิน (ถ้ามี)</Label>
+                <p className="mb-3 text-xs text-muted-foreground">JPG / PNG / WEBP / PDF, ไม่เกิน 5MB — ช่วยให้แอดมินยืนยันออเดอร์ได้เร็วขึ้น</p>
+                <Input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,application/pdf"
+                  onChange={(e) => setSlipFile(e.target.files?.[0] ?? null)}
+                />
+                {slipFile && (
+                  <p className="mt-2 text-xs text-accent">✓ {slipFile.name} ({(slipFile.size / 1024).toFixed(0)} KB)</p>
+                )}
+              </div>
               <div className="rounded-xl bg-soft-teal p-5">
                 <div className="flex justify-between text-sm"><span>{pkg.name}</span><span>{pkg.price.toLocaleString()} ฿</span></div>
                 {addons.map((a) => <div key={a.name} className="flex justify-between text-sm"><span>{a.name}</span><span>{a.price.toLocaleString()} ฿</span></div>)}

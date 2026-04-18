@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { notify } from "@/lib/email/notify";
 import type { Database } from "@/integrations/supabase/types";
 
 type Order = Database["public"]["Tables"]["orders"]["Row"];
@@ -36,9 +37,26 @@ function OrdersPage() {
   useEffect(() => { load(); }, []);
 
   async function updateStatus(id: string, status: OrderStatus) {
+    const order = orders.find((o) => o.id === id);
+    if (!order || order.status === status) return;
     const { error } = await supabase.from("orders").update({ status }).eq("id", id);
-    if (error) toast.error(error.message);
-    else { toast.success("อัปเดตสถานะแล้ว"); load(); }
+    if (error) { toast.error(error.message); return; }
+    toast.success("อัปเดตสถานะแล้ว");
+    // Notify customer (if email present) — skip for pending_slip (initial state)
+    if (order.customer_email && status !== "pending_slip") {
+      void notify({
+        templateName: "order-status-update",
+        recipientEmail: order.customer_email,
+        idempotencyKey: `order-status-${order.order_code}-${status}`,
+        templateData: {
+          customerName: order.customer_name,
+          orderCode: order.order_code,
+          status,
+          trackUrl: `${window.location.origin}/track/${order.order_code}`,
+        },
+      });
+    }
+    load();
   }
 
   return (
@@ -100,6 +118,21 @@ function OrdersPage() {
               <p><b>Add-ons:</b> <pre className="bg-muted p-2 rounded text-xs">{JSON.stringify(selected.addons, null, 2)}</pre></p>
               <p><b>ยอดรวม:</b> ฿{Number(selected.total).toLocaleString()}</p>
               <p><b>ชำระโดย:</b> {selected.payment_method ?? "-"}</p>
+              {selected.slip_url ? (
+                <div>
+                  <b>สลิปการโอนเงิน:</b>{" "}
+                  <a href={selected.slip_url} target="_blank" rel="noopener noreferrer" className="text-accent underline">
+                    เปิดดูสลิป ↗
+                  </a>
+                  {/\.(png|jpe?g|webp)$/i.test(selected.slip_url) && (
+                    <a href={selected.slip_url} target="_blank" rel="noopener noreferrer" className="mt-2 block">
+                      <img src={selected.slip_url} alt="สลิป" className="max-h-64 rounded-lg border border-border" />
+                    </a>
+                  )}
+                </div>
+              ) : (
+                <p><b>สลิป:</b> <span className="text-muted-foreground">ยังไม่ได้แนบ</span></p>
+              )}
               {selected.notes && <p><b>หมายเหตุ:</b> {selected.notes}</p>}
             </div>
           )}
