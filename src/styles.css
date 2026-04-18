@@ -330,20 +330,22 @@
 }
 .footer-link {
   font-size: 14px;
-  line-height: 2.2;
+  line-height: 1.8;
   color: rgba(255, 255, 255, 0.8);
   transition: color 0.2s ease;
+  display: block;
+  padding: 6px 0;
 }
 .footer-link:hover { color: #F7941D; }
 .footer-contact {
   font-size: 14px;
-  line-height: 2.0;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
 }
 .footer-desc {
   font-size: 15px;
-  line-height: 1.8;
-  max-width: 300px;
+  line-height: 1.7;
+  max-width: 320px;
   color: rgba(255, 255, 255, 0.85);
 }
 .footer-tagline {
