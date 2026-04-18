@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { PageShell } from "@/components/PageShell";
 import heroKrabi from "@/assets/hero-krabi-waves.jpg";
 import svcBusiness from "@/assets/service-business.jpg";
 import svcHotel from "@/assets/service-hotel.jpg";
@@ -16,7 +16,7 @@ import mkContractor from "@/assets/mockup-contractor.jpg";
 import mkRealEstate from "@/assets/mockup-realestate.jpg";
 import {
   ArrowRight, Wallet, Send, Smartphone, TrendingUp,
-  Sparkles, Monitor, Tablet, Phone as PhoneIcon, Code2, HeartHandshake,
+  Sparkles, Monitor, Tablet, Phone as PhoneIcon,
 } from "lucide-react";
 
 type DeviceView = "desktop" | "tablet" | "mobile";
@@ -86,23 +86,7 @@ function Index() {
   const [device, setDevice] = useState<DeviceView>("desktop");
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
-      {/* NAV */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
-          <Logo className="h-16 md:h-20 w-auto" />
-          <nav className="hidden items-center gap-6 lg:gap-8 md:flex">
-            <a href="#services" className="text-base font-medium text-primary transition-colors hover:text-accent">บริการ</a>
-            <a href="#why" className="text-base font-medium text-primary transition-colors hover:text-accent">ทำไมเรา</a>
-            <a href="#portfolio" className="text-base font-medium text-primary transition-colors hover:text-accent">ผลงาน</a>
-            <a href="#contact" className="text-base font-medium text-primary transition-colors hover:text-accent">ติดต่อ</a>
-          </nav>
-          <Button className="bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] rounded-full px-6 text-sm md:text-base font-semibold">
-            เริ่มต้นเลย
-          </Button>
-        </div>
-      </header>
-
+    <PageShell>
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#F4FAFC]">
         {/* Background illustration */}
@@ -356,58 +340,19 @@ function Index() {
             ปรึกษาฟรี ไม่มีค่าใช้จ่าย — ทีมงานพร้อมแนะนำแพ็กเกจที่ใช่สำหรับธุรกิจคุณ
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-            <Button size="lg" className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold">
-              ปรึกษาฟรี <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="h-14 rounded-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary px-8 text-base font-semibold">
-              โทร 099-625-2499
-            </Button>
+            <Link to="/quote">
+              <Button size="lg" className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold">
+                ปรึกษาฟรี <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <a href="tel:0996252499">
+              <Button size="lg" variant="outline" className="h-14 rounded-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary px-8 text-base font-semibold">
+                โทร 099-625-2499
+              </Button>
+            </a>
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer id="contact" className="bg-deep-blue text-white">
-        <div className="mx-auto max-w-7xl px-4 md:px-8 py-16 md:py-20">
-          <div className="grid gap-10 md:grid-cols-4">
-            <div className="md:col-span-2">
-              <div className="inline-block logo-pad">
-                <Logo className="h-14 w-auto" />
-              </div>
-              <p className="mt-5 max-w-md text-base text-white/90" style={{ lineHeight: 1.7 }}>
-                เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้ — สร้างสรรค์ทุกโปรเจ็กต์ด้วยใจรักและความเข้าใจในวัฒนธรรมท้องถิ่น
-              </p>
-              <div className="mt-5 flex items-center gap-2 text-sm text-white/80">
-                <HeartHandshake className="h-4 w-4" />
-                Medee with love from Southern Thailand
-              </div>
-            </div>
-            <div>
-              <h4 className="mb-4 text-sm font-semibold uppercase tracking-widest text-white inline-flex items-center gap-2">
-                <Code2 className="h-4 w-4" /> บริการ
-              </h4>
-              <ul className="space-y-2 text-base text-white/90">
-                <li>เว็บไซต์ธุรกิจ</li>
-                <li>เว็บไซต์โรงแรม</li>
-                <li>เว็บไซต์ร้านอาหาร</li>
-                <li>SEO &amp; การตลาด</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="mb-4 text-sm font-semibold uppercase tracking-widest text-white">ติดต่อ</h4>
-              <ul className="space-y-2 text-base text-white/90 break-words">
-                <li>📧 suthee@medeeweb.com</li>
-                <li>📱 099-625-2499</li>
-                <li>🌐 www.medeeweb.com</li>
-                <li>📍 กระบี่ ประเทศไทย</li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-12 border-t border-white/20 pt-8 text-center text-sm text-white/80">
-            © {new Date().getFullYear()} MedeeWeb. All rights reserved.
-          </div>
-        </div>
-      </footer>
-    </div>
+    </PageShell>
   );
 }
