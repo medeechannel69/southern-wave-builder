@@ -23,11 +23,11 @@ import { Route as PackagesRouteImport } from './routes/packages'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as InterestRouteImport } from './routes/interest'
 import { Route as FaqRouteImport } from './routes/faq'
-import { Route as DemoRouteImport } from './routes/demo'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DemoIndexRouteImport } from './routes/demo.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as TrackOrderCodeRouteImport } from './routes/track.$orderCode'
 import { Route as OrderSuccessRouteImport } from './routes/order.success'
@@ -119,11 +119,6 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoRoute = DemoRouteImport.update({
-  id: '/demo',
-  path: '/demo',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -142,6 +137,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoIndexRoute = DemoIndexRouteImport.update({
+  id: '/demo/',
+  path: '/demo/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -165,9 +165,9 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoSlugRoute = DemoSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => DemoRoute,
+  id: '/demo/$slug',
+  path: '/demo/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
@@ -253,7 +253,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/demo': typeof DemoRouteWithChildren
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -282,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
   '/admin/': typeof AdminIndexRoute
+  '/demo/': typeof DemoIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -294,7 +294,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/demo': typeof DemoRouteWithChildren
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -323,6 +322,7 @@ export interface FileRoutesByTo {
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
   '/admin': typeof AdminIndexRoute
+  '/demo': typeof DemoIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -336,7 +336,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/demo': typeof DemoRouteWithChildren
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -365,6 +364,7 @@ export interface FileRoutesById {
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
   '/admin/': typeof AdminIndexRoute
+  '/demo/': typeof DemoIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -379,7 +379,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
-    | '/demo'
     | '/faq'
     | '/interest'
     | '/order'
@@ -408,6 +407,7 @@ export interface FileRouteTypes {
     | '/order/success'
     | '/track/$orderCode'
     | '/admin/'
+    | '/demo/'
     | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -420,7 +420,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
-    | '/demo'
     | '/faq'
     | '/interest'
     | '/order'
@@ -449,6 +448,7 @@ export interface FileRouteTypes {
     | '/order/success'
     | '/track/$orderCode'
     | '/admin'
+    | '/demo'
     | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -461,7 +461,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/contact'
-    | '/demo'
     | '/faq'
     | '/interest'
     | '/order'
@@ -490,6 +489,7 @@ export interface FileRouteTypes {
     | '/order/success'
     | '/track/$orderCode'
     | '/admin/'
+    | '/demo/'
     | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -503,7 +503,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
-  DemoRoute: typeof DemoRouteWithChildren
   FaqRoute: typeof FaqRoute
   InterestRoute: typeof InterestRoute
   OrderRoute: typeof OrderRouteWithChildren
@@ -526,8 +525,10 @@ export interface RootRouteChildren {
   AdminQuotesRoute: typeof AdminQuotesRoute
   AdminUsersRoute: typeof AdminUsersRoute
   ApiNotifyRoute: typeof ApiNotifyRoute
+  DemoSlugRoute: typeof DemoSlugRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  DemoIndexRoute: typeof DemoIndexRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -636,13 +637,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo': {
-      id: '/demo'
-      path: '/demo'
-      fullPath: '/demo'
-      preLoaderRoute: typeof DemoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -669,6 +663,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/': {
+      id: '/demo/'
+      path: '/demo'
+      fullPath: '/demo/'
+      preLoaderRoute: typeof DemoIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -701,10 +702,10 @@ declare module '@tanstack/react-router' {
     }
     '/demo/$slug': {
       id: '/demo/$slug'
-      path: '/$slug'
+      path: '/demo/$slug'
       fullPath: '/demo/$slug'
       preLoaderRoute: typeof DemoSlugRouteImport
-      parentRoute: typeof DemoRoute
+      parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -824,16 +825,6 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
-interface DemoRouteChildren {
-  DemoSlugRoute: typeof DemoSlugRoute
-}
-
-const DemoRouteChildren: DemoRouteChildren = {
-  DemoSlugRoute: DemoSlugRoute,
-}
-
-const DemoRouteWithChildren = DemoRoute._addFileChildren(DemoRouteChildren)
-
 interface OrderRouteChildren {
   OrderSuccessRoute: typeof OrderSuccessRoute
 }
@@ -859,7 +850,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
-  DemoRoute: DemoRouteWithChildren,
   FaqRoute: FaqRoute,
   InterestRoute: InterestRoute,
   OrderRoute: OrderRouteWithChildren,
@@ -882,8 +872,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminQuotesRoute: AdminQuotesRoute,
   AdminUsersRoute: AdminUsersRoute,
   ApiNotifyRoute: ApiNotifyRoute,
+  DemoSlugRoute: DemoSlugRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   AdminIndexRoute: AdminIndexRoute,
+  DemoIndexRoute: DemoIndexRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
