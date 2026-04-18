@@ -29,6 +29,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrackOrderCodeRouteImport } from './routes/track.$orderCode'
 import { Route as OrderSuccessRouteImport } from './routes/order.success'
+import { Route as DemoSlugRouteImport } from './routes/demo.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const TrackRoute = TrackRouteImport.update({
@@ -131,6 +132,11 @@ const OrderSuccessRoute = OrderSuccessRouteImport.update({
   path: '/success',
   getParentRoute: () => OrderRoute,
 } as any)
+const DemoSlugRoute = DemoSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => DemoRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -142,7 +148,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/demo': typeof DemoRoute
+  '/demo': typeof DemoRouteWithChildren
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
 }
@@ -165,7 +172,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/demo': typeof DemoRoute
+  '/demo': typeof DemoRouteWithChildren
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -180,6 +187,7 @@ export interface FileRoutesByTo {
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
 }
@@ -189,7 +197,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
-  '/demo': typeof DemoRoute
+  '/demo': typeof DemoRouteWithChildren
   '/faq': typeof FaqRoute
   '/interest': typeof InterestRoute
   '/order': typeof OrderRouteWithChildren
@@ -204,6 +212,7 @@ export interface FileRoutesById {
   '/topup': typeof TopupRoute
   '/track': typeof TrackRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/demo/$slug': typeof DemoSlugRoute
   '/order/success': typeof OrderSuccessRoute
   '/track/$orderCode': typeof TrackOrderCodeRoute
 }
@@ -229,6 +238,7 @@ export interface FileRouteTypes {
     | '/topup'
     | '/track'
     | '/blog/$slug'
+    | '/demo/$slug'
     | '/order/success'
     | '/track/$orderCode'
   fileRoutesByTo: FileRoutesByTo
@@ -252,6 +262,7 @@ export interface FileRouteTypes {
     | '/topup'
     | '/track'
     | '/blog/$slug'
+    | '/demo/$slug'
     | '/order/success'
     | '/track/$orderCode'
   id:
@@ -275,6 +286,7 @@ export interface FileRouteTypes {
     | '/topup'
     | '/track'
     | '/blog/$slug'
+    | '/demo/$slug'
     | '/order/success'
     | '/track/$orderCode'
   fileRoutesById: FileRoutesById
@@ -284,7 +296,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
-  DemoRoute: typeof DemoRoute
+  DemoRoute: typeof DemoRouteWithChildren
   FaqRoute: typeof FaqRoute
   InterestRoute: typeof InterestRoute
   OrderRoute: typeof OrderRouteWithChildren
@@ -442,6 +454,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrderSuccessRouteImport
       parentRoute: typeof OrderRoute
     }
+    '/demo/$slug': {
+      id: '/demo/$slug'
+      path: '/$slug'
+      fullPath: '/demo/$slug'
+      preLoaderRoute: typeof DemoSlugRouteImport
+      parentRoute: typeof DemoRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -461,6 +480,16 @@ const BlogRouteChildren: BlogRouteChildren = {
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
+interface DemoRouteChildren {
+  DemoSlugRoute: typeof DemoSlugRoute
+}
+
+const DemoRouteChildren: DemoRouteChildren = {
+  DemoSlugRoute: DemoSlugRoute,
+}
+
+const DemoRouteWithChildren = DemoRoute._addFileChildren(DemoRouteChildren)
 
 interface OrderRouteChildren {
   OrderSuccessRoute: typeof OrderSuccessRoute
@@ -487,7 +516,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
-  DemoRoute: DemoRoute,
+  DemoRoute: DemoRouteWithChildren,
   FaqRoute: FaqRoute,
   InterestRoute: InterestRoute,
   OrderRoute: OrderRouteWithChildren,
