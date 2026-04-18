@@ -23,9 +23,42 @@ export const Route = createFileRoute("/blog/$slug")({
           { property: "og:title", content: loaderData.post.title },
           { property: "og:description", content: loaderData.post.excerpt ?? "" },
           { property: "og:type", content: "article" },
-          ...(loaderData.post.cover_image_url ? [{ property: "og:image", content: loaderData.post.cover_image_url }] : []),
+          ...(loaderData.post.cover_image_url ? [{ property: "og:image", content: loaderData.post.cover_image_url }, { name: "twitter:image", content: loaderData.post.cover_image_url }] : []),
         ]
       : [{ title: "บทความ — MedeeWeb" }],
+    links: loaderData
+      ? [{ rel: "canonical", href: `https://medeeweb.com/blog/${loaderData.post.slug}` }]
+      : [{ rel: "canonical", href: "https://medeeweb.com/blog" }],
+    scripts: loaderData
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: loaderData.post.title,
+              description: loaderData.post.excerpt ?? "",
+              author: { "@type": "Organization", name: "MedeeWeb" },
+              publisher: { "@type": "Organization", name: "MedeeWeb", url: "https://medeeweb.com" },
+              datePublished: loaderData.post.published_at ?? "",
+              url: `https://medeeweb.com/blog/${loaderData.post.slug}`,
+              ...(loaderData.post.cover_image_url ? { image: loaderData.post.cover_image_url } : {}),
+            }),
+          },
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+                { "@type": "ListItem", position: 2, name: "บล็อก", item: "https://medeeweb.com/blog" },
+                { "@type": "ListItem", position: 3, name: loaderData.post.title, item: `https://medeeweb.com/blog/${loaderData.post.slug}` },
+              ],
+            }),
+          },
+        ]
+      : [],
   }),
   notFoundComponent: () => (
     <PageShell>

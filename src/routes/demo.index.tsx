@@ -17,6 +17,22 @@ export const Route = createFileRoute("/demo/")({
         property: "og:description",
         content: "เว็บไซต์ตัวอย่างที่ใช้งานได้จริง คลิกดูเลย",
       },
+      { property: "og:image", content: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80&auto=format&fit=crop" },
+      { name: "twitter:image", content: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80&auto=format&fit=crop" },
+    ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/demo" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "ตัวอย่างเว็บไซต์", item: "https://medeeweb.com/demo" },
+          ],
+        }),
+      },
     ],
   }),
   component: DemoHub,

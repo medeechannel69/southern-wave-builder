@@ -12,6 +12,22 @@ export const Route = createFileRoute("/packages")({
       { name: "description", content: "แพ็กเกจทำเว็บไซต์ Starter 5,000 / Business 9,000 / Pro 15,000 บาท ราคาคุ้มค่า ไม่มีค่าซ่อนเร้น พร้อมโดเมน+โฮสติ้ง 1 ปี" },
       { property: "og:title", content: "แพ็กเกจราคาทำเว็บไซต์ — MedeeWeb" },
       { property: "og:description", content: "Starter 5,000 / Business 9,000 / Pro 15,000 บาท" },
+      { property: "og:image", content: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop" },
+      { name: "twitter:image", content: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop" },
+    ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/packages" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "แพ็กเกจ", item: "https://medeeweb.com/packages" },
+          ],
+        }),
+      },
     ],
   }),
   component: PackagesPage,

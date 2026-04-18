@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageShell } from "@/components/PageShell";
-import heroKrabi from "@/assets/hero-krabi-waves.jpg";
+import heroKrabi from "@/assets/hero-krabi-waves.webp";
 import svcBusiness from "@/assets/service-business.jpg";
 import svcHotel from "@/assets/service-hotel.jpg";
 import svcRestaurant from "@/assets/service-restaurant.jpg";
@@ -27,6 +27,52 @@ const deviceWidths: Record<DeviceView, string> = {
 };
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [{ rel: "canonical", href: "https://medeeweb.com/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "MedeeWeb",
+          description: "รับทำเว็บไซต์และ Web Application สำหรับธุรกิจในภาคใต้ 14 จังหวัด",
+          url: "https://medeeweb.com",
+          telephone: "099-625-2499",
+          email: "suthee@medeeweb.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "355/70 หมู่ 6 ต.กระบี่น้อย อ.เมือง",
+            addressLocality: "กระบี่",
+            addressRegion: "กระบี่",
+            postalCode: "81000",
+            addressCountry: "TH",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: 8.0863, longitude: 98.9063 },
+          openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            opens: "09:00",
+            closes: "18:00",
+          },
+          priceRange: "฿฿",
+          areaServed: [
+            "สงขลา", "นครศรีธรรมราช", "สุราษฎร์ธานี", "ภูเก็ต", "กระบี่",
+            "ตรัง", "พัทลุง", "ชุมพร", "ระนอง", "สตูล", "ปัตตานี", "ยะลา", "นราธิวาส", "พังงา",
+          ],
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "แพ็กเกจทำเว็บไซต์",
+            itemListElement: [
+              { "@type": "Offer", name: "Starter Package", price: "5000", priceCurrency: "THB", description: "เว็บ 1 หน้า พร้อม domain + hosting 1 ปี" },
+              { "@type": "Offer", name: "Business Package", price: "9000", priceCurrency: "THB", description: "เว็บ 5 หน้า พร้อม SEO พื้นฐาน" },
+              { "@type": "Offer", name: "Pro Package", price: "15000", priceCurrency: "THB", description: "เว็บ 10 หน้า พร้อม Blog + SEO ครบ" },
+            ],
+          },
+        }),
+      },
+    ],
+  }),
   component: Index,
 });
 
@@ -107,6 +153,12 @@ function Index() {
             src={heroKrabi}
             alt=""
             aria-hidden="true"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            sizes="100vw"
             className="h-full w-full object-cover"
           />
           {/* Soft readability veil */}
@@ -190,12 +242,17 @@ function Index() {
       </section>
 
       {/* WHY US */}
-      <section id="why" className="why-section relative overflow-hidden bg-white" style={{ borderTop: "4px solid #00A89D" }}>
+      <section id="why" className="why-section relative overflow-hidden bg-white" style={{ borderTop: "4px solid #00A89D", contentVisibility: "auto", containIntrinsicSize: "0 600px" }}>
         {/* Faint wave illustration backdrop */}
         <img
           src={heroKrabi}
           alt=""
           aria-hidden="true"
+          width={1920}
+          height={1080}
+          loading="lazy"
+          decoding="async"
+          style={{ contentVisibility: "auto" }}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.07]"
         />
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
@@ -225,12 +282,17 @@ function Index() {
       </section>
 
       {/* PORTFOLIO / PACKAGES */}
-      <section id="portfolio" className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0">
+      <section id="portfolio" className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0" style={{ contentVisibility: "auto", containIntrinsicSize: "0 800px" }}>
         {/* Faint wave illustration backdrop */}
         <img
           src={heroKrabi}
           alt=""
           aria-hidden="true"
+          width={1920}
+          height={1080}
+          loading="lazy"
+          decoding="async"
+          style={{ contentVisibility: "auto" }}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.08]"
         />
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">

@@ -13,6 +13,20 @@ export const Route = createFileRoute("/reviews")({
       { property: "og:title", content: "รีวิวจากลูกค้า — MedeeWeb" },
       { property: "og:description", content: "คะแนนเฉลี่ย 4.9/5 จากลูกค้าจริง" },
     ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/reviews" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "รีวิว", item: "https://medeeweb.com/reviews" },
+          ],
+        }),
+      },
+    ],
   }),
   component: ReviewsPage,
 });

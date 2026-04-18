@@ -10,7 +10,7 @@ export function PageShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <HotSaleBanner />
       <SiteHeader />
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
       <SiteFooter />
       <FloatingActions />
       <CookieBanner />

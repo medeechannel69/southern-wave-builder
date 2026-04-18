@@ -17,6 +17,22 @@ export const Route = createFileRoute("/portfolio")({
       { name: "description", content: "ผลงานเว็บไซต์ที่ MedeeWeb ทำให้ลูกค้า — ร้านอาหาร โรงแรม บริษัท อสังหาฯ และอื่นๆ" },
       { property: "og:title", content: "ผลงานของเรา — MedeeWeb" },
       { property: "og:description", content: "ผลงานเว็บไซต์จริงจากทีม MedeeWeb" },
+      { property: "og:image", content: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&q=80&auto=format&fit=crop" },
+      { name: "twitter:image", content: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&q=80&auto=format&fit=crop" },
+    ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/portfolio" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "ผลงาน", item: "https://medeeweb.com/portfolio" },
+          ],
+        }),
+      },
     ],
   }),
   component: PortfolioPage,

@@ -10,6 +10,22 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "บริการทำเว็บไซต์ครบวงจรสำหรับทุกธุรกิจ ร้านอาหาร โรงแรม บริษัท อสังหาฯ ตัวแทนประกัน หน่วยงานราชการ" },
       { property: "og:title", content: "บริการรับทำเว็บไซต์ — MedeeWeb" },
       { property: "og:description", content: "บริการทำเว็บไซต์ครบวงจรสำหรับทุกธุรกิจ" },
+      { property: "og:image", content: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop" },
+      { name: "twitter:image", content: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop" },
+    ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/services" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "บริการ", item: "https://medeeweb.com/services" },
+          ],
+        }),
+      },
     ],
   }),
   component: ServicesPage,

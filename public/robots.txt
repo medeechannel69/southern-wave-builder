@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /track/
+Disallow: /order/success
+Disallow: /lovable/
+
+Sitemap: https://medeeweb.com/sitemap.xml

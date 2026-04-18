@@ -16,6 +16,20 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "ติดต่อ MedeeWeb" },
       { property: "og:description", content: "ปรึกษาเรื่องเว็บไซต์ฟรี — โทร 099-625-2499" },
     ],
+    links: [{ rel: "canonical", href: "https://medeeweb.com/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "หน้าแรก", item: "https://medeeweb.com" },
+            { "@type": "ListItem", position: 2, name: "ติดต่อ", item: "https://medeeweb.com/contact" },
+          ],
+        }),
+      },
+    ],
   }),
   component: ContactPage,
 });
