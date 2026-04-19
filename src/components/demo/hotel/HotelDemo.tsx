@@ -5,12 +5,10 @@ import {
   Phone,
   Mail,
   MapPin,
-  Star,
   Wifi,
   Waves,
   UtensilsCrossed,
   Sparkles,
-  Car,
   Dumbbell,
   ChevronRight,
   Calendar,
@@ -20,6 +18,7 @@ import {
   Instagram,
   Facebook,
   Plane,
+  ChevronLeft,
 } from "lucide-react";
 import heroImage from "@/assets/demo-hotel-hero.jpg";
 
@@ -53,6 +52,7 @@ const NAV = [
   { id: "rooms", label: "Suites & Villas" },
   { id: "dining", label: "Dining" },
   { id: "experiences", label: "Experiences" },
+  { id: "wellness", label: "Wellness" },
   { id: "gallery", label: "Gallery" },
   { id: "contact", label: "Reserve" },
 ];
@@ -61,9 +61,14 @@ export function HotelDemo() {
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 60);
+      setScrollY(y);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -83,11 +88,18 @@ export function HotelDemo() {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
         .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
         .tracking-luxe { letter-spacing: 0.28em; }
         .fade-up { animation: fadeUp 0.9s cubic-bezier(.2,.8,.2,1) both; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+        .h-display { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+        .body-lg { font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.125rem); line-height: 1.75; }
+        .body-md { font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1rem); line-height: 1.7; }
+        @keyframes ken { 0% { transform: scale(1.05) translateY(0); } 100% { transform: scale(1.15) translateY(-2%); } }
+        .ken-burns { animation: ken 18s ease-in-out infinite alternate; }
+        .lightbox-fade { animation: lbFade 0.25s ease-out both; }
+        @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
       `}</style>
 
       {/* === Navigation === */}
@@ -189,10 +201,11 @@ export function HotelDemo() {
 
       {/* === Page === */}
       <main key={active} className="fade-up">
-        {active === "home" && <HomePage onCta={() => goTo("contact")} onRooms={() => goTo("rooms")} />}
+        {active === "home" && <HomePage scrollY={scrollY} onCta={() => goTo("contact")} onRooms={() => goTo("rooms")} />}
         {active === "rooms" && <RoomsPage onBook={() => goTo("contact")} />}
         {active === "dining" && <DiningPage />}
         {active === "experiences" && <ExperiencesPage />}
+        {active === "wellness" && <WellnessPage onBook={() => goTo("contact")} />}
         {active === "gallery" && <GalleryPage />}
         {active === "contact" && <ContactPage />}
       </main>
@@ -321,8 +334,11 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function SectionTitle({ children, light }: { children: React.ReactNode; light?: boolean }) {
   return (
     <h2
-      className="serif mt-4 text-center text-3xl font-light leading-tight md:text-5xl"
-      style={{ color: light ? PALETTE.cream : PALETTE.ink }}
+      className="h-display mt-4 text-center"
+      style={{
+        color: light ? PALETTE.cream : PALETTE.ink,
+        fontSize: "clamp(2rem, 1.4rem + 2.6vw, 3.75rem)",
+      }}
     >
       {children}
     </h2>
@@ -330,47 +346,63 @@ function SectionTitle({ children, light }: { children: React.ReactNode; light?: 
 }
 
 /* ---------- HOME ---------- */
-function HomePage({ onCta, onRooms }: { onCta: () => void; onRooms: () => void }) {
+function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => void; onRooms: () => void }) {
+  const parallax = Math.min(scrollY * 0.4, 240);
+  const heroOpacity = Math.max(1 - scrollY / 600, 0);
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-[88vh] min-h-[560px] w-full overflow-hidden">
-        <img
-          src={heroImage}
-          alt="Andaman Sands resort"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+      {/* Hero with parallax */}
+      <section className="relative h-[92vh] min-h-[620px] w-full overflow-hidden">
+        <div
+          className="absolute inset-0 will-change-transform"
+          style={{ transform: `translate3d(0, ${parallax}px, 0) scale(1.08)` }}
+        >
+          <img
+            src={heroImage}
+            alt="Andaman Sands resort"
+            className="ken-burns absolute inset-0 h-full w-full object-cover"
+          />
+        </div>
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(10,61,69,0.25) 0%, rgba(10,61,69,0.05) 40%, rgba(10,61,69,0.7) 100%)",
+              "linear-gradient(180deg, rgba(10,61,69,0.30) 0%, rgba(10,61,69,0.05) 38%, rgba(10,61,69,0.78) 100%)",
           }}
         />
-        <div className="relative z-10 flex h-full flex-col items-center justify-end px-4 pb-16 text-center text-white md:pb-24">
+        <div
+          className="relative z-10 flex h-full flex-col items-center justify-end px-4 pb-20 text-center text-white md:pb-28"
+          style={{ opacity: heroOpacity, transform: `translate3d(0, ${-parallax * 0.3}px, 0)` }}
+        >
           <div
-            className="mb-4 text-[10px] font-semibold tracking-luxe md:text-xs"
+            className="mb-5 text-xs font-semibold tracking-luxe md:text-sm"
             style={{ color: "#F8E9C5" }}
           >
             ★★★★★  ·  KRABI, THAILAND
           </div>
-          <h1 className="serif max-w-4xl text-4xl font-light leading-[1.05] md:text-7xl">
+          <h1
+            className="h-display max-w-5xl"
+            style={{ fontSize: "clamp(2.75rem, 1.6rem + 5.5vw, 6.5rem)" }}
+          >
             Where the Andaman <em className="font-light italic">whispers</em>
           </h1>
-          <p className="mt-5 max-w-xl text-sm font-light opacity-90 md:text-base">
+          <p
+            className="mt-6 max-w-2xl font-light opacity-95"
+            style={{ fontSize: "clamp(1rem, 0.9rem + 0.4vw, 1.25rem)", lineHeight: 1.6 }}
+          >
             พักผ่อนระดับเหนือกาลเวลา ใต้เงาหน้าผาหินปูนและเสียงคลื่นทะเลใส
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={onCta}
-              className="rounded-none px-7 py-3 text-[11px] font-semibold uppercase tracking-luxe transition-all hover:scale-[1.02]"
+              className="rounded-none px-8 py-3.5 text-xs font-semibold uppercase tracking-luxe transition-all hover:scale-[1.02] md:text-[13px]"
               style={{ background: PALETTE.gold, color: PALETTE.ink }}
             >
               Reserve Your Stay
             </button>
             <button
               onClick={onRooms}
-              className="rounded-none border border-white/70 px-7 py-3 text-[11px] font-semibold uppercase tracking-luxe text-white transition hover:bg-white hover:text-[var(--ink)]"
+              className="rounded-none border border-white/70 px-8 py-3.5 text-xs font-semibold uppercase tracking-luxe text-white transition hover:bg-white hover:text-[var(--ink)] md:text-[13px]"
               style={{ "--ink": PALETTE.ink } as React.CSSProperties}
             >
               Explore Suites
@@ -863,43 +895,277 @@ function ExperiencesPage() {
   );
 }
 
-/* ---------- GALLERY ---------- */
+/* ---------- GALLERY (with lightbox) ---------- */
 function GalleryPage() {
   const imgs = [
-    "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1000&q=85",
-    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1000&q=85",
-    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1000&q=85",
-    "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1000&q=85",
-    "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1000&q=85",
-    "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1000&q=85",
-    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1000&q=85",
-    "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1000&q=85",
-    "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1000&q=85",
-    "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1000&q=85",
-    "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1000&q=85",
-    "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1000&q=85",
+    "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=85",
+    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1600&q=85",
+    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=85",
+    "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1600&q=85",
+    "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1600&q=85",
+    "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1600&q=85",
+    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=85",
+    "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=1600&q=85",
+    "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&q=85",
+    "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=85",
+    "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1600&q=85",
+    "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=1600&q=85",
   ];
+  const [lb, setLb] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (lb === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLb(null);
+      if (e.key === "ArrowRight") setLb((i) => (i === null ? 0 : (i + 1) % imgs.length));
+      if (e.key === "ArrowLeft") setLb((i) => (i === null ? 0 : (i - 1 + imgs.length) % imgs.length));
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lb, imgs.length]);
+
   return (
     <>
       <PageHeader
         eyebrow="Gallery"
         title="Moments at Andaman Sands"
-        sub="ภาพถ่ายจริงจากแขกของเราและช่างภาพประจำรีสอร์ท"
+        sub="ภาพถ่ายจริงจากแขกของเราและช่างภาพประจำรีสอร์ท · คลิกภาพเพื่อขยาย"
       />
       <section className="px-4 py-16 md:px-8 md:py-24" style={{ background: PALETTE.paper }}>
         <div className="mx-auto max-w-7xl">
           <div className="columns-2 gap-3 md:columns-3 lg:columns-4 [&>*]:mb-3">
             {imgs.map((src, i) => (
-              <div key={i} className="break-inside-avoid overflow-hidden">
+              <button
+                key={i}
+                onClick={() => setLb(i)}
+                className="group block w-full break-inside-avoid overflow-hidden cursor-zoom-in"
+                aria-label={`Open image ${i + 1}`}
+              >
                 <img
                   src={src}
                   alt={`gallery-${i}`}
-                  className="w-full transition-transform duration-700 hover:scale-105"
+                  className="w-full transition-transform duration-700 group-hover:scale-105"
                   style={{ aspectRatio: i % 3 === 0 ? "3/4" : i % 5 === 0 ? "1/1" : "4/5" }}
                   loading="lazy"
                 />
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {lb !== null && (
+        <div
+          className="lightbox-fade fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+          style={{ background: "rgba(10,15,18,0.96)" }}
+          onClick={() => setLb(null)}
+        >
+          <button
+            onClick={(e) => { e.stopPropagation(); setLb(null); }}
+            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:bg-white/10"
+            aria-label="Close"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); setLb((i) => (i === null ? 0 : (i - 1 + imgs.length) % imgs.length)); }}
+            className="absolute left-2 z-10 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/10 md:left-6"
+            aria-label="Previous"
+          >
+            <ChevronLeft className="h-7 w-7" />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); setLb((i) => (i === null ? 0 : (i + 1) % imgs.length)); }}
+            className="absolute right-2 z-10 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/10 md:right-6"
+            aria-label="Next"
+          >
+            <ChevronRight className="h-7 w-7" />
+          </button>
+          <img
+            src={imgs[lb]}
+            alt={`gallery-${lb}`}
+            className="max-h-[90vh] max-w-[92vw] object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[11px] font-semibold uppercase tracking-luxe text-white/80">
+            {lb + 1} / {imgs.length}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+/* ---------- WELLNESS / SPA ---------- */
+function WellnessPage({ onBook }: { onBook: () => void }) {
+  const treatments = [
+    {
+      name: "Andaman Signature Ritual",
+      duration: "150 min",
+      price: 6800,
+      desc: "พิธีกรรมลายเซ็นด้วยน้ำมันหอมจากดอกไม้ทะเลใต้ นวดแบบราชสำนักสยาม จบด้วยอาบน้ำดอกไม้",
+      img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200&q=85&auto=format&fit=crop",
+    },
+    {
+      name: "Coastal Stone Therapy",
+      duration: "90 min",
+      price: 4800,
+      desc: "บำบัดด้วยหินภูเขาไฟอุ่นจากเกาะภูเก็ต ผ่อนคลายกล้ามเนื้อลึก ฟื้นฟูพลังชีวิต",
+      img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=85&auto=format&fit=crop",
+    },
+    {
+      name: "Jasmine & Rice Polish",
+      duration: "75 min",
+      price: 3800,
+      desc: "ขัดผิวด้วยข้าวหอมมะลิและดอกมะลิสด ผิวเรียบเนียนเปล่งปลั่งทันที",
+      img: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=1200&q=85&auto=format&fit=crop",
+    },
+    {
+      name: "Floating Sound Bath",
+      duration: "60 min",
+      price: 4200,
+      desc: "ลอยตัวในสระน้ำเกลือแร่อุ่น พร้อมเสียงระฆังทิเบตและเครื่องดนตรีอินเดียโบราณ",
+      img: "https://images.unsplash.com/photo-1591343395082-e120087004b4?w=1200&q=85&auto=format&fit=crop",
+    },
+  ];
+
+  return (
+    <>
+      <PageHeader
+        eyebrow="Wellness & Spa"
+        title="The Sanctuary Spa"
+        sub="สปา 6 ห้องบำบัดซ่อนตัวในสวนน้ำตก ออกแบบเพื่อปลุกประสาทสัมผัสทั้งห้า"
+      />
+
+      <section className="relative h-[60vh] min-h-[420px] overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=2000&q=90&auto=format&fit=crop"
+          alt="Spa sanctuary"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(180deg, rgba(10,61,69,0.2) 0%, rgba(10,61,69,0.7) 100%)" }}
+        />
+        <div className="relative z-10 flex h-full items-end px-4 pb-12 md:px-12 md:pb-20">
+          <div className="max-w-2xl text-white">
+            <Eyebrow>Six private rooms</Eyebrow>
+            <h2 className="h-display mt-4 text-white" style={{ fontSize: "clamp(1.75rem, 1.2rem + 2.2vw, 3.25rem)" }}>
+              Where stillness becomes a place
+            </h2>
+            <p className="body-md mt-5 max-w-xl opacity-90">
+              ทุกห้องสปามีสวนส่วนตัว อ่างน้ำหินอ่อน และระเบียงสำหรับพักผ่อนหลังการบำบัด
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-20 md:px-8 md:py-28" style={{ background: PALETTE.cream }}>
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <Eyebrow>Signature Treatments</Eyebrow>
+            <SectionTitle>Rituals of the Andaman</SectionTitle>
+            <p className="body-md mx-auto mt-5 max-w-2xl">
+              ทรีตเมนต์แต่ละอย่างได้แรงบันดาลใจจากธรรมชาติและภูมิปัญญาของภาคใต้
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-10 md:grid-cols-2">
+            {treatments.map((t) => (
+              <div key={t.name} className="group">
+                <div className="aspect-[5/4] overflow-hidden">
+                  <img
+                    src={t.img}
+                    alt={t.name}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="mt-5 flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <h3 className="h-display" style={{ color: PALETTE.ink, fontSize: "clamp(1.5rem, 1.2rem + 0.8vw, 2rem)" }}>
+                      {t.name}
+                    </h3>
+                    <div className="mt-1 text-[11px] font-semibold uppercase tracking-luxe" style={{ color: PALETTE.gold }}>
+                      {t.duration}
+                    </div>
+                    <p className="body-md mt-3">{t.desc}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] uppercase tracking-luxe opacity-60">From</div>
+                    <div className="serif text-2xl" style={{ color: PALETTE.ink }}>
+                      ฿{t.price.toLocaleString()}
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-20 md:px-8 md:py-28" style={{ background: PALETTE.paper }}>
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <Eyebrow>Multi-day Journeys</Eyebrow>
+            <SectionTitle>Reset · Restore · Renew</SectionTitle>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {[
+              { title: "Reset · 3 Nights", tag: "Detox", items: ["ตรวจร่างกายโดยแพทย์", "อาหาร plant-based 3 มื้อ/วัน", "สปา 4 เซสชั่น", "Yoga ทุกเช้า"], price: 38000 },
+              { title: "Restore · 5 Nights", tag: "Recovery", items: ["กายภาพบำบัด", "นวดน้ำมัน 5 ครั้ง", "Sound healing 2 ครั้ง", "เมนูบำรุงเฉพาะบุคคล"], price: 64000 },
+              { title: "Renew · 7 Nights", tag: "Transform", items: ["Personal coach", "Holistic assessment", "สปา 7 ครั้ง", "Private breathwork"], price: 95000 },
+            ].map((j) => (
+              <div
+                key={j.title}
+                className="flex flex-col p-8 md:p-10"
+                style={{ background: PALETTE.cream, border: `1px solid ${PALETTE.gold}55` }}
+              >
+                <div className="text-[10px] font-semibold uppercase tracking-luxe" style={{ color: PALETTE.gold }}>
+                  {j.tag}
+                </div>
+                <h3 className="h-display mt-3" style={{ color: PALETTE.ink, fontSize: "clamp(1.5rem, 1.2rem + 0.8vw, 2rem)" }}>
+                  {j.title}
+                </h3>
+                <ul className="mt-5 space-y-2.5 text-sm md:text-base">
+                  {j.items.map((it) => (
+                    <li key={it} className="flex items-start gap-2">
+                      <Sparkles className="mt-1 h-3.5 w-3.5 shrink-0" style={{ color: PALETTE.gold }} />
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 border-t pt-5" style={{ borderColor: `${PALETTE.gold}55` }}>
+                  <div className="text-[10px] uppercase tracking-luxe opacity-60">From</div>
+                  <div className="serif text-3xl" style={{ color: PALETTE.ink }}>
+                    ฿{j.price.toLocaleString()}
+                  </div>
+                </div>
+                <button
+                  onClick={onBook}
+                  className="mt-6 w-full rounded-none py-3 text-[11px] font-semibold uppercase tracking-luxe transition hover:opacity-90"
+                  style={{ background: PALETTE.ink, color: PALETTE.gold }}
+                >
+                  Inquire
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-20 md:px-8 md:py-28" style={{ background: PALETTE.ink, color: PALETTE.cream }}>
+        <div className="mx-auto max-w-3xl text-center">
+          <Quote className="mx-auto h-10 w-10" style={{ color: PALETTE.gold }} />
+          <p className="serif mt-6 italic leading-relaxed" style={{ fontSize: "clamp(1.25rem, 1rem + 1vw, 1.875rem)" }}>
+            "Wellness is not a treatment we give. It is a memory the body remembers — of when it was last truly at peace."
+          </p>
+          <div className="mt-8 text-[10px] font-semibold uppercase tracking-luxe" style={{ color: PALETTE.gold }}>
+            Spa Director · Andaman Sands
           </div>
         </div>
       </section>
@@ -1056,15 +1322,23 @@ function PageHeader({
     >
       <div className="mx-auto max-w-3xl">
         <div
-          className="text-[10px] font-semibold uppercase tracking-luxe"
+          className="text-[11px] font-semibold uppercase tracking-luxe md:text-xs"
           style={{ color: PALETTE.gold }}
         >
           — {eyebrow} —
         </div>
-        <h1 className="serif mt-4 text-4xl font-light leading-tight md:text-6xl">
+        <h1
+          className="h-display mt-5"
+          style={{ fontSize: "clamp(2.25rem, 1.5rem + 3.2vw, 4.5rem)" }}
+        >
           {title}
         </h1>
-        <p className="mx-auto mt-5 max-w-xl text-sm opacity-80 md:text-base">{sub}</p>
+        <p
+          className="mx-auto mt-6 max-w-2xl opacity-85"
+          style={{ fontSize: "clamp(0.95rem, 0.85rem + 0.4vw, 1.125rem)", lineHeight: 1.7 }}
+        >
+          {sub}
+        </p>
       </div>
     </section>
   );
