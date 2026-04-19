@@ -280,11 +280,29 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="ภาพบรรยากาศรีสอร์ท">
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80",
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80",
+                    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
+                    "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80",
+                    "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80",
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80",
+                    "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
-
-    case "company":
       return {
         ...baseConfig,
         pages: [
