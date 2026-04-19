@@ -6,6 +6,9 @@ import {
   DemoSection,
   DemoCardGrid,
   DemoContactPage,
+  DemoGallery,
+  DemoTable,
+  DemoNewsList,
   type MiniSiteConfig,
 } from "@/components/demo/MiniSite";
 import { getDemo, type DemoMeta } from "@/components/demo/demoData";
@@ -171,11 +174,29 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="บรรยากาศร้านและอาหาร" alt>
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=600&q=80",
+                    "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80",
+                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80",
+                    "https://images.unsplash.com/photo-1567337710282-00832b415979?w=600&q=80",
+                    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
+                    "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80",
+                    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
-
-    case "hotel":
       return {
         ...baseConfig,
         pages: [
@@ -259,11 +280,29 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="ภาพบรรยากาศรีสอร์ท">
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80",
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80",
+                    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
+                    "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80",
+                    "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80",
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80",
+                    "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
-
-    case "company":
       return {
         ...baseConfig,
         pages: [
@@ -338,6 +377,25 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
                       image:
                         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
                     },
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
+          {
+            id: "portfolio",
+            label: "ผลงาน",
+            content: (
+              <DemoSection theme={theme} title="โปรเจกต์ของเรา">
+                <DemoCardGrid
+                  theme={theme}
+                  items={[
+                    { title: "ระบบ ERP โรงแรมในกระบี่", desc: "ลดเวลาทำงาน 40%" },
+                    { title: "เว็บไซต์ E-commerce", desc: "ยอดขายเพิ่ม 3 เท่า" },
+                    { title: "วางระบบ Network สำนักงาน", desc: "150 จุด" },
+                    { title: "Mobile App ส่งอาหาร", desc: "iOS + Android" },
+                    { title: "ที่ปรึกษา Digital Marketing", desc: "Brand Awareness" },
+                    { title: "ระบบ POS ร้านอาหาร", desc: "10 สาขา" },
                   ]}
                 />
               </DemoSection>
@@ -422,6 +480,24 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
                     { title: "ทาสี", desc: "ภายใน-ภายนอก" },
                     { title: "งานเหล็ก", desc: "ประตู รั้ว กันสาด" },
                     { title: "งานระบบ", desc: "ไฟฟ้า ประปา" },
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="ผลงานก่อสร้าง" alt>
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80",
+                    "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+                    "https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=600&q=80",
+                    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80",
+                    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80",
                   ]}
                 />
               </DemoSection>
@@ -514,6 +590,24 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="ภาพถ่ายทรัพย์สิน">
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80",
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80",
+                    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
@@ -598,11 +692,29 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "compare",
+            label: "เปรียบเทียบ",
+            content: (
+              <DemoSection theme={theme} title="เปรียบเทียบประกันรถยนต์">
+                <DemoTable
+                  theme={theme}
+                  headers={["ความคุ้มครอง", "ชั้น 1", "ชั้น 2+", "ชั้น 3+"]}
+                  rows={[
+                    ["รถชน-คู่กรณีมี", "✓", "✓", "✓"],
+                    ["รถชน-ไม่มีคู่กรณี", "✓", "✗", "✗"],
+                    ["ไฟไหม้-โจรกรรม", "✓", "✓", "✗"],
+                    ["น้ำท่วม", "✓", "✗", "✗"],
+                    ["ค่ารักษาพยาบาล", "300,000", "200,000", "100,000"],
+                    ["เบี้ยเริ่มต้น/ปี", "฿15,000", "฿9,500", "฿7,500"],
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
-
-    case "clinic":
       return {
         ...baseConfig,
         pages: [
@@ -670,6 +782,54 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
                       desc: "แพทย์เวชศาสตร์ความงาม",
                       image:
                         "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80",
+                    },
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
+          {
+            id: "schedule",
+            label: "ตารางออกหน่วย",
+            content: (
+              <DemoSection theme={theme} title="ตารางออกหน่วย/ตรวจสุขภาพ">
+                <DemoTable
+                  theme={theme}
+                  headers={["วัน", "เวลา", "บริการ", "สถานที่"]}
+                  rows={[
+                    ["จันทร์", "08:30–12:00", "ตรวจสุขภาพทั่วไป", "ตึก A"],
+                    ["อังคาร", "13:00–16:00", "ฉีดวัคซีนเด็ก", "ตึก B"],
+                    ["พุธ", "08:30–12:00", "ฝากครรภ์", "ตึก A"],
+                    ["พฤหัสบดี", "13:00–16:00", "ออกหน่วยชุมชน", "ม.5 บ้านคลอง"],
+                    ["ศุกร์", "08:30–12:00", "ทันตกรรม", "ตึก B"],
+                    ["เสาร์", "09:00–12:00", "เจาะเลือด-แล็บ", "ตึก A"],
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
+          {
+            id: "news",
+            label: "ข่าวสาร",
+            content: (
+              <DemoSection theme={theme} title="ข่าวสารและประกาศ" alt>
+                <DemoNewsList
+                  theme={theme}
+                  items={[
+                    {
+                      date: "15 เม.ย. 2026",
+                      title: "เปิดให้บริการฉีดวัคซีนไข้หวัดใหญ่",
+                      excerpt: "ฟรี! สำหรับผู้สูงอายุ 65 ปีขึ้นไป จองคิวล่วงหน้าได้",
+                    },
+                    {
+                      date: "10 เม.ย. 2026",
+                      title: "ออกหน่วยตรวจสุขภาพ ม.5 บ้านคลอง",
+                      excerpt: "วันที่ 25 เม.ย. 09:00–12:00 น. ที่ศาลาประชาคม",
+                    },
+                    {
+                      date: "1 เม.ย. 2026",
+                      title: "ปรับเวลาทำการช่วงสงกรานต์",
+                      excerpt: "หยุด 13–15 เม.ย. กลับมาเปิด 16 เม.ย. ตามปกติ",
                     },
                   ]}
                 />
@@ -758,8 +918,27 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="บรรยากาศโฮมสเตย์" alt>
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80",
+                    "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1502780402662-acc01917cf48?w=600&q=80",
+                    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80",
+                    "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=600&q=80",
+                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
   }
+  return { ...baseConfig, pages: [contactPage] };
 }

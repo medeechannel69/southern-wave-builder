@@ -277,6 +277,92 @@ export function DemoCardGrid({
   );
 }
 
+export function DemoGallery({ images }: { images: string[] }) {
+  return (
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+      {images.map((src, i) => (
+        <div
+          key={i}
+          className="group overflow-hidden rounded-xl shadow-md"
+          style={{ aspectRatio: i % 5 === 0 ? "1/1.3" : "1/1" }}
+        >
+          <img
+            src={src}
+            alt={`gallery-${i}`}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function DemoTable({
+  theme,
+  headers,
+  rows,
+}: {
+  theme: DemoTheme;
+  headers: string[];
+  rows: (string | number)[][];
+}) {
+  return (
+    <div className="overflow-x-auto rounded-xl bg-white shadow-md">
+      <table className="w-full text-sm">
+        <thead>
+          <tr style={{ background: theme.primary, color: "#fff" }}>
+            {headers.map((h, i) => (
+              <th key={i} className="px-4 py-3 text-left font-semibold">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} className={i % 2 ? "bg-gray-50" : "bg-white"}>
+              {row.map((c, j) => (
+                <td key={j} className="px-4 py-3 text-gray-700">
+                  {c}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function DemoNewsList({
+  theme,
+  items,
+}: {
+  theme: DemoTheme;
+  items: { date: string; title: string; excerpt: string }[];
+}) {
+  return (
+    <div className="space-y-3">
+      {items.map((it, i) => (
+        <article
+          key={i}
+          className="rounded-xl bg-white p-5 shadow-sm transition hover:shadow-lg"
+          style={{ borderLeft: `4px solid ${theme.accent}` }}
+        >
+          <div className="text-xs font-semibold" style={{ color: theme.accent }}>
+            {it.date}
+          </div>
+          <h3 className="mt-1 text-base font-semibold" style={{ color: theme.primary }}>
+            {it.title}
+          </h3>
+          <p className="mt-1 text-sm text-gray-600">{it.excerpt}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 export function DemoContactPage({ theme, config }: { theme: DemoTheme; config: MiniSiteConfig }) {
   return (
     <DemoSection theme={theme} title="ติดต่อเรา">
