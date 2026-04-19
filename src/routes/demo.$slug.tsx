@@ -801,4 +801,5 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
         ],
       };
   }
+  return { ...baseConfig, pages: [contactPage] };
 }
