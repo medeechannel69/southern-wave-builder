@@ -6,7 +6,7 @@ export function SiteFooter() {
   return (
     <footer id="contact" className="bg-deep-blue text-white">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-12 md:[grid-template-columns:1.5fr_1fr_1fr_1.2fr]">
+        <div className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 md:gap-12 md:[grid-template-columns:1.5fr_1fr_1fr_1.2fr]">
           {/* Brand column */}
           <div className="flex flex-col items-start" style={{ maxWidth: 280 }}>
             <img
@@ -15,7 +15,7 @@ export function SiteFooter() {
               width={180}
               height={54}
               className="h-auto w-[180px] object-contain"
-              style={{ filter: "brightness(0) invert(1)" }}
+              style={{ filter: "drop-shadow(0 0 8px rgba(255,255,255,0.3))" }}
             />
             <p
               className="mt-5"
@@ -25,7 +25,9 @@ export function SiteFooter() {
                 color: "rgba(255,255,255,0.75)",
               }}
             >
-              เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้ — สร้างสรรค์ทุกโปรเจ็กต์ด้วยใจรักและความเข้าใจในวัฒนธรรมท้องถิ่น
+              เว็บไซต์ทำเว็บอันดับ 1 ของคนใต้
+              <br />
+              สร้างสรรค์ทุกโปรเจกต์ด้วยใจรัก
             </p>
             <div
               className="mt-4 flex items-center gap-2 italic"
