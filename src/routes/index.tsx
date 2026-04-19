@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageShell } from "@/components/PageShell";
@@ -143,6 +144,24 @@ const portfolioItems: Record<Category, { img: string; name: string }[]> = {
 function Index() {
   const [activeCat, setActiveCat] = useState<Category>("Restaurant");
   const [device, setDevice] = useState<DeviceView>("desktop");
+  const [stats, setStats] = useState({ projects: 120, years: 5, satisfaction: 98, clients: 100 });
+
+  useEffect(() => {
+    supabase
+      .from("site_settings")
+      .select("stats_projects, stats_years, stats_satisfaction, stats_clients")
+      .eq("id", 1)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (!data) return;
+        setStats({
+          projects: data.stats_projects ?? 120,
+          years: data.stats_years ?? 5,
+          satisfaction: data.stats_satisfaction ?? 98,
+          clients: data.stats_clients ?? 100,
+        });
+      });
+  }, []);
 
   return (
     <PageShell>
