@@ -45,6 +45,7 @@ import { Route as AdminQuotesRouteImport } from './routes/admin.quotes'
 import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
 import { Route as AdminPortfolioRouteImport } from './routes/admin.portfolio'
+import { Route as AdminPasswordRouteImport } from './routes/admin.password'
 import { Route as AdminPackagesRouteImport } from './routes/admin.packages'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
@@ -240,6 +241,11 @@ const AdminPortfolioRoute = AdminPortfolioRouteImport.update({
   path: '/admin/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPasswordRoute = AdminPasswordRouteImport.update({
+  id: '/admin/password',
+  path: '/admin/password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPackagesRoute = AdminPackagesRouteImport.update({
   id: '/admin/packages',
   path: '/admin/packages',
@@ -341,6 +347,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/packages': typeof AdminPackagesRoute
+  '/admin/password': typeof AdminPasswordRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -393,6 +400,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/packages': typeof AdminPackagesRoute
+  '/admin/password': typeof AdminPasswordRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -446,6 +454,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/packages': typeof AdminPackagesRoute
+  '/admin/password': typeof AdminPasswordRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -500,6 +509,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/orders'
     | '/admin/packages'
+    | '/admin/password'
     | '/admin/portfolio'
     | '/admin/projects'
     | '/admin/promotions'
@@ -552,6 +562,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/orders'
     | '/admin/packages'
+    | '/admin/password'
     | '/admin/portfolio'
     | '/admin/projects'
     | '/admin/promotions'
@@ -604,6 +615,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/orders'
     | '/admin/packages'
+    | '/admin/password'
     | '/admin/portfolio'
     | '/admin/projects'
     | '/admin/promotions'
@@ -657,6 +669,7 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminPackagesRoute: typeof AdminPackagesRoute
+  AdminPasswordRoute: typeof AdminPasswordRoute
   AdminPortfolioRoute: typeof AdminPortfolioRoute
   AdminProjectsRoute: typeof AdminProjectsRoute
   AdminPromotionsRoute: typeof AdminPromotionsRoute
@@ -934,6 +947,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/password': {
+      id: '/admin/password'
+      path: '/admin/password'
+      fullPath: '/admin/password'
+      preLoaderRoute: typeof AdminPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/packages': {
       id: '/admin/packages'
       path: '/admin/packages'
@@ -1092,6 +1112,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminPackagesRoute: AdminPackagesRoute,
+  AdminPasswordRoute: AdminPasswordRoute,
   AdminPortfolioRoute: AdminPortfolioRoute,
   AdminProjectsRoute: AdminProjectsRoute,
   AdminPromotionsRoute: AdminPromotionsRoute,
