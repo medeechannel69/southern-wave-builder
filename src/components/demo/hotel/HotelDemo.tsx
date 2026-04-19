@@ -337,8 +337,11 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function SectionTitle({ children, light }: { children: React.ReactNode; light?: boolean }) {
   return (
     <h2
-      className="serif mt-4 text-center text-3xl font-light leading-tight md:text-5xl"
-      style={{ color: light ? PALETTE.cream : PALETTE.ink }}
+      className="h-display mt-4 text-center"
+      style={{
+        color: light ? PALETTE.cream : PALETTE.ink,
+        fontSize: "clamp(2rem, 1.4rem + 2.6vw, 3.75rem)",
+      }}
     >
       {children}
     </h2>
