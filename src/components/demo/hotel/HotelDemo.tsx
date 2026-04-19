@@ -1322,15 +1322,23 @@ function PageHeader({
     >
       <div className="mx-auto max-w-3xl">
         <div
-          className="text-[10px] font-semibold uppercase tracking-luxe"
+          className="text-[11px] font-semibold uppercase tracking-luxe md:text-xs"
           style={{ color: PALETTE.gold }}
         >
           — {eyebrow} —
         </div>
-        <h1 className="serif mt-4 text-4xl font-light leading-tight md:text-6xl">
+        <h1
+          className="h-display mt-5"
+          style={{ fontSize: "clamp(2.25rem, 1.5rem + 3.2vw, 4.5rem)" }}
+        >
           {title}
         </h1>
-        <p className="mx-auto mt-5 max-w-xl text-sm opacity-80 md:text-base">{sub}</p>
+        <p
+          className="mx-auto mt-6 max-w-2xl opacity-85"
+          style={{ fontSize: "clamp(0.95rem, 0.85rem + 0.4vw, 1.125rem)", lineHeight: 1.7 }}
+        >
+          {sub}
+        </p>
       </div>
     </section>
   );
