@@ -54,6 +54,7 @@ type ServiceItem = {
   features: string[];
   priceFrom: number;
   demoSlug: string | null;
+  cover: string;
 };
 
 const services: ServiceItem[] = [
@@ -64,6 +65,7 @@ const services: ServiceItem[] = [
     features: ["1–5 หน้า ปรับแต่งได้", "Mobile Responsive 100%", "โดเมน .com + Hosting ฟรี 1 ปี", "ติดตั้ง LINE/Facebook CTA", "รองรับ Google Maps + ติดต่อ"],
     priceFrom: 5000,
     demoSlug: "company",
+    cover: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80&auto=format&fit=crop",
   },
   {
     icon: Building2,
@@ -72,6 +74,7 @@ const services: ServiceItem[] = [
     features: ["หน้าบริษัท + บริการ + ทีมงาน", "ระบบ CMS หลังบ้าน", "หน้า Career / รับสมัครงาน", "Google Analytics + Search Console", "SEO พื้นฐาน on-page"],
     priceFrom: 9000,
     demoSlug: "company",
+    cover: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop",
   },
   {
     icon: UtensilsCrossed,
@@ -80,6 +83,7 @@ const services: ServiceItem[] = [
     features: ["ระบบเมนู + ฟิลเตอร์หมวดหมู่", "ฟอร์มจองโต๊ะออนไลน์", "Gallery + วิดีโอบรรยากาศร้าน", "Google Maps + เวลาเปิด-ปิด", "เชื่อม LINE OA สั่งอาหาร"],
     priceFrom: 7000,
     demoSlug: "restaurant",
+    cover: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop",
   },
   {
     icon: Hotel,
@@ -88,6 +92,7 @@ const services: ServiceItem[] = [
     features: ["หน้าห้องพัก พร้อมราคา", "ระบบส่งคำขอจอง", "Gallery รูปห้อง + พื้นที่ส่วนกลาง", "หน้าสิ่งอำนวยความสะดวก", "รองรับหลายภาษา (TH/EN)"],
     priceFrom: 12000,
     demoSlug: "hotel",
+    cover: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80&auto=format&fit=crop",
   },
   {
     icon: Home,
@@ -96,6 +101,7 @@ const services: ServiceItem[] = [
     features: ["ระบบลงประกาศไม่จำกัด", "ฟิลเตอร์ขาย/เช่า/ราคา/ทำเล", "หน้ารายละเอียดพร้อม Gallery", "Google Maps แสดงตำแหน่ง", "ฟอร์มสนใจส่งให้นายหน้าทันที"],
     priceFrom: 12000,
     demoSlug: "realestate",
+    cover: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop",
   },
   {
     icon: ShieldCheck,
@@ -104,6 +110,7 @@ const services: ServiceItem[] = [
     features: ["หน้าแผนประกันแยกตามประเภท", "เครื่องคำนวณเบี้ยเบื้องต้น", "ฟอร์มขอข้อมูลเพิ่มเติม", "เชื่อม LINE OA อัตโนมัติ", "หน้าเคลม + เอกสารดาวน์โหลด"],
     priceFrom: 9000,
     demoSlug: "insurance",
+    cover: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80&auto=format&fit=crop",
   },
   {
     icon: Stethoscope,
@@ -112,6 +119,7 @@ const services: ServiceItem[] = [
     features: ["หน้าบริการ + บุคลากร", "ระบบนัดหมายออนไลน์", "ตารางออกหน่วย / คลินิก", "ข่าวสาร + ประกาศ", "ดีไซน์เป็นทางการ น่าเชื่อถือ"],
     priceFrom: 9000,
     demoSlug: "clinic",
+    cover: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80&auto=format&fit=crop",
   },
 ];
 
@@ -140,11 +148,20 @@ function ServicesPage() {
             {services.map((s) => (
               <div
                 key={s.title}
-                className="flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+                className="flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
               >
-                <div className="why-icon mb-4">
-                  <s.icon className="h-8 w-8" />
+                <div className="relative h-44 overflow-hidden bg-secondary/30">
+                  <img
+                    src={s.cover}
+                    alt={s.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                  <div className="absolute left-3 top-3 flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 text-primary shadow-md backdrop-blur">
+                    <s.icon className="h-5 w-5" />
+                  </div>
                 </div>
+                <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-lg font-bold text-primary">{s.title}</h3>
                 <p className="mt-2 text-sm text-foreground/70" style={{ lineHeight: 1.6 }}>{s.desc}</p>
 
@@ -182,6 +199,7 @@ function ServicesPage() {
                       ขอใบเสนอราคา <ArrowRight className="ml-1.5 h-4 w-4" />
                     </Button>
                   </Link>
+                </div>
                 </div>
               </div>
             ))}
