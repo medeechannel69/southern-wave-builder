@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Heart, Mail, Phone, MapPin } from "lucide-react";
-import footerLogo from "@/assets/medeeweb-logo-footer.png";
+import footerLogo from "@/assets/medeeweb-logo-footer.webp";
 
 export function SiteFooter() {
   return (
