@@ -349,47 +349,63 @@ function SectionTitle({ children, light }: { children: React.ReactNode; light?: 
 }
 
 /* ---------- HOME ---------- */
-function HomePage({ onCta, onRooms }: { onCta: () => void; onRooms: () => void }) {
+function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => void; onRooms: () => void }) {
+  const parallax = Math.min(scrollY * 0.4, 240);
+  const heroOpacity = Math.max(1 - scrollY / 600, 0);
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-[88vh] min-h-[560px] w-full overflow-hidden">
-        <img
-          src={heroImage}
-          alt="Andaman Sands resort"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+      {/* Hero with parallax */}
+      <section className="relative h-[92vh] min-h-[620px] w-full overflow-hidden">
+        <div
+          className="absolute inset-0 will-change-transform"
+          style={{ transform: `translate3d(0, ${parallax}px, 0) scale(1.08)` }}
+        >
+          <img
+            src={heroImage}
+            alt="Andaman Sands resort"
+            className="ken-burns absolute inset-0 h-full w-full object-cover"
+          />
+        </div>
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(10,61,69,0.25) 0%, rgba(10,61,69,0.05) 40%, rgba(10,61,69,0.7) 100%)",
+              "linear-gradient(180deg, rgba(10,61,69,0.30) 0%, rgba(10,61,69,0.05) 38%, rgba(10,61,69,0.78) 100%)",
           }}
         />
-        <div className="relative z-10 flex h-full flex-col items-center justify-end px-4 pb-16 text-center text-white md:pb-24">
+        <div
+          className="relative z-10 flex h-full flex-col items-center justify-end px-4 pb-20 text-center text-white md:pb-28"
+          style={{ opacity: heroOpacity, transform: `translate3d(0, ${-parallax * 0.3}px, 0)` }}
+        >
           <div
-            className="mb-4 text-[10px] font-semibold tracking-luxe md:text-xs"
+            className="mb-5 text-xs font-semibold tracking-luxe md:text-sm"
             style={{ color: "#F8E9C5" }}
           >
             ★★★★★  ·  KRABI, THAILAND
           </div>
-          <h1 className="serif max-w-4xl text-4xl font-light leading-[1.05] md:text-7xl">
+          <h1
+            className="h-display max-w-5xl"
+            style={{ fontSize: "clamp(2.75rem, 1.6rem + 5.5vw, 6.5rem)" }}
+          >
             Where the Andaman <em className="font-light italic">whispers</em>
           </h1>
-          <p className="mt-5 max-w-xl text-sm font-light opacity-90 md:text-base">
+          <p
+            className="mt-6 max-w-2xl font-light opacity-95"
+            style={{ fontSize: "clamp(1rem, 0.9rem + 0.4vw, 1.25rem)", lineHeight: 1.6 }}
+          >
             พักผ่อนระดับเหนือกาลเวลา ใต้เงาหน้าผาหินปูนและเสียงคลื่นทะเลใส
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={onCta}
-              className="rounded-none px-7 py-3 text-[11px] font-semibold uppercase tracking-luxe transition-all hover:scale-[1.02]"
+              className="rounded-none px-8 py-3.5 text-xs font-semibold uppercase tracking-luxe transition-all hover:scale-[1.02] md:text-[13px]"
               style={{ background: PALETTE.gold, color: PALETTE.ink }}
             >
               Reserve Your Stay
             </button>
             <button
               onClick={onRooms}
-              className="rounded-none border border-white/70 px-7 py-3 text-[11px] font-semibold uppercase tracking-luxe text-white transition hover:bg-white hover:text-[var(--ink)]"
+              className="rounded-none border border-white/70 px-8 py-3.5 text-xs font-semibold uppercase tracking-luxe text-white transition hover:bg-white hover:text-[var(--ink)] md:text-[13px]"
               style={{ "--ink": PALETTE.ink } as React.CSSProperties}
             >
               Explore Suites
