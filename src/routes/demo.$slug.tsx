@@ -590,6 +590,24 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="ภาพถ่ายทรัพย์สิน">
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80",
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80",
+                    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
