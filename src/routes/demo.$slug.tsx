@@ -404,6 +404,8 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
           contactPage,
         ],
       };
+
+    case "contractor":
       return {
         ...baseConfig,
         pages: [
