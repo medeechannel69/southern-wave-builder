@@ -425,6 +425,27 @@ function Index() {
         </div>
       </section>
 
+      {/* STATS */}
+      <section className="bg-soft-teal py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {[
+              { value: stats.projects, suffix: "+", label: "โปรเจกต์" },
+              { value: stats.clients, suffix: "+", label: "ลูกค้า" },
+              { value: stats.years, suffix: " ปี", label: "ประสบการณ์" },
+              { value: stats.satisfaction, suffix: "%", label: "ความพึงพอใจ" },
+            ].map((s) => (
+              <div key={s.label} className="rounded-xl bg-white p-6 shadow-[var(--shadow-elegant)]">
+                <div className="font-display text-3xl md:text-4xl font-bold text-primary">
+                  {s.value}{s.suffix}
+                </div>
+                <div className="mt-1 text-sm md:text-base text-foreground/70">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="bg-deep-blue text-white py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 md:px-8 text-center">
