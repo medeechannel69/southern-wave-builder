@@ -15,6 +15,7 @@ export type DemoMeta = {
   tagline: string;
   description: string;
   cover: string;
+  priceFrom: number;
   theme: DemoTheme;
 };
 
