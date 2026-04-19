@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageShell } from "@/components/PageShell";
+import { FAQChatWidget } from "@/components/FAQChatWidget";
 import heroKrabi from "@/assets/hero-krabi-waves.webp";
 import svcBusiness from "@/assets/service-business.jpg";
 import svcHotel from "@/assets/service-hotel.jpg";
@@ -469,6 +470,7 @@ function Index() {
           </div>
         </div>
       </section>
+      <FAQChatWidget />
     </PageShell>
   );
 }
