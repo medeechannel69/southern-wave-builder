@@ -155,6 +155,7 @@ function ServicesPage() {
                     src={s.cover}
                     alt={s.title}
                     loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   <div className="absolute left-3 top-3 flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 text-primary shadow-md backdrop-blur">
