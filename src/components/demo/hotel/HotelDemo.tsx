@@ -204,10 +204,11 @@ export function HotelDemo() {
 
       {/* === Page === */}
       <main key={active} className="fade-up">
-        {active === "home" && <HomePage onCta={() => goTo("contact")} onRooms={() => goTo("rooms")} />}
+        {active === "home" && <HomePage scrollY={scrollY} onCta={() => goTo("contact")} onRooms={() => goTo("rooms")} />}
         {active === "rooms" && <RoomsPage onBook={() => goTo("contact")} />}
         {active === "dining" && <DiningPage />}
         {active === "experiences" && <ExperiencesPage />}
+        {active === "wellness" && <WellnessPage onBook={() => goTo("contact")} />}
         {active === "gallery" && <GalleryPage />}
         {active === "contact" && <ContactPage />}
       </main>
