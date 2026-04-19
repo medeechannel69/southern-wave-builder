@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PageShell, PageHero } from "@/components/PageShell";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/faq")({
@@ -63,6 +65,7 @@ type FaqItem = { id: string; category: string; question: string; answer: string 
 function FaqPage() {
   const [items, setItems] = useState<FaqItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     supabase
@@ -76,8 +79,14 @@ function FaqPage() {
       });
   }, []);
 
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return items;
+    return items.filter((it) => it.question.toLowerCase().includes(q) || it.answer.toLowerCase().includes(q));
+  }, [items, query]);
+
   // Group by category preserving sort order
-  const categories = items.reduce<Record<string, FaqItem[]>>((acc, it) => {
+  const categories = filtered.reduce<Record<string, FaqItem[]>>((acc, it) => {
     (acc[it.category] ??= []).push(it);
     return acc;
   }, {});
@@ -87,10 +96,19 @@ function FaqPage() {
       <PageHero eyebrow="คำถามที่พบบ่อย" title="คำถามที่พบบ่อย" subtitle="รวมคำถามที่ลูกค้าถามเรามากที่สุด — หากไม่พบคำตอบ ทักไลน์เราได้เลย" />
       <section className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-4xl px-4 md:px-8 space-y-10">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="ค้นหาคำถาม เช่น ราคา ผ่อน เวลา…"
+              className="rounded-full pl-10"
+            />
+          </div>
           {loading ? (
             [1, 2, 3].map((i) => <div key={i} className="h-32 animate-pulse rounded-2xl bg-secondary/50" />)
-          ) : items.length === 0 ? (
-            <p className="text-center text-muted-foreground">ยังไม่มีคำถาม</p>
+          ) : filtered.length === 0 ? (
+            <p className="text-center text-muted-foreground">ไม่พบคำถามที่ค้นหา</p>
           ) : (
             Object.entries(categories).map(([cat, list]) => (
               <div key={cat}>

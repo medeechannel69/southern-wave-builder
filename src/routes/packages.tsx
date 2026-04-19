@@ -167,6 +167,40 @@ function PackagesPage() {
               </table>
             </div>
           </div>
+
+          {/* FAQ */}
+          <div className="mt-16">
+            <h2 className="section-heading">คำถามที่พบบ่อย<span className="heading-accent">เกี่ยวกับแพ็กเกจ</span></h2>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {[
+                { q: "ราคารวมโดเมน + โฮสติ้งหรือไม่?", a: "รวมแล้ว — ทุกแพ็กเกจแถมโดเมน .com + โฮสติ้งฟรี 1 ปี ไม่มีค่าใช้จ่ายเพิ่ม" },
+                { q: "ผ่อนชำระได้ไหม?", a: "ผ่อน 2 งวด 50/50 — มัดจำ 50% เริ่มงาน, อีก 50% ก่อนส่งมอบ" },
+                { q: "แก้ไขฟรีกี่รอบ?", a: "ฟรี 3 รอบ (batch แก้รวมต่อรอบ) หลังจากนั้นคิดค่าแก้ไขตามขอบเขตงาน" },
+                { q: "ใช้เวลาทำกี่วัน?", a: "Starter 7 วัน, Business 14 วัน, Pro 21 วัน — นับจากวันที่ลูกค้าส่งข้อมูลครบ" },
+                { q: "ปีถัดไปต้องจ่ายเท่าไหร่?", a: "ค่าต่อโดเมน + โฮสติ้ง ประมาณ 2,000 บาท/ปี" },
+                { q: "เปลี่ยนแพ็กเกจระหว่างทางได้ไหม?", a: "ได้ — อัปเกรดได้ตลอด จ่ายเฉพาะส่วนต่าง" },
+              ].map((f) => (
+                <div key={f.q} className="rounded-xl border border-border bg-white p-5 shadow-sm">
+                  <p className="font-semibold text-primary">{f.q}</p>
+                  <p className="mt-2 text-sm text-muted-foreground" style={{ lineHeight: 1.6 }}>{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-16 rounded-3xl bg-soft-teal p-8 text-center md:p-12">
+            <h2 className="text-2xl font-bold text-primary md:text-3xl">พร้อมเริ่มเว็บไซต์ของคุณแล้วใช่ไหม?</h2>
+            <p className="mt-3 text-foreground/70">เลือกแพ็กเกจ สั่งทำได้เลย ทีมงานเริ่มงานทันทีหลังยืนยัน</p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link to="/order">
+                <Button className="rounded-full bg-orange px-7 text-orange-foreground hover:bg-orange/90 font-semibold">สั่งทำได้เลย</Button>
+              </Link>
+              <Link to="/quote">
+                <Button variant="outline" className="rounded-full px-7 border-primary text-primary hover:bg-primary hover:text-white">ขอใบเสนอราคา</Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </PageShell>

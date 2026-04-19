@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin, MessageCircle, Check } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle, Check, Clock } from "lucide-react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { sanitizeText } from "@/lib/sanitize";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -34,17 +37,42 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "กรุณากรอกชื่อ").max(100),
+  phone: z.string().trim().min(8, "เบอร์ไม่ถูกต้อง").max(20),
+  email: z.string().trim().email("อีเมลไม่ถูกต้อง").max(255).optional().or(z.literal("")),
+  message: z.string().trim().max(1000).optional(),
+});
+
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const parsed = contactSchema.safeParse(form);
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "ข้อมูลไม่ถูกต้อง");
+      return;
+    }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 600));
+    const { error } = await supabase.from("leads").insert({
+      name: sanitizeText(form.name),
+      phone: sanitizeText(form.phone),
+      message: form.message ? sanitizeText(form.message) : null,
+      source: "contact",
+      status: "new",
+    });
     setLoading(false);
+    if (error) {
+      toast.error("ส่งข้อความไม่สำเร็จ ลองใหม่อีกครั้ง");
+      return;
+    }
     setSubmitted(true);
     toast.success("ส่งข้อความสำเร็จ — ทีมงานจะติดต่อกลับโดยเร็วที่สุด");
   };
+
   return (
     <PageShell>
       <PageHero eyebrow="ติดต่อเรา" title="ติดต่อ MedeeWeb" subtitle="ปรึกษาฟรี ไม่มีค่าใช้จ่าย — ทีมงานพร้อมตอบทุกคำถาม" />
@@ -63,15 +91,19 @@ function ContactPage() {
               <form onSubmit={onSubmit} className="mt-6 space-y-4">
                 <div>
                   <Label htmlFor="name">ชื่อ-นามสกุล</Label>
-                  <Input id="name" required placeholder="ชื่อของคุณ" />
+                  <Input id="name" required placeholder="ชื่อของคุณ" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 </div>
                 <div>
                   <Label htmlFor="phone">เบอร์โทรศัพท์</Label>
-                  <Input id="phone" type="tel" required placeholder="08X-XXX-XXXX" />
+                  <Input id="phone" type="tel" required placeholder="08X-XXX-XXXX" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                </div>
+                <div>
+                  <Label htmlFor="email">อีเมล (ไม่บังคับ)</Label>
+                  <Input id="email" type="email" placeholder="you@example.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
                 </div>
                 <div>
                   <Label htmlFor="msg">ข้อความ</Label>
-                  <Textarea id="msg" required rows={5} placeholder="รายละเอียดที่ต้องการสอบถาม" />
+                  <Textarea id="msg" rows={5} placeholder="รายละเอียดที่ต้องการสอบถาม" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
                 </div>
                 <Button disabled={loading} type="submit" className="w-full rounded-full bg-orange text-orange-foreground hover:bg-orange/90 font-semibold">
                   {loading ? "กำลังส่ง..." : "ส่งข้อความ"}
@@ -98,14 +130,30 @@ function ContactPage() {
                 </div>
               </a>
             ))}
-            <div id="map" className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-soft-teal">
+
+            {/* Office hours */}
+            <div className="rounded-xl border border-border bg-soft-teal p-4">
+              <div className="flex items-center gap-2 font-semibold text-primary">
+                <Clock className="h-5 w-5" /> เวลาทำการ
+              </div>
+              <ul className="mt-2 space-y-1 text-sm text-foreground/80">
+                <li className="flex justify-between"><span>จันทร์ – ศุกร์</span><span>09:00 – 18:00</span></li>
+                <li className="flex justify-between"><span>เสาร์</span><span>10:00 – 16:00</span></li>
+                <li className="flex justify-between"><span>อาทิตย์</span><span>หยุด</span></li>
+                <li className="mt-1 text-xs text-muted-foreground">ฉุกเฉินติดต่อทาง LINE ได้ 24 ชม.</li>
+              </ul>
+            </div>
+
+            {/* Real Krabi map */}
+            <div id="map" className="aspect-video overflow-hidden rounded-xl border border-border bg-soft-teal">
               <iframe
-                title="MedeeWeb location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31735.5!2d98.91!3d8.06!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z4LiB4Lij4Liw4Lia4Li14LmI!5e0!3m2!1sen!2sth!4v1700000000"
+                title="MedeeWeb — กระบี่"
+                src="https://www.google.com/maps?q=8.0863,98.9063&z=12&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
           </div>

@@ -15,6 +15,7 @@ export type DemoMeta = {
   tagline: string;
   description: string;
   cover: string;
+  priceFrom: number;
   theme: DemoTheme;
 };
 
@@ -27,6 +28,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์ร้านอาหารสไตล์ใต้ พร้อมเมนู จองโต๊ะ และโปรโมชั่น",
     cover:
       "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 7000,
     theme: {
       primary: "#B91C1C",
       accent: "#F59E0B",
@@ -43,6 +45,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์โรงแรมพร้อมระบบจองห้อง แกลเลอรี และข้อมูลสิ่งอำนวยความสะดวก",
     cover:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 12000,
     theme: {
       primary: "#0E7490",
       accent: "#06B6D4",
@@ -59,6 +62,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์บริษัทแบบมืออาชีพ พร้อมหน้าบริการ ทีมงาน และเคสงาน",
     cover:
       "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 9000,
     theme: {
       primary: "#1E40AF",
       accent: "#3B82F6",
@@ -75,6 +79,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์ผู้รับเหมา พร้อมผลงาน บริการ และฟอร์มขอใบเสนอราคา",
     cover:
       "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 8000,
     theme: {
       primary: "#92400E",
       accent: "#F59E0B",
@@ -91,6 +96,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์ลงประกาศขาย-เช่าอสังหาฯ พร้อมแกลเลอรี และค้นหาตามทำเล",
     cover:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 12000,
     theme: {
       primary: "#065F46",
       accent: "#10B981",
@@ -107,6 +113,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์ตัวแทนประกัน พร้อมแพ็กเกจ คำนวณเบี้ย และฟอร์มขอข้อมูล",
     cover:
       "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 9000,
     theme: {
       primary: "#1E3A8A",
       accent: "#F97316",
@@ -123,6 +130,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์คลินิกความงาม พร้อมบริการ แพทย์ และระบบนัดหมาย",
     cover:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 9000,
     theme: {
       primary: "#BE185D",
       accent: "#EC4899",
@@ -139,6 +147,7 @@ export const DEMOS: DemoMeta[] = [
     description: "เว็บไซต์โฮมสเตย์ บอกเล่าเรื่องราว ห้องพัก กิจกรรม และจุดท่องเที่ยวใกล้เคียง",
     cover:
       "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80&auto=format&fit=crop",
+    priceFrom: 8000,
     theme: {
       primary: "#7C2D12",
       accent: "#84CC16",

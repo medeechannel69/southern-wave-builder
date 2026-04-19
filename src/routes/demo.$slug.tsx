@@ -46,7 +46,12 @@ function DemoMiniSite() {
   const { demo } = Route.useLoaderData();
   const config = buildConfig(demo);
   return (
-    <DemoBar industryLabel={demo.industry} industryName={demo.brand}>
+    <DemoBar
+      industryLabel={demo.industry}
+      industryName={demo.brand}
+      slug={demo.slug}
+      priceFrom={demo.priceFrom}
+    >
       <MiniSite config={config} />
     </DemoBar>
   );
