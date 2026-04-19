@@ -6,10 +6,7 @@ export function SiteFooter() {
   return (
     <footer id="contact" className="bg-deep-blue text-white">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
-        <div
-          className="grid gap-10 md:gap-12"
-          style={{ gridTemplateColumns: "1.5fr 1fr 1fr 1.2fr" }}
-        >
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-12 md:[grid-template-columns:1.5fr_1fr_1fr_1.2fr]">
           {/* Brand column */}
           <div className="flex flex-col items-start" style={{ maxWidth: 280 }}>
             <img
