@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
   LogOut, ShoppingCart, Users, FileText, ListChecks, Megaphone, LayoutDashboard, UserCog,
-  Settings, Globe, Image, Package, Plus, Star, Newspaper, HelpCircle, BarChart3, Search,
+  Settings, Globe, Image, Package, Plus, Star, Newspaper, HelpCircle, BarChart3, Search, KeyRound,
 } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 
@@ -29,6 +29,7 @@ const nav = [
 
 const adminOnlyNav: typeof nav = [
   { to: "/admin/users", label: "ผู้ใช้ระบบ", icon: UserCog, exact: false },
+  { to: "/admin/password", label: "เปลี่ยนรหัสผ่าน", icon: KeyRound, exact: false },
 ];
 
 export function AdminShell({ children }: { children: ReactNode }) {

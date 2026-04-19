@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageShell } from "@/components/PageShell";
@@ -143,6 +144,24 @@ const portfolioItems: Record<Category, { img: string; name: string }[]> = {
 function Index() {
   const [activeCat, setActiveCat] = useState<Category>("Restaurant");
   const [device, setDevice] = useState<DeviceView>("desktop");
+  const [stats, setStats] = useState({ projects: 120, years: 5, satisfaction: 98, clients: 100 });
+
+  useEffect(() => {
+    supabase
+      .from("site_settings")
+      .select("stats_projects, stats_years, stats_satisfaction, stats_clients")
+      .eq("id", 1)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (!data) return;
+        setStats({
+          projects: data.stats_projects ?? 120,
+          years: data.stats_years ?? 5,
+          satisfaction: data.stats_satisfaction ?? 98,
+          clients: data.stats_clients ?? 100,
+        });
+      });
+  }, []);
 
   return (
     <PageShell>
@@ -403,6 +422,27 @@ function Index() {
           <svg className="block w-full h-auto" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
             <path fill="#1B4F9B" d="M0,60 C240,10 480,100 720,50 C960,0 1200,80 1440,30 L1440,100 L0,100 Z" />
           </svg>
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section className="bg-soft-teal py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {[
+              { value: stats.projects, suffix: "+", label: "โปรเจกต์" },
+              { value: stats.clients, suffix: "+", label: "ลูกค้า" },
+              { value: stats.years, suffix: " ปี", label: "ประสบการณ์" },
+              { value: stats.satisfaction, suffix: "%", label: "ความพึงพอใจ" },
+            ].map((s) => (
+              <div key={s.label} className="rounded-xl bg-white p-6 shadow-[var(--shadow-elegant)]">
+                <div className="font-display text-3xl md:text-4xl font-bold text-primary">
+                  {s.value}{s.suffix}
+                </div>
+                <div className="mt-1 text-sm md:text-base text-foreground/70">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

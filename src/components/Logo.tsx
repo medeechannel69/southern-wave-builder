@@ -1,5 +1,4 @@
-import logoHeader from "@/assets/medeeweb-logo-header.png";
-import logoFooter from "@/assets/medeeweb-logo-footer.png";
+import logoImg from "@/assets/medeeweb-logo.webp";
 
 export function Logo({
   className = "",
@@ -11,7 +10,8 @@ export function Logo({
   textClassName?: string;
   variant?: "header" | "footer";
 }) {
-  const src = variant === "footer" ? logoFooter : logoHeader;
+  const src = logoImg;
+  void variant;
   return (
     <div className={`flex items-center ${textClassName}`}>
       <img
