@@ -692,11 +692,29 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "compare",
+            label: "เปรียบเทียบ",
+            content: (
+              <DemoSection theme={theme} title="เปรียบเทียบประกันรถยนต์">
+                <DemoTable
+                  theme={theme}
+                  headers={["ความคุ้มครอง", "ชั้น 1", "ชั้น 2+", "ชั้น 3+"]}
+                  rows={[
+                    ["รถชน-คู่กรณีมี", "✓", "✓", "✓"],
+                    ["รถชน-ไม่มีคู่กรณี", "✓", "✗", "✗"],
+                    ["ไฟไหม้-โจรกรรม", "✓", "✓", "✗"],
+                    ["น้ำท่วม", "✓", "✗", "✗"],
+                    ["ค่ารักษาพยาบาล", "300,000", "200,000", "100,000"],
+                    ["เบี้ยเริ่มต้น/ปี", "฿15,000", "฿9,500", "฿7,500"],
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
-
-    case "clinic":
       return {
         ...baseConfig,
         pages: [
