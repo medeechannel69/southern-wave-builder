@@ -18,9 +18,6 @@ import {
   Instagram,
   Facebook,
   Plane,
-  Leaf,
-  Flower2,
-  HeartPulse,
   ChevronLeft,
 } from "lucide-react";
 import heroImage from "@/assets/demo-hotel-hero.jpg";
