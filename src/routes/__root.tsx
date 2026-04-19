@@ -143,13 +143,11 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "dns-prefetch", href: "https://images.unsplash.com" },
-      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&family=Sarabun:wght@300;400;500;700&display=swap" },
-      // Removed font preload — Google Fonts rotates the woff2 hash so a hardcoded
-      // preload URL would 404. The stylesheet above already loads the correct file.
+      // Self-hosted fonts (Prompt + Sarabun) — declared via @font-face in styles.css
+      // Preload the most-used weight to avoid FOIT on first paint
+      { rel: "preload", href: "/fonts/sarabun-400-thai.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
+      { rel: "preload", href: "/fonts/prompt-700-thai.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
     ],
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(organizationLd) },
