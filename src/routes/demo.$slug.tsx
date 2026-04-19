@@ -715,6 +715,8 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
           contactPage,
         ],
       };
+
+    case "clinic":
       return {
         ...baseConfig,
         pages: [
