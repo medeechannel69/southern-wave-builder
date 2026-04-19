@@ -6,11 +6,13 @@ import { Card } from "@/components/ui/card";
 import { PageShell } from "@/components/PageShell";
 import { FAQChatWidget } from "@/components/FAQChatWidget";
 import heroKrabi from "@/assets/hero-krabi-waves.webp";
-import svcBusiness from "@/assets/service-business.jpg";
-import svcHotel from "@/assets/service-hotel.jpg";
-import svcRestaurant from "@/assets/service-restaurant.jpg";
-import svcCorporate from "@/assets/service-corporate.jpg";
-import svcRealEstate from "@/assets/service-realestate.jpg";
+
+// Real photographs (Unsplash) — replaces the previous illustrated service images
+const svcBusiness = "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80&auto=format&fit=crop";
+const svcCorporate = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop";
+const svcRestaurant = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop";
+const svcHotel = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80&auto=format&fit=crop";
+const svcRealEstate = "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop";
 import mkRestaurant from "@/assets/mockup-restaurant.jpg";
 import mkHotel from "@/assets/mockup-hotel.jpg";
 import mkCompany from "@/assets/mockup-company.jpg";
