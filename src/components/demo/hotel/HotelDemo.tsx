@@ -55,6 +55,7 @@ const NAV = [
   { id: "rooms", label: "Suites & Villas" },
   { id: "dining", label: "Dining" },
   { id: "experiences", label: "Experiences" },
+  { id: "wellness", label: "Wellness" },
   { id: "gallery", label: "Gallery" },
   { id: "contact", label: "Reserve" },
 ];
