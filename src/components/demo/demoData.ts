@@ -1,5 +1,5 @@
 import type { DemoTheme } from "@/components/demo/MiniSite";
-
+import hotelHero from "@/assets/demo-hotel-hero.jpg";
 export type DemoMeta = {
   slug:
     | "restaurant"
@@ -40,18 +40,17 @@ export const DEMOS: DemoMeta[] = [
   {
     slug: "hotel",
     industry: "โรงแรม / รีสอร์ท",
-    brand: "อันดามัน รีสอร์ท",
-    tagline: "พักผ่อนริมทะเลกระบี่",
-    description: "เว็บไซต์โรงแรมพร้อมระบบจองห้อง แกลเลอรี และข้อมูลสิ่งอำนวยความสะดวก",
-    cover:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80&auto=format&fit=crop",
-    priceFrom: 12000,
+    brand: "Andaman Sands",
+    tagline: "A private sanctuary on the Andaman coast",
+    description: "เว็บไซต์โรงแรม luxury 5 ดาว · ออกแบบระดับ Aman/Six Senses · 6 หน้า พร้อมระบบจองห้อง",
+    cover: hotelHero,
+    priceFrom: 25000,
     theme: {
-      primary: "#0E7490",
-      accent: "#06B6D4",
-      bg: "#F0FDFF",
-      text: "#0F172A",
-      heroBg: "linear-gradient(135deg, #CFFAFE 0%, #BAE6FD 100%)",
+      primary: "#0A3D45",
+      accent: "#C9A961",
+      bg: "#F8F4ED",
+      text: "#0A3D45",
+      heroBg: "linear-gradient(135deg, #F8F4ED 0%, #E8DCC0 100%)",
     },
   },
   {
