@@ -13,6 +13,7 @@ import {
 } from "@/components/demo/MiniSite";
 import { getDemo, type DemoMeta } from "@/components/demo/demoData";
 import { Button } from "@/components/ui/button";
+import { HotelDemo } from "@/components/demo/hotel/HotelDemo";
 
 export const Route = createFileRoute("/demo/$slug")({
   loader: ({ params }) => {
@@ -47,7 +48,6 @@ export const Route = createFileRoute("/demo/$slug")({
 
 function DemoMiniSite() {
   const { demo } = Route.useLoaderData();
-  const config = buildConfig(demo);
   return (
     <DemoBar
       industryLabel={demo.industry}
@@ -55,7 +55,7 @@ function DemoMiniSite() {
       slug={demo.slug}
       priceFrom={demo.priceFrom}
     >
-      <MiniSite config={config} />
+      {demo.slug === "hotel" ? <HotelDemo /> : <MiniSite config={buildConfig(demo)} />}
     </DemoBar>
   );
 }
