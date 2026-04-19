@@ -485,6 +485,24 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="ผลงานก่อสร้าง" alt>
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80",
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80",
+                    "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+                    "https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=600&q=80",
+                    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80",
+                    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
