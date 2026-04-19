@@ -32,7 +32,7 @@ export const Route = createFileRoute("/topup")({
   component: TopupPage,
 });
 
-type Item = { id: string; name: string; price: string; unit: string | null; icon: string | null };
+type Item = { id: string; name: string; price: string; unit: string | null; icon: string | null; description: string | null };
 
 function getIcon(name: string | null) {
   if (!name) return Sparkles;
@@ -47,7 +47,7 @@ function TopupPage() {
   useEffect(() => {
     supabase
       .from("topup_items")
-      .select("id, name, price, unit, icon")
+      .select("id, name, price, unit, icon, description")
       .eq("visible", true)
       .order("sort_order", { ascending: true })
       .then(({ data }) => {
@@ -82,11 +82,14 @@ function TopupPage() {
                     <div className="flex flex-1 flex-col items-center p-6 text-center">
                       <div className="why-icon mb-4"><Icon className="h-9 w-9" /></div>
                       <h3 className="text-lg font-semibold text-primary">{it.name}</h3>
+                      {it.description && (
+                        <p className="mt-2 text-sm text-muted-foreground" style={{ lineHeight: 1.6 }}>{it.description}</p>
+                      )}
                       <div className="mt-3">
                         <span className="text-3xl font-bold text-orange">{it.price}</span>
                         {it.unit && <span className="ml-1 text-sm text-muted-foreground">{it.unit}</span>}
                       </div>
-                      <Link to="/quote" className="mt-5 w-full">
+                      <Link to="/order" className="mt-5 w-full">
                         <Button className="w-full rounded-full bg-primary text-white hover:bg-primary/90">เพิ่มลงคำสั่งซื้อ</Button>
                       </Link>
                     </div>

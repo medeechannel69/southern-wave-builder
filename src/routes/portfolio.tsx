@@ -111,7 +111,13 @@ function PortfolioPage() {
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <p className="mt-10 text-center text-muted-foreground">ยังไม่มีผลงาน</p>
+            <div className="mt-12 rounded-2xl border border-dashed border-border bg-soft-teal/40 p-10 text-center">
+              <p className="text-base font-semibold text-primary">ยังไม่มีผลงานในหมวดนี้</p>
+              <p className="mt-2 text-sm text-muted-foreground">ลองเลือกหมวดอื่น หรือดูตัวอย่างเว็บไซต์ที่เราเตรียมไว้</p>
+              <Link to="/demo" className="mt-4 inline-block">
+                <Button className="rounded-full bg-orange text-orange-foreground hover:bg-orange/90">ดูตัวอย่างเว็บไซต์</Button>
+              </Link>
+            </div>
           ) : (
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((item) => (
@@ -135,9 +141,9 @@ function PortfolioPage() {
                       <p className="text-xs text-muted-foreground">{item.category}</p>
                     </div>
                     {item.demo_url && (
-                      <a href={item.demo_url}>
+                      <a href={item.demo_url} target={item.is_real ? "_blank" : undefined} rel="noopener noreferrer">
                         <Button size="sm" variant="outline" className="rounded-full border-primary text-primary hover:bg-primary hover:text-white">
-                          ดู <ArrowRight className="ml-1 h-3 w-3" />
+                          {item.is_real ? "เว็บจริง" : "ดู Demo"} <ArrowRight className="ml-1 h-3 w-3" />
                         </Button>
                       </a>
                     )}
