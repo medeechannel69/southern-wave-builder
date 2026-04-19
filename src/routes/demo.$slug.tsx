@@ -918,6 +918,25 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="บรรยากาศโฮมสเตย์" alt>
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80",
+                    "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1502780402662-acc01917cf48?w=600&q=80",
+                    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80",
+                    "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=600&q=80",
+                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
