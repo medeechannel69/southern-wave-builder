@@ -200,6 +200,7 @@ function ServicesPage() {
                     </Button>
                   </Link>
                 </div>
+                </div>
               </div>
             ))}
           </div>
