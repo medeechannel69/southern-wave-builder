@@ -174,11 +174,29 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "gallery",
+            label: "แกลเลอรี",
+            content: (
+              <DemoSection theme={theme} title="บรรยากาศร้านและอาหาร" alt>
+                <DemoGallery
+                  images={[
+                    "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=600&q=80",
+                    "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80",
+                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80",
+                    "https://images.unsplash.com/photo-1567337710282-00832b415979?w=600&q=80",
+                    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
+                    "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=80",
+                    "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80",
+                    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80",
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
-
-    case "hotel":
       return {
         ...baseConfig,
         pages: [
