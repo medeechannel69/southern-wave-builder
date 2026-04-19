@@ -64,9 +64,14 @@ export function HotelDemo() {
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 60);
+      setScrollY(y);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -86,11 +91,18 @@ export function HotelDemo() {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
         .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
         .tracking-luxe { letter-spacing: 0.28em; }
         .fade-up { animation: fadeUp 0.9s cubic-bezier(.2,.8,.2,1) both; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+        .h-display { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; }
+        .body-lg { font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.125rem); line-height: 1.75; }
+        .body-md { font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1rem); line-height: 1.7; }
+        @keyframes ken { 0% { transform: scale(1.05) translateY(0); } 100% { transform: scale(1.15) translateY(-2%); } }
+        .ken-burns { animation: ken 18s ease-in-out infinite alternate; }
+        .lightbox-fade { animation: lbFade 0.25s ease-out both; }
+        @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
       `}</style>
 
       {/* === Navigation === */}
