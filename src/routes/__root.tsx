@@ -148,13 +148,8 @@ export const Route = createRootRoute({
       { rel: "dns-prefetch", href: "https://images.unsplash.com" },
       { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&family=Sarabun:wght@300;400;500;700&display=swap" },
-      {
-        rel: "preload",
-        as: "font",
-        href: "https://fonts.gstatic.com/s/sarabun/v15/DtVmJx26TKEr37c9YHZJmnYI5gnOpg.woff2",
-        crossOrigin: "anonymous",
-        type: "font/woff2",
-      },
+      // Removed font preload — Google Fonts rotates the woff2 hash so a hardcoded
+      // preload URL would 404. The stylesheet above already loads the correct file.
     ],
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(organizationLd) },
