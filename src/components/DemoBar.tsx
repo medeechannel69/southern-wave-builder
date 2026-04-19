@@ -14,10 +14,14 @@ const widths: Record<Viewport, string> = {
 export function DemoBar({
   industryLabel,
   industryName,
+  slug,
+  priceFrom,
   children,
 }: {
   industryLabel: string;
   industryName: string;
+  slug?: string;
+  priceFrom?: number;
   children: ReactNode;
 }) {
   const [viewport, setViewport] = useState<Viewport>("desktop");
@@ -54,7 +58,7 @@ export function DemoBar({
                 MedeeWeb Demo
               </span>
               <span className="text-xs font-semibold md:text-sm">
-                {industryLabel} — {industryName}
+                ตัวอย่างเว็บ {industryName} · {industryLabel}
               </span>
             </div>
           </div>
@@ -65,13 +69,18 @@ export function DemoBar({
             {btn("mobile", Smartphone, "Mobile")}
           </div>
 
-          <Link to="/quote" className="hidden md:inline-flex">
+          <Link
+            to="/order"
+            search={slug ? { type: slug } : undefined}
+            className="inline-flex"
+          >
             <Button
               size="sm"
-              className="rounded-full bg-orange text-orange-foreground hover:bg-orange/90"
+              className="rounded-full bg-orange text-orange-foreground hover:bg-orange/90 font-semibold"
             >
               <ExternalLink className="mr-1 h-3.5 w-3.5" />
-              ขอแบบนี้
+              <span className="hidden sm:inline">สั่งทำเว็บแบบนี้ </span>
+              {priceFrom ? `เริ่ม ${priceFrom.toLocaleString()}฿` : "สั่งทำ"}
             </Button>
           </Link>
         </div>

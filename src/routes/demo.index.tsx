@@ -82,8 +82,11 @@ function DemoHub() {
                 </div>
                 <div className="p-4">
                   <p className="text-sm text-foreground/70">{d.description}</p>
-                  <div className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                    เปิดดูตัวอย่าง <ExternalLink className="h-3.5 w-3.5" />
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                      เปิดดูตัวอย่าง <ExternalLink className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="text-xs font-bold text-orange">เริ่ม {d.priceFrom.toLocaleString()}฿</span>
                   </div>
                 </div>
               </Link>
