@@ -918,7 +918,6 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
-          },
           {
             id: "gallery",
             label: "แกลเลอรี",
