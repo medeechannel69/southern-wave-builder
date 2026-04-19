@@ -382,11 +382,28 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               </DemoSection>
             ),
           },
+          {
+            id: "portfolio",
+            label: "ผลงาน",
+            content: (
+              <DemoSection theme={theme} title="โปรเจกต์ของเรา">
+                <DemoCardGrid
+                  theme={theme}
+                  items={[
+                    { title: "ระบบ ERP โรงแรมในกระบี่", desc: "ลดเวลาทำงาน 40%" },
+                    { title: "เว็บไซต์ E-commerce", desc: "ยอดขายเพิ่ม 3 เท่า" },
+                    { title: "วางระบบ Network สำนักงาน", desc: "150 จุด" },
+                    { title: "Mobile App ส่งอาหาร", desc: "iOS + Android" },
+                    { title: "ที่ปรึกษา Digital Marketing", desc: "Brand Awareness" },
+                    { title: "ระบบ POS ร้านอาหาร", desc: "10 สาขา" },
+                  ]}
+                />
+              </DemoSection>
+            ),
+          },
           contactPage,
         ],
       };
-
-    case "contractor":
       return {
         ...baseConfig,
         pages: [
