@@ -6,6 +6,9 @@ import {
   DemoSection,
   DemoCardGrid,
   DemoContactPage,
+  DemoGallery,
+  DemoTable,
+  DemoNewsList,
   type MiniSiteConfig,
 } from "@/components/demo/MiniSite";
 import { getDemo, type DemoMeta } from "@/components/demo/demoData";
