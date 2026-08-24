@@ -303,6 +303,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
           contactPage,
         ],
       };
+    case "company":
       return {
         ...baseConfig,
         pages: [
