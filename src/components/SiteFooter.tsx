@@ -99,7 +99,7 @@ export function SiteFooter() {
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <Link to="/privacy" className="hover:text-orange">นโยบายความเป็นส่วนตัว</Link>
             <Link to="/terms" className="hover:text-orange">เงื่อนไขการใช้งาน</Link>
-            <Link to="/sitemap" className="hover:text-orange">Sitemap</Link>
+            <a href="/sitemap.xml" className="hover:text-orange">Sitemap</a>
           </div>
         </div>
       </div>
