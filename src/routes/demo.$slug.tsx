@@ -197,6 +197,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
           contactPage,
         ],
       };
+    case "hotel":
       return {
         ...baseConfig,
         pages: [
