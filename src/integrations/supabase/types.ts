@@ -524,6 +524,11 @@ export type Database = {
           name: string
           package_name: string | null
           phone: string
+          quote_number: string | null
+          total_amount: number | null
+          delivery_days: number | null
+          estimated_delivery_date: string | null
+          breakdown: Json | null
           status: Database["public"]["Enums"]["quote_status"]
           updated_at: string
         }
@@ -539,6 +544,11 @@ export type Database = {
           name: string
           package_name?: string | null
           phone: string
+          quote_number?: string | null
+          total_amount?: number | null
+          delivery_days?: number | null
+          estimated_delivery_date?: string | null
+          breakdown?: Json | null
           status?: Database["public"]["Enums"]["quote_status"]
           updated_at?: string
         }
@@ -554,6 +564,11 @@ export type Database = {
           name?: string
           package_name?: string | null
           phone?: string
+          quote_number?: string | null
+          total_amount?: number | null
+          delivery_days?: number | null
+          estimated_delivery_date?: string | null
+          breakdown?: Json | null
           status?: Database["public"]["Enums"]["quote_status"]
           updated_at?: string
         }

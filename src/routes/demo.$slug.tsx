@@ -14,6 +14,7 @@ import {
 import { getDemo, type DemoMeta } from "@/components/demo/demoData";
 import { Button } from "@/components/ui/button";
 import { HotelDemo } from "@/components/demo/hotel/HotelDemo";
+import { InsuranceCalculator, PropertySearchPanel } from "@/components/demo/InteractiveTools";
 
 export const Route = createFileRoute("/demo/$slug")({
   loader: ({ params }) => {
@@ -65,32 +66,20 @@ function DemoMiniSite() {
 function buildConfig(demo: DemoMeta): MiniSiteConfig {
   const { theme } = demo;
 
-  const contactPage = {
-    id: "contact",
-    label: "ติดต่อ",
-    content: (
-      <DemoContactPage
-        theme={theme}
-        config={{
-          brand: demo.brand,
-          tagline: demo.tagline,
-          theme,
-          phone: "075-xxx-xxx",
-          address: "อ.เมือง จ.กระบี่",
-          email: `info@${demo.slug}.demo`,
-          pages: [],
-        }}
-      />
-    ),
-  };
-
   const baseConfig = {
     brand: demo.brand,
     tagline: demo.tagline,
     theme,
-    phone: "075-xxx-xxx",
-    address: "123 ถ.อุตรกิจ อ.เมือง จ.กระบี่ 81000",
-    email: `info@${demo.slug}.demo`,
+    phone: "099-625-2499",
+    address: "ทีมงาน MedeeWeb · รับงานออนไลน์ทั่วประเทศไทย",
+    email: "suthee@medeeweb.com",
+    businessType: demo.industry,
+  };
+
+  const contactPage = {
+    id: "contact",
+    label: "ติดต่อ",
+    content: <DemoContactPage theme={theme} config={{ ...baseConfig, pages: [] }} />,
   };
 
   switch (demo.slug) {
@@ -168,8 +157,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
               <DemoSection theme={theme} title="เกี่ยวกับร้าน">
                 <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-gray-700">
                   ครัวเรือนใต้ เปิดมานานกว่า 20 ปี ส่งต่อสูตรอาหารใต้แท้จากรุ่นสู่รุ่น
-                  เราคัดสรรวัตถุดิบจากชาวประมงและเกษตรกรท้องถิ่น เพื่อให้ทุกจาน
-                  อร่อยและสดใหม่ทุกวัน
+                  เราคัดสรรวัตถุดิบจากชาวประมงและเกษตรกรท้องถิ่น เพื่อให้ทุกจาน อร่อยและสดใหม่ทุกวัน
                 </p>
               </DemoSection>
             ),
@@ -364,8 +352,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
                     {
                       title: "คุณสมชาย ใจดี",
                       desc: "CEO & Founder · 20 ปีในวงการ",
-                      image:
-                        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80",
+                      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80",
                     },
                     {
                       title: "คุณวิภาดา ศรีสุข",
@@ -460,8 +447,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
                     {
                       title: "รีโนเวทร้านกาแฟ",
                       desc: "ปรับโฉมใหม่ภายใน 30 วัน",
-                      image:
-                        "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80",
+                      image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80",
                     },
                   ]}
                 />
@@ -524,6 +510,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
                   title="บ้าน คอนโด ที่ดิน คัดสรร"
                   subtitle="Krabi Property รวมประกาศคุณภาพ ราคาดี ทำเลเด่น"
                   cta="ค้นหาทรัพย์"
+                  targetPage="listings"
                   image={demo.cover}
                 />
                 <DemoSection theme={theme} title="ทรัพย์แนะนำ">
@@ -562,17 +549,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
             label: "ทรัพย์ทั้งหมด",
             content: (
               <DemoSection theme={theme} title="ประกาศทั้งหมด">
-                <DemoCardGrid
-                  theme={theme}
-                  items={[
-                    { title: "บ้านเดี่ยว อ่าวนาง", desc: "3 นอน 2 น้ำ", price: "฿4.5M" },
-                    { title: "ทาวน์โฮม เมืองกระบี่", desc: "2 นอน 2 น้ำ", price: "฿2.2M" },
-                    { title: "คอนโดวิวทะเล", desc: "1 นอน 35 ตร.ม.", price: "฿2.8M" },
-                    { title: "ที่ดิน 200 ตร.วา", desc: "ใกล้หาด", price: "฿8.5M" },
-                    { title: "วิลล่าหรู", desc: "พร้อมสระว่ายน้ำ", price: "฿15M" },
-                    { title: "ตึกแถว 3 คูหา", desc: "ติดถนนใหญ่", price: "฿9M" },
-                  ]}
-                />
+                <PropertySearchPanel theme={theme} />
               </DemoSection>
             ),
           },
@@ -668,29 +645,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
             label: "คำนวณเบี้ย",
             content: (
               <DemoSection theme={theme} title="คำนวณเบี้ยประกันเบื้องต้น" alt>
-                <div className="mx-auto max-w-md space-y-3 rounded-xl bg-white p-6 shadow-md">
-                  <select className="w-full rounded-md border border-gray-200 px-3 py-2 text-sm">
-                    <option>ประเภทประกัน</option>
-                    <option>รถยนต์</option>
-                    <option>บ้าน</option>
-                    <option>สุขภาพ</option>
-                  </select>
-                  <input
-                    placeholder="มูลค่าทรัพย์สิน (บาท)"
-                    className="w-full rounded-md border border-gray-200 px-3 py-2 text-sm"
-                  />
-                  <input
-                    placeholder="อายุผู้เอาประกัน"
-                    className="w-full rounded-md border border-gray-200 px-3 py-2 text-sm"
-                  />
-                  <button
-                    type="button"
-                    className="w-full rounded-full py-2.5 text-sm font-semibold text-white"
-                    style={{ background: theme.primary }}
-                  >
-                    คำนวณเบี้ย
-                  </button>
-                </div>
+                <InsuranceCalculator theme={theme} />
               </DemoSection>
             ),
           },
@@ -778,8 +733,7 @@ function buildConfig(demo: DemoMeta): MiniSiteConfig {
                     {
                       title: "พญ. นภาพร แสงทอง",
                       desc: "แพทย์ผู้เชี่ยวชาญผิวหนัง",
-                      image:
-                        "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80",
+                      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80",
                     },
                     {
                       title: "นพ. ธีรภัทร วงศ์ใต้",

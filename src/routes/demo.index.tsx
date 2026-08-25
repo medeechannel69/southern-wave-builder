@@ -99,7 +99,7 @@ function DemoHub() {
               ชอบแบบไหน? <span className="heading-accent">เราทำให้ได้</span>
             </h2>
             <p className="section-sub mx-auto max-w-2xl">
-              เลือกแบบที่ใช่แล้วบอกเรา ทีม MedeeWeb ปรับให้ตรงกับธุรกิจคุณภายใน 7 วัน
+              เลือกแบบที่ใช่แล้วบอกเรา ทีม MedeeWeb ปรับให้ตรงกับธุรกิจคุณได้ โดยแพ็กเกจ Starter เริ่มต้นส่งภายใน 3 วันทำการ
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link to="/quote">

@@ -29,7 +29,7 @@ export const Route = createFileRoute("/faq")({
             { "@type": "Question", name: "ราคาทำเว็บเริ่มต้นเท่าไหร่?", acceptedAnswer: { "@type": "Answer", text: "เริ่มต้น 5,000 บาท สำหรับแพ็กเกจ Starter ครอบคลุมเว็บ 1 หน้า + โดเมน + โฮสติ้ง 1 ปี" } },
             { "@type": "Question", name: "มีค่าใช้จ่ายซ่อนเร้นหรือไม่?", acceptedAnswer: { "@type": "Answer", text: "ไม่มีค่าซ่อนเร้น ราคาที่แจ้งคือราคาที่ต้องชำระจริง" } },
             { "@type": "Question", name: "สามารถผ่อนชำระได้หรือไม่?", acceptedAnswer: { "@type": "Answer", text: "ได้ ผ่อน 2 งวด 50/50 (มัดจำ 50% เริ่มงาน อีก 50% ก่อนส่งมอบ)" } },
-            { "@type": "Question", name: "ใช้เวลาทำเว็บนานเท่าไหร่?", acceptedAnswer: { "@type": "Answer", text: "Starter 7 วัน, Business 14 วัน, Pro 21 วัน — นับจากวันที่ลูกค้าส่งข้อมูลครบ" } },
+            { "@type": "Question", name: "ใช้เวลาทำเว็บนานเท่าไหร่?", acceptedAnswer: { "@type": "Answer", text: "Starter 3 วันทำการ, Business 7 วันทำการ, Pro 14 วันทำการ — นับจากวันที่ลูกค้าส่งข้อมูลครบ" } },
             { "@type": "Question", name: "แก้ไขฟรีได้กี่ครั้ง?", acceptedAnswer: { "@type": "Answer", text: "ฟรี 3 รอบ (batch แก้รวมต่อรอบ) หลังจากนั้นคิดค่าแก้ไขตามขอบเขตงาน" } },
             { "@type": "Question", name: "เว็บไซต์รองรับมือถือหรือไม่?", acceptedAnswer: { "@type": "Answer", text: "รองรับทุกอุปกรณ์ — มือถือ แท็บเล็ต คอมพิวเตอร์ ดีไซน์ Responsive 100%" } },
             { "@type": "Question", name: "หลังส่งมอบมีการรับประกันหรือไม่?", acceptedAnswer: { "@type": "Answer", text: "รับประกันการใช้งาน 30 วัน หากเจอบั๊กแก้ฟรี" } },

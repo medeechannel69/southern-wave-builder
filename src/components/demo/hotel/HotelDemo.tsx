@@ -1,4 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FormEvent } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { sanitizeText } from "@/lib/sanitize";
+import { toast } from "sonner";
+import { notify, ADMIN_EMAILS } from "@/lib/email/notify";
 import {
   Menu,
   X,
@@ -201,7 +205,9 @@ export function HotelDemo() {
 
       {/* === Page === */}
       <main key={active} className="fade-up">
-        {active === "home" && <HomePage scrollY={scrollY} onCta={() => goTo("contact")} onRooms={() => goTo("rooms")} />}
+        {active === "home" && (
+          <HomePage scrollY={scrollY} onCta={() => goTo("contact")} onRooms={() => goTo("rooms")} />
+        )}
         {active === "rooms" && <RoomsPage onBook={() => goTo("contact")} />}
         {active === "dining" && <DiningPage />}
         {active === "experiences" && <ExperiencesPage />}
@@ -214,25 +220,26 @@ export function HotelDemo() {
       <footer style={{ background: PALETTE.ink, color: PALETTE.cream }}>
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
           <div>
-            <div
-              className="serif text-2xl font-light"
-              style={{ color: PALETTE.gold }}
-            >
+            <div className="serif text-2xl font-light" style={{ color: PALETTE.gold }}>
               Andaman Sands
             </div>
-            <p className="mt-3 text-xs leading-relaxed opacity-70">
-              {BRAND.taglineTH}
-            </p>
+            <p className="mt-3 text-xs leading-relaxed opacity-70">{BRAND.taglineTH}</p>
             <div className="mt-5 flex gap-3">
               <a
-                href="#"
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
                 className="flex h-8 w-8 items-center justify-center rounded-full border opacity-70 transition hover:opacity-100"
                 style={{ borderColor: `${PALETTE.gold}66` }}
               >
                 <Instagram className="h-3.5 w-3.5" />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/medeeweb"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
                 className="flex h-8 w-8 items-center justify-center rounded-full border opacity-70 transition hover:opacity-100"
                 style={{ borderColor: `${PALETTE.gold}66` }}
               >
@@ -346,7 +353,15 @@ function SectionTitle({ children, light }: { children: React.ReactNode; light?: 
 }
 
 /* ---------- HOME ---------- */
-function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => void; onRooms: () => void }) {
+function HomePage({
+  scrollY,
+  onCta,
+  onRooms,
+}: {
+  scrollY: number;
+  onCta: () => void;
+  onRooms: () => void;
+}) {
   const parallax = Math.min(scrollY * 0.4, 240);
   const heroOpacity = Math.max(1 - scrollY / 600, 0);
   return (
@@ -378,7 +393,7 @@ function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => v
             className="mb-5 text-xs font-semibold tracking-luxe md:text-sm"
             style={{ color: "#F8E9C5" }}
           >
-            ★★★★★  ·  KRABI, THAILAND
+            ★★★★★ · KRABI, THAILAND
           </div>
           <h1
             className="h-display max-w-5xl"
@@ -412,18 +427,21 @@ function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => v
 
         {/* Booking widget */}
         <div className="absolute bottom-0 left-1/2 z-20 hidden w-[min(900px,92%)] -translate-x-1/2 translate-y-1/2 lg:block">
-          <BookingWidget />
+          <BookingWidget onReserve={onCta} />
         </div>
       </section>
 
       <div className="lg:hidden">
         <div className="mx-auto -mt-10 w-[92%] max-w-md">
-          <BookingWidget />
+          <BookingWidget onReserve={onCta} />
         </div>
       </div>
 
       {/* Awards strip */}
-      <section className="border-y" style={{ borderColor: `${PALETTE.gold}33`, background: PALETTE.paper }}>
+      <section
+        className="border-y"
+        style={{ borderColor: `${PALETTE.gold}33`, background: PALETTE.paper }}
+      >
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-around gap-6 px-4 py-7 text-center md:px-8">
           {[
             "Travel+Leisure World's Best 2024",
@@ -461,13 +479,13 @@ function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => v
             <Eyebrow>Our Story</Eyebrow>
             <SectionTitle>A sanctuary, not a hotel</SectionTitle>
             <p className="mt-6 text-sm leading-loose md:text-base">
-              ซ่อนตัวอยู่บนชายหาดส่วนตัวความยาว 400 เมตร ระหว่างหน้าผาหินปูนสูงตระหง่าน
-              อันดามัน แซนด์ส คือบ้านพักตากอากาศเพียง 28 หลัง ที่ออกแบบโดย Bill Bensley
+              ซ่อนตัวอยู่บนชายหาดส่วนตัวความยาว 400 เมตร ระหว่างหน้าผาหินปูนสูงตระหง่าน อันดามัน
+              แซนด์ส คือบ้านพักตากอากาศเพียง 28 หลัง ที่ออกแบบโดย Bill Bensley
               ผสานสถาปัตยกรรมไทยใต้เข้ากับความสะดวกสบายระดับโลก
             </p>
             <p className="mt-4 text-sm leading-loose md:text-base">
-              ทุก villa มีสระว่ายน้ำส่วนตัว วิวทะเลพาโนรามา และพ่อบ้านส่วนตัวที่ดูแลคุณตลอด
-              24 ชั่วโมง เพราะการพักผ่อนที่แท้จริง คือการไม่ต้องคิดอะไรเลย
+              ทุก villa มีสระว่ายน้ำส่วนตัว วิวทะเลพาโนรามา และพ่อบ้านส่วนตัวที่ดูแลคุณตลอด 24
+              ชั่วโมง เพราะการพักผ่อนที่แท้จริง คือการไม่ต้องคิดอะไรเลย
             </p>
             <button
               onClick={onRooms}
@@ -516,8 +534,8 @@ function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => v
         <div className="mx-auto max-w-3xl text-center">
           <Quote className="mx-auto h-10 w-10" style={{ color: PALETTE.gold }} />
           <p className="serif mt-6 text-2xl font-light italic leading-relaxed md:text-3xl">
-            "The most beautiful resort I have ever stepped foot in. Every detail —
-            from the welcome ceremony to the pillow menu — felt thoughtfully crafted."
+            "The most beautiful resort I have ever stepped foot in. Every detail — from the welcome
+            ceremony to the pillow menu — felt thoughtfully crafted."
           </p>
           <div
             className="mt-8 text-[10px] font-semibold uppercase tracking-luxe"
@@ -531,33 +549,126 @@ function HomePage({ scrollY, onCta, onRooms }: { scrollY: number; onCta: () => v
   );
 }
 
-function BookingWidget() {
+function BookingWidget({ onReserve }: { onReserve?: () => void }) {
+  const [arrival, setArrival] = useState("");
+  const [departure, setDeparture] = useState("");
+  const [guests, setGuests] = useState("2");
+  const [checked, setChecked] = useState(false);
+
+  const checkAvailability = () => {
+    if (!arrival || !departure || departure <= arrival) {
+      toast.error("กรุณาเลือกวันเข้าพักและวันออกให้ถูกต้อง");
+      setChecked(false);
+      return;
+    }
+    setChecked(true);
+  };
+
   return (
     <div
       className="grid grid-cols-1 gap-px overflow-hidden shadow-2xl sm:grid-cols-4"
       style={{ background: PALETTE.gold }}
     >
-      <Field icon={<Calendar className="h-4 w-4" />} label="Arrival" value="Add date" />
-      <Field icon={<Calendar className="h-4 w-4" />} label="Departure" value="Add date" />
-      <Field icon={<Users className="h-4 w-4" />} label="Guests" value="2 Adults" />
-      <button
-        className="px-6 py-5 text-[11px] font-semibold uppercase tracking-luxe transition hover:opacity-90"
-        style={{ background: PALETTE.ink, color: PALETTE.gold }}
+      <label
+        className="flex items-center gap-3 px-5 py-4 text-left"
+        style={{ background: PALETTE.paper }}
       >
-        Check Availability
-      </button>
+        <Calendar className="h-4 w-4 shrink-0" style={{ color: PALETTE.gold }} />
+        <span>
+          <span
+            className="block text-[9px] font-semibold uppercase tracking-luxe"
+            style={{ color: PALETTE.warmGray }}
+          >
+            Arrival
+          </span>
+          <input
+            required
+            type="date"
+            value={arrival}
+            onChange={(event) => {
+              setArrival(event.target.value);
+              setChecked(false);
+            }}
+            className="w-full bg-transparent text-sm font-medium outline-none"
+            style={{ color: PALETTE.ink }}
+          />
+        </span>
+      </label>
+      <label
+        className="flex items-center gap-3 px-5 py-4 text-left"
+        style={{ background: PALETTE.paper }}
+      >
+        <Calendar className="h-4 w-4 shrink-0" style={{ color: PALETTE.gold }} />
+        <span>
+          <span
+            className="block text-[9px] font-semibold uppercase tracking-luxe"
+            style={{ color: PALETTE.warmGray }}
+          >
+            Departure
+          </span>
+          <input
+            required
+            type="date"
+            value={departure}
+            min={arrival || undefined}
+            onChange={(event) => {
+              setDeparture(event.target.value);
+              setChecked(false);
+            }}
+            className="w-full bg-transparent text-sm font-medium outline-none"
+            style={{ color: PALETTE.ink }}
+          />
+        </span>
+      </label>
+      <label
+        className="flex items-center gap-3 px-5 py-4 text-left"
+        style={{ background: PALETTE.paper }}
+      >
+        <Users className="h-4 w-4 shrink-0" style={{ color: PALETTE.gold }} />
+        <span>
+          <span
+            className="block text-[9px] font-semibold uppercase tracking-luxe"
+            style={{ color: PALETTE.warmGray }}
+          >
+            Guests
+          </span>
+          <select
+            value={guests}
+            onChange={(event) => setGuests(event.target.value)}
+            className="w-full bg-transparent text-sm font-medium outline-none"
+            style={{ color: PALETTE.ink }}
+          >
+            {[1, 2, 3, 4, 5, 6].map((count) => (
+              <option key={count} value={count}>
+                {count} {count === 1 ? "Adult" : "Adults"}
+              </option>
+            ))}
+          </select>
+        </span>
+      </label>
+      {checked ? (
+        <button
+          type="button"
+          onClick={onReserve}
+          className="px-6 py-5 text-[11px] font-semibold uppercase tracking-luxe transition hover:opacity-90"
+          style={{ background: PALETTE.ink, color: PALETTE.gold }}
+        >
+          Send Inquiry
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={checkAvailability}
+          className="px-6 py-5 text-[11px] font-semibold uppercase tracking-luxe transition hover:opacity-90"
+          style={{ background: PALETTE.ink, color: PALETTE.gold }}
+        >
+          Check Availability
+        </button>
+      )}
     </div>
   );
 }
-function Field({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
+function Field({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
     <div
       className="flex items-center gap-3 px-5 py-4 text-left"
@@ -643,13 +754,7 @@ const ROOMS = [
   },
 ];
 
-function RoomCard({
-  room,
-  onBook,
-}: {
-  room: (typeof ROOMS)[number];
-  onBook: () => void;
-}) {
+function RoomCard({ room, onBook }: { room: (typeof ROOMS)[number]; onBook: () => void }) {
   return (
     <div className="group flex flex-col">
       <div className="relative aspect-[4/5] overflow-hidden">
@@ -667,15 +772,15 @@ function RoomCard({
         </div>
       </div>
       <div className="pt-5">
-        <h3
-          className="serif text-2xl font-light"
-          style={{ color: PALETTE.ink }}
-        >
+        <h3 className="serif text-2xl font-light" style={{ color: PALETTE.ink }}>
           {room.name}
         </h3>
         <div className="mt-1 text-xs opacity-70">{room.nameTH}</div>
         <p className="mt-3 text-sm leading-relaxed">{room.desc}</p>
-        <div className="mt-5 flex items-end justify-between border-t pt-4" style={{ borderColor: `${PALETTE.gold}55` }}>
+        <div
+          className="mt-5 flex items-end justify-between border-t pt-4"
+          style={{ borderColor: `${PALETTE.gold}55` }}
+        >
           <div>
             <div className="text-[10px] uppercase tracking-luxe opacity-60">From</div>
             <div className="serif text-xl" style={{ color: PALETTE.ink }}>
@@ -787,7 +892,12 @@ function DiningPage() {
               }`}
             >
               <div className="aspect-[4/3] overflow-hidden">
-                <img src={r.image} alt={r.name} className="h-full w-full object-cover" loading="lazy" />
+                <img
+                  src={r.image}
+                  alt={r.name}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <div>
                 <Eyebrow>{r.kind}</Eyebrow>
@@ -918,7 +1028,8 @@ function GalleryPage() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setLb(null);
       if (e.key === "ArrowRight") setLb((i) => (i === null ? 0 : (i + 1) % imgs.length));
-      if (e.key === "ArrowLeft") setLb((i) => (i === null ? 0 : (i - 1 + imgs.length) % imgs.length));
+      if (e.key === "ArrowLeft")
+        setLb((i) => (i === null ? 0 : (i - 1 + imgs.length) % imgs.length));
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
@@ -965,21 +1076,30 @@ function GalleryPage() {
           onClick={() => setLb(null)}
         >
           <button
-            onClick={(e) => { e.stopPropagation(); setLb(null); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setLb(null);
+            }}
             className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:bg-white/10"
             aria-label="Close"
           >
             <X className="h-6 w-6" />
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); setLb((i) => (i === null ? 0 : (i - 1 + imgs.length) % imgs.length)); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setLb((i) => (i === null ? 0 : (i - 1 + imgs.length) % imgs.length));
+            }}
             className="absolute left-2 z-10 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/10 md:left-6"
             aria-label="Previous"
           >
             <ChevronLeft className="h-7 w-7" />
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); setLb((i) => (i === null ? 0 : (i + 1) % imgs.length)); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setLb((i) => (i === null ? 0 : (i + 1) % imgs.length));
+            }}
             className="absolute right-2 z-10 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/10 md:right-6"
             aria-label="Next"
           >
@@ -1049,12 +1169,17 @@ function WellnessPage({ onBook }: { onBook: () => void }) {
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(180deg, rgba(10,61,69,0.2) 0%, rgba(10,61,69,0.7) 100%)" }}
+          style={{
+            background: "linear-gradient(180deg, rgba(10,61,69,0.2) 0%, rgba(10,61,69,0.7) 100%)",
+          }}
         />
         <div className="relative z-10 flex h-full items-end px-4 pb-12 md:px-12 md:pb-20">
           <div className="max-w-2xl text-white">
             <Eyebrow>Six private rooms</Eyebrow>
-            <h2 className="h-display mt-4 text-white" style={{ fontSize: "clamp(1.75rem, 1.2rem + 2.2vw, 3.25rem)" }}>
+            <h2
+              className="h-display mt-4 text-white"
+              style={{ fontSize: "clamp(1.75rem, 1.2rem + 2.2vw, 3.25rem)" }}
+            >
               Where stillness becomes a place
             </h2>
             <p className="body-md mt-5 max-w-xl opacity-90">
@@ -1087,10 +1212,19 @@ function WellnessPage({ onBook }: { onBook: () => void }) {
                 </div>
                 <div className="mt-5 flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <h3 className="h-display" style={{ color: PALETTE.ink, fontSize: "clamp(1.5rem, 1.2rem + 0.8vw, 2rem)" }}>
+                    <h3
+                      className="h-display"
+                      style={{
+                        color: PALETTE.ink,
+                        fontSize: "clamp(1.5rem, 1.2rem + 0.8vw, 2rem)",
+                      }}
+                    >
                       {t.name}
                     </h3>
-                    <div className="mt-1 text-[11px] font-semibold uppercase tracking-luxe" style={{ color: PALETTE.gold }}>
+                    <div
+                      className="mt-1 text-[11px] font-semibold uppercase tracking-luxe"
+                      style={{ color: PALETTE.gold }}
+                    >
                       {t.duration}
                     </div>
                     <p className="body-md mt-3">{t.desc}</p>
@@ -1116,25 +1250,64 @@ function WellnessPage({ onBook }: { onBook: () => void }) {
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {[
-              { title: "Reset · 3 Nights", tag: "Detox", items: ["ตรวจร่างกายโดยแพทย์", "อาหาร plant-based 3 มื้อ/วัน", "สปา 4 เซสชั่น", "Yoga ทุกเช้า"], price: 38000 },
-              { title: "Restore · 5 Nights", tag: "Recovery", items: ["กายภาพบำบัด", "นวดน้ำมัน 5 ครั้ง", "Sound healing 2 ครั้ง", "เมนูบำรุงเฉพาะบุคคล"], price: 64000 },
-              { title: "Renew · 7 Nights", tag: "Transform", items: ["Personal coach", "Holistic assessment", "สปา 7 ครั้ง", "Private breathwork"], price: 95000 },
+              {
+                title: "Reset · 3 Nights",
+                tag: "Detox",
+                items: [
+                  "ตรวจร่างกายโดยแพทย์",
+                  "อาหาร plant-based 3 มื้อ/วัน",
+                  "สปา 4 เซสชั่น",
+                  "Yoga ทุกเช้า",
+                ],
+                price: 38000,
+              },
+              {
+                title: "Restore · 5 Nights",
+                tag: "Recovery",
+                items: [
+                  "กายภาพบำบัด",
+                  "นวดน้ำมัน 5 ครั้ง",
+                  "Sound healing 2 ครั้ง",
+                  "เมนูบำรุงเฉพาะบุคคล",
+                ],
+                price: 64000,
+              },
+              {
+                title: "Renew · 7 Nights",
+                tag: "Transform",
+                items: [
+                  "Personal coach",
+                  "Holistic assessment",
+                  "สปา 7 ครั้ง",
+                  "Private breathwork",
+                ],
+                price: 95000,
+              },
             ].map((j) => (
               <div
                 key={j.title}
                 className="flex flex-col p-8 md:p-10"
                 style={{ background: PALETTE.cream, border: `1px solid ${PALETTE.gold}55` }}
               >
-                <div className="text-[10px] font-semibold uppercase tracking-luxe" style={{ color: PALETTE.gold }}>
+                <div
+                  className="text-[10px] font-semibold uppercase tracking-luxe"
+                  style={{ color: PALETTE.gold }}
+                >
                   {j.tag}
                 </div>
-                <h3 className="h-display mt-3" style={{ color: PALETTE.ink, fontSize: "clamp(1.5rem, 1.2rem + 0.8vw, 2rem)" }}>
+                <h3
+                  className="h-display mt-3"
+                  style={{ color: PALETTE.ink, fontSize: "clamp(1.5rem, 1.2rem + 0.8vw, 2rem)" }}
+                >
                   {j.title}
                 </h3>
                 <ul className="mt-5 space-y-2.5 text-sm md:text-base">
                   {j.items.map((it) => (
                     <li key={it} className="flex items-start gap-2">
-                      <Sparkles className="mt-1 h-3.5 w-3.5 shrink-0" style={{ color: PALETTE.gold }} />
+                      <Sparkles
+                        className="mt-1 h-3.5 w-3.5 shrink-0"
+                        style={{ color: PALETTE.gold }}
+                      />
                       <span>{it}</span>
                     </li>
                   ))}
@@ -1158,13 +1331,23 @@ function WellnessPage({ onBook }: { onBook: () => void }) {
         </div>
       </section>
 
-      <section className="px-4 py-20 md:px-8 md:py-28" style={{ background: PALETTE.ink, color: PALETTE.cream }}>
+      <section
+        className="px-4 py-20 md:px-8 md:py-28"
+        style={{ background: PALETTE.ink, color: PALETTE.cream }}
+      >
         <div className="mx-auto max-w-3xl text-center">
           <Quote className="mx-auto h-10 w-10" style={{ color: PALETTE.gold }} />
-          <p className="serif mt-6 italic leading-relaxed" style={{ fontSize: "clamp(1.25rem, 1rem + 1vw, 1.875rem)" }}>
-            "Wellness is not a treatment we give. It is a memory the body remembers — of when it was last truly at peace."
+          <p
+            className="serif mt-6 italic leading-relaxed"
+            style={{ fontSize: "clamp(1.25rem, 1rem + 1vw, 1.875rem)" }}
+          >
+            "Wellness is not a treatment we give. It is a memory the body remembers — of when it was
+            last truly at peace."
           </p>
-          <div className="mt-8 text-[10px] font-semibold uppercase tracking-luxe" style={{ color: PALETTE.gold }}>
+          <div
+            className="mt-8 text-[10px] font-semibold uppercase tracking-luxe"
+            style={{ color: PALETTE.gold }}
+          >
             Spa Director · Andaman Sands
           </div>
         </div>
@@ -1175,6 +1358,60 @@ function WellnessPage({ onBook }: { onBook: () => void }) {
 
 /* ---------- CONTACT ---------- */
 function ContactPage() {
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    arrival: "",
+    departure: "",
+    room: ROOMS[0].name,
+    requests: "",
+  });
+
+  const submit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!form.arrival || !form.departure || form.departure <= form.arrival) {
+      toast.error("กรุณาเลือกวันเข้าพักและวันออกให้ถูกต้อง");
+      return;
+    }
+    setSending(true);
+    const message = [
+      `เข้าพัก: ${form.arrival} ถึง ${form.departure}`,
+      `ห้องที่สนใจ: ${form.room}`,
+      form.email ? `อีเมล: ${form.email}` : "",
+      form.requests ? `คำขอพิเศษ: ${form.requests}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+    const { error } = await supabase.from("leads").insert({
+      name: sanitizeText(`${form.firstName} ${form.lastName}`.trim(), 200),
+      phone: sanitizeText(form.phone, 50),
+      business_type: "โรงแรม / รีสอร์ท",
+      message: sanitizeText(message, 2000),
+      source: "demo:Andaman Sands reservation",
+    });
+    setSending(false);
+    if (error) {
+      toast.error("ส่งคำขอไม่สำเร็จ กรุณาลองอีกครั้ง");
+      return;
+    }
+    void notify({
+      templateName: "lead-notification",
+      recipientEmail: ADMIN_EMAILS,
+      idempotencyKey: `hotel-demo-${form.phone}-${Date.now()}`,
+      templateData: {
+        leadName: `${form.firstName} ${form.lastName}`.trim(),
+        phone: form.phone,
+        businessType: "โรงแรม / รีสอร์ท",
+        message: `Andaman Sands reservation: ${message}`,
+      },
+    });
+    setSent(true);
+  };
+
   return (
     <>
       <PageHeader
@@ -1184,12 +1421,14 @@ function ContactPage() {
       />
       <section className="px-4 py-16 md:px-8 md:py-24" style={{ background: PALETTE.cream }}>
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-5">
-          {/* Info */}
-          <div className="md:col-span-2 space-y-8">
+          <div className="space-y-8 md:col-span-2">
             <div>
               <Eyebrow>Direct Line</Eyebrow>
               <div className="mt-3 space-y-3 text-sm">
-                <div className="flex items-start gap-3">
+                <a
+                  href={`tel:${BRAND.phone.replace(/[^0-9+]/g, "")}`}
+                  className="flex items-start gap-3 hover:underline"
+                >
                   <Phone className="mt-0.5 h-4 w-4" style={{ color: PALETTE.gold }} />
                   <div>
                     <div className="font-medium" style={{ color: PALETTE.ink }}>
@@ -1197,8 +1436,11 @@ function ContactPage() {
                     </div>
                     <div className="text-xs opacity-70">24 ชั่วโมง · ไทย / English</div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
+                </a>
+                <a
+                  href={`mailto:${BRAND.email}`}
+                  className="flex items-start gap-3 hover:underline"
+                >
                   <Mail className="mt-0.5 h-4 w-4" style={{ color: PALETTE.gold }} />
                   <div>
                     <div className="font-medium" style={{ color: PALETTE.ink }}>
@@ -1206,7 +1448,7 @@ function ContactPage() {
                     </div>
                     <div className="text-xs opacity-70">ตอบกลับภายใน 2 ชั่วโมง</div>
                   </div>
-                </div>
+                </a>
                 <div className="flex items-start gap-3">
                   <MapPin className="mt-0.5 h-4 w-4" style={{ color: PALETTE.gold }} />
                   <div>
@@ -1228,53 +1470,122 @@ function ContactPage() {
             </div>
           </div>
 
-          {/* Form */}
           <form
-            className="md:col-span-3 space-y-5 p-8 md:p-10"
+            onSubmit={submit}
+            className="space-y-5 p-8 md:col-span-3 md:p-10"
             style={{ background: PALETTE.paper, boxShadow: `0 30px 60px -30px ${PALETTE.ink}33` }}
           >
-            <Eyebrow>Reservation Inquiry</Eyebrow>
-            <h3 className="serif text-3xl font-light" style={{ color: PALETTE.ink }}>
-              Tell us about your stay
-            </h3>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Input label="First name" />
-              <Input label="Last name" />
-              <Input label="Email" type="email" />
-              <Input label="Phone" />
-              <Input label="Arrival" type="date" />
-              <Input label="Departure" type="date" />
-            </div>
-            <div>
-              <Label>Villa preference</Label>
-              <select
-                className="w-full border-0 border-b bg-transparent py-2 text-sm focus:outline-none"
-                style={{ borderColor: `${PALETTE.ink}33`, color: PALETTE.ink }}
-              >
-                {ROOMS.map((r) => (
-                  <option key={r.name}>{r.name}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <Label>Special requests</Label>
-              <textarea
-                rows={3}
-                className="w-full border-0 border-b bg-transparent py-2 text-sm focus:outline-none"
-                style={{ borderColor: `${PALETTE.ink}33`, color: PALETTE.ink }}
-                placeholder="โอกาสพิเศษ, อาหาร, การเดินทาง..."
-              />
-            </div>
-            <button
-              type="button"
-              className="mt-2 w-full py-3.5 text-[11px] font-semibold uppercase tracking-luxe transition hover:opacity-90"
-              style={{ background: PALETTE.ink, color: PALETTE.gold }}
-            >
-              Submit Reservation Request
-            </button>
-            <p className="text-center text-[10px] opacity-60">
-              ทีม reservations จะตอบกลับพร้อมเสนออัตราพิเศษภายใน 2 ชั่วโมง
-            </p>
+            {sent ? (
+              <div className="py-12 text-center">
+                <div
+                  className="mx-auto flex h-14 w-14 items-center justify-center rounded-full"
+                  style={{ background: `${PALETTE.gold}22`, color: PALETTE.ink }}
+                >
+                  <CheckCircle2 className="h-7 w-7" />
+                </div>
+                <h3 className="serif mt-5 text-3xl font-light" style={{ color: PALETTE.ink }}>
+                  Request received
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed">
+                  ทีม reservations ได้รับคำขอของคุณแล้ว
+                  <br />
+                  จะติดต่อกลับพร้อมรายละเอียดโดยเร็วที่สุด
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSent(false)}
+                  className="mt-6 text-[11px] font-semibold uppercase tracking-luxe underline"
+                  style={{ color: PALETTE.ink }}
+                >
+                  ส่งคำขอใหม่
+                </button>
+              </div>
+            ) : (
+              <>
+                <Eyebrow>Reservation Inquiry</Eyebrow>
+                <h3 className="serif text-3xl font-light" style={{ color: PALETTE.ink }}>
+                  Tell us about your stay
+                </h3>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Input
+                    required
+                    label="First name"
+                    value={form.firstName}
+                    onChange={(value) => setForm({ ...form, firstName: value })}
+                  />
+                  <Input
+                    required
+                    label="Last name"
+                    value={form.lastName}
+                    onChange={(value) => setForm({ ...form, lastName: value })}
+                  />
+                  <Input
+                    required
+                    label="Email"
+                    type="email"
+                    value={form.email}
+                    onChange={(value) => setForm({ ...form, email: value })}
+                  />
+                  <Input
+                    required
+                    label="Phone"
+                    value={form.phone}
+                    onChange={(value) => setForm({ ...form, phone: value })}
+                  />
+                  <Input
+                    required
+                    label="Arrival"
+                    type="date"
+                    value={form.arrival}
+                    onChange={(value) => setForm({ ...form, arrival: value })}
+                  />
+                  <Input
+                    required
+                    label="Departure"
+                    type="date"
+                    value={form.departure}
+                    min={form.arrival || undefined}
+                    onChange={(value) => setForm({ ...form, departure: value })}
+                  />
+                </div>
+                <div>
+                  <Label>Villa preference</Label>
+                  <select
+                    value={form.room}
+                    onChange={(event) => setForm({ ...form, room: event.target.value })}
+                    className="w-full border-0 border-b bg-transparent py-2 text-sm focus:outline-none"
+                    style={{ borderColor: `${PALETTE.ink}33`, color: PALETTE.ink }}
+                  >
+                    {ROOMS.map((room) => (
+                      <option key={room.name}>{room.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <Label>Special requests</Label>
+                  <textarea
+                    required
+                    value={form.requests}
+                    onChange={(event) => setForm({ ...form, requests: event.target.value })}
+                    rows={3}
+                    className="w-full border-0 border-b bg-transparent py-2 text-sm focus:outline-none"
+                    style={{ borderColor: `${PALETTE.ink}33`, color: PALETTE.ink }}
+                    placeholder="โอกาสพิเศษ, อาหาร, การเดินทาง..."
+                  />
+                </div>
+                <button
+                  disabled={sending}
+                  type="submit"
+                  className="mt-2 w-full py-3.5 text-[11px] font-semibold uppercase tracking-luxe transition hover:opacity-90 disabled:opacity-60"
+                  style={{ background: PALETTE.ink, color: PALETTE.gold }}
+                >
+                  {sending ? "Sending..." : "Submit Reservation Request"}
+                </button>
+                <p className="text-center text-[10px] opacity-60">
+                  ทีม reservations จะตอบกลับพร้อมเสนออัตราพิเศษภายใน 2 ชั่วโมง
+                </p>
+              </>
+            )}
           </form>
         </div>
       </section>
@@ -1292,12 +1603,33 @@ function Label({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-function Input({ label, type = "text" }: { label: string; type?: string }) {
+function Input({
+  label,
+  type = "text",
+  value,
+  onChange,
+  required = false,
+  min,
+}: {
+  label: string;
+  type?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  required?: boolean;
+  min?: string;
+}) {
   return (
     <div>
-      <Label>{label}</Label>
+      <Label>
+        {label}
+        {required ? " *" : ""}
+      </Label>
       <input
+        required={required}
+        min={min}
         type={type}
+        value={value}
+        onChange={(event) => onChange?.(event.target.value)}
         className="w-full border-0 border-b bg-transparent py-2 text-sm focus:outline-none"
         style={{ borderColor: `${PALETTE.ink}33`, color: PALETTE.ink }}
       />
@@ -1306,15 +1638,7 @@ function Input({ label, type = "text" }: { label: string; type?: string }) {
 }
 
 /* ---------- Page header (used by inner pages) ---------- */
-function PageHeader({
-  eyebrow,
-  title,
-  sub,
-}: {
-  eyebrow: string;
-  title: string;
-  sub: string;
-}) {
+function PageHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
   return (
     <section
       className="relative px-4 py-20 text-center md:px-8 md:py-28"

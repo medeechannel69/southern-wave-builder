@@ -8,19 +8,32 @@ import { FAQChatWidget } from "@/components/FAQChatWidget";
 import heroKrabi from "@/assets/hero-krabi-waves.webp";
 
 // Real photographs (Unsplash) — replaces the previous illustrated service images
-const svcBusiness = "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80&auto=format&fit=crop";
-const svcCorporate = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop";
-const svcRestaurant = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop";
-const svcHotel = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80&auto=format&fit=crop";
-const svcRealEstate = "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop";
+const svcBusiness =
+  "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80&auto=format&fit=crop";
+const svcCorporate =
+  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&auto=format&fit=crop";
+const svcRestaurant =
+  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop";
+const svcHotel =
+  "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80&auto=format&fit=crop";
+const svcRealEstate =
+  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop";
 import mkRestaurant from "@/assets/mockup-restaurant.jpg";
 import mkHotel from "@/assets/mockup-hotel.jpg";
 import mkCompany from "@/assets/mockup-company.jpg";
 import mkContractor from "@/assets/mockup-contractor.jpg";
 import mkRealEstate from "@/assets/mockup-realestate.jpg";
 import {
-  ArrowRight, Wallet, Send, Smartphone, TrendingUp, Bot,
-  Sparkles, Monitor, Tablet, Phone as PhoneIcon,
+  ArrowRight,
+  Wallet,
+  Send,
+  Smartphone,
+  TrendingUp,
+  Bot,
+  Sparkles,
+  Monitor,
+  Tablet,
+  Phone as PhoneIcon,
 } from "lucide-react";
 
 type DeviceView = "desktop" | "tablet" | "mobile";
@@ -61,16 +74,46 @@ export const Route = createFileRoute("/")({
           },
           priceRange: "฿฿",
           areaServed: [
-            "สงขลา", "นครศรีธรรมราช", "สุราษฎร์ธานี", "ภูเก็ต", "กระบี่",
-            "ตรัง", "พัทลุง", "ชุมพร", "ระนอง", "สตูล", "ปัตตานี", "ยะลา", "นราธิวาส", "พังงา",
+            "สงขลา",
+            "นครศรีธรรมราช",
+            "สุราษฎร์ธานี",
+            "ภูเก็ต",
+            "กระบี่",
+            "ตรัง",
+            "พัทลุง",
+            "ชุมพร",
+            "ระนอง",
+            "สตูล",
+            "ปัตตานี",
+            "ยะลา",
+            "นราธิวาส",
+            "พังงา",
           ],
           hasOfferCatalog: {
             "@type": "OfferCatalog",
             name: "แพ็กเกจทำเว็บไซต์",
             itemListElement: [
-              { "@type": "Offer", name: "Starter Package", price: "5000", priceCurrency: "THB", description: "เว็บ 1 หน้า พร้อม domain + hosting 1 ปี" },
-              { "@type": "Offer", name: "Business Package", price: "9000", priceCurrency: "THB", description: "เว็บ 5 หน้า พร้อม SEO พื้นฐาน" },
-              { "@type": "Offer", name: "Pro Package", price: "15000", priceCurrency: "THB", description: "เว็บ 10 หน้า พร้อม Blog + SEO ครบ" },
+              {
+                "@type": "Offer",
+                name: "Starter Package",
+                price: "5000",
+                priceCurrency: "THB",
+                description: "เว็บ 1 หน้า พร้อม domain + hosting 1 ปี",
+              },
+              {
+                "@type": "Offer",
+                name: "Business Package",
+                price: "9000",
+                priceCurrency: "THB",
+                description: "เว็บ 5 หน้า พร้อม SEO พื้นฐาน",
+              },
+              {
+                "@type": "Offer",
+                name: "Pro Package",
+                price: "15000",
+                priceCurrency: "THB",
+                description: "เว็บ 10 หน้า พร้อม Blog + SEO ครบ",
+              },
             ],
           },
         }),
@@ -81,11 +124,36 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { img: svcBusiness, title: "เว็บไซต์ธุรกิจ", desc: "เว็บแนะนำธุรกิจ ร้านค้า ออกแบบสวย ใช้งานง่าย" },
-  { img: svcCorporate, title: "เว็บไซต์บริษัท", desc: "เว็บองค์กรขนาดใหญ่ ดูเป็นมืออาชีพ น่าเชื่อถือ" },
-  { img: svcRestaurant, title: "เว็บไซต์ร้านอาหาร", desc: "เมนู จองโต๊ะ สั่งออนไลน์ ครบจบในเว็บเดียว" },
-  { img: svcHotel, title: "เว็บไซต์โรงแรม", desc: "ระบบจองห้องพัก แสดงห้อง พร้อมระบบหลังบ้าน" },
-  { img: svcRealEstate, title: "เว็บไซต์อสังหา", desc: "ค้นหาบ้าน คอนโด ระบบฟิลเตอร์อัจฉริยะ" },
+  {
+    img: svcBusiness,
+    title: "เว็บไซต์ธุรกิจ",
+    desc: "เว็บแนะนำธุรกิจ ร้านค้า ออกแบบสวย ใช้งานง่าย",
+    slug: "company",
+  },
+  {
+    img: svcCorporate,
+    title: "เว็บไซต์บริษัท",
+    desc: "เว็บองค์กรขนาดใหญ่ ดูเป็นมืออาชีพ น่าเชื่อถือ",
+    slug: "company",
+  },
+  {
+    img: svcRestaurant,
+    title: "เว็บไซต์ร้านอาหาร",
+    desc: "เมนู จองโต๊ะ สั่งออนไลน์ ครบจบในเว็บเดียว",
+    slug: "restaurant",
+  },
+  {
+    img: svcHotel,
+    title: "เว็บไซต์โรงแรม",
+    desc: "ระบบจองห้องพัก แสดงห้อง พร้อมระบบหลังบ้าน",
+    slug: "hotel",
+  },
+  {
+    img: svcRealEstate,
+    title: "เว็บไซต์อสังหา",
+    desc: "ค้นหาบ้าน คอนโด ระบบฟิลเตอร์อัจฉริยะ",
+    slug: "realestate",
+  },
 ];
 
 const reasons = [
@@ -96,8 +164,14 @@ const reasons = [
   { icon: Bot, title: "พร้อมระบบ AEO", desc: "ติดหน้าแรกคำแนะนำของ AI เช่น ChatGPT, Gemini" },
 ];
 
-const portfolioCategories = ["Restaurant", "Hotel", "Company", "Contractor", "Real Estate"] as const;
-type Category = typeof portfolioCategories[number];
+const portfolioCategories = [
+  "Restaurant",
+  "Hotel",
+  "Company",
+  "Contractor",
+  "Real Estate",
+] as const;
+type Category = (typeof portfolioCategories)[number];
 
 const portfolioItems: Record<Category, { img: string; name: string }[]> = {
   Restaurant: [
@@ -203,19 +277,35 @@ function Index() {
             <h1 className="mt-5 font-display font-bold leading-[1.15] text-primary">
               สร้างเว็บไซต์ธุรกิจ
               <br />
-              <span className="whitespace-nowrap">เริ่มต้นเพียง <span className="text-orange">5,000</span> บาท</span>
+              <span className="whitespace-nowrap">
+                เริ่มต้นเพียง <span className="text-orange">5,000</span> บาท
+              </span>
             </h1>
-            <p className="mt-5 text-base md:text-lg text-foreground/80 font-medium" style={{ lineHeight: 1.7 }}>
+            <p
+              className="mt-5 text-base md:text-lg text-foreground/80 font-medium"
+              style={{ lineHeight: 1.7 }}
+            >
               MedeeWeb ออกแบบสวยงาม รองรับมือถือทุกเครื่อง
               <br className="hidden sm:block" />
               พร้อมระบบหลังบ้านใช้งานจริง — แรงบันดาลใจจากท้องทะเลกระบี่
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
-              <Button size="lg" className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold">
-                ดูแพ็กเกจ <ArrowRight className="ml-2 h-5 w-5" />
+              <Button
+                asChild
+                size="lg"
+                className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold"
+              >
+                <Link to="/packages">
+                  ดูแพ็กเกจ <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 rounded-full border-2 border-primary bg-white/90 text-primary hover:bg-white px-8 text-base font-semibold backdrop-blur">
-                ดูเว็บตัวอย่าง
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-14 rounded-full border-2 border-primary bg-white/90 text-primary hover:bg-white px-8 text-base font-semibold backdrop-blur"
+              >
+                <Link to="/demo">ดูเว็บตัวอย่าง</Link>
               </Button>
             </div>
           </div>
@@ -223,8 +313,16 @@ function Index() {
         </div>
 
         {/* Wave divider into white */}
-        <svg className="relative block w-full h-auto" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
-          <path fill="#ffffff" d="M0,50 C240,100 480,10 720,40 C960,70 1200,100 1440,55 L1440,100 L0,100 Z" />
+        <svg
+          className="relative block w-full h-auto"
+          viewBox="0 0 1440 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            fill="#ffffff"
+            d="M0,50 C240,100 480,10 720,40 C960,70 1200,100 1440,55 L1440,100 L0,100 Z"
+          />
         </svg>
       </section>
 
@@ -233,7 +331,9 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mx-auto max-w-3xl text-center mb-12">
             <h2 className="section-heading">
-              <span className="whitespace-nowrap">บริการสร้างเว็บไซต์<span className="heading-accent">สำหรับทุกธุรกิจ</span></span>
+              <span className="whitespace-nowrap">
+                บริการสร้างเว็บไซต์<span className="heading-accent">สำหรับทุกธุรกิจ</span>
+              </span>
             </h2>
             <p className="section-sub inline-flex items-center gap-2 flex-wrap justify-center">
               <Sparkles className="h-4 w-4 text-accent" />
@@ -244,13 +344,30 @@ function Index() {
             {services.map((s) => (
               <div key={s.title} className="service-card group">
                 <div className="aspect-[4/3] overflow-hidden bg-secondary/40">
-                  <img src={s.img} alt={s.title} width={1024} height={768} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <img
+                    src={s.img}
+                    alt={s.title}
+                    width={1024}
+                    height={768}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
                 <div className="flex flex-1 flex-col p-5 text-center">
-                  <h3 className="text-[16px] font-semibold" style={{ color: "#1B4F9B" }}>{s.title}</h3>
-                  <p className="mt-2 text-[14px] flex-1" style={{ color: "#555" }}>{s.desc}</p>
-                  <Button size="sm" className="mx-auto mt-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-5 font-medium">
-                    ดูรายละเอียด <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                  <h3 className="text-[16px] font-semibold" style={{ color: "#1B4F9B" }}>
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] flex-1" style={{ color: "#555" }}>
+                    {s.desc}
+                  </p>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="mx-auto mt-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-5 font-medium"
+                  >
+                    <Link to="/demo/$slug" params={{ slug: s.slug }}>
+                      ดูรายละเอียด <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -258,13 +375,29 @@ function Index() {
           </div>
         </div>
         {/* Wave to white */}
-        <svg className="block w-full h-auto mt-16 -mb-px" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-          <path fill="#ffffff" d="M0,40 C240,80 480,0 720,32 C960,64 1200,80 1440,40 L1440,80 L0,80 Z" />
+        <svg
+          className="block w-full h-auto mt-16 -mb-px"
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            fill="#ffffff"
+            d="M0,40 C240,80 480,0 720,32 C960,64 1200,80 1440,40 L1440,80 L0,80 Z"
+          />
         </svg>
       </section>
 
       {/* WHY US */}
-      <section id="why" className="why-section relative overflow-hidden bg-white" style={{ borderTop: "4px solid #00A89D", contentVisibility: "auto", containIntrinsicSize: "0 600px" }}>
+      <section
+        id="why"
+        className="why-section relative overflow-hidden bg-white"
+        style={{
+          borderTop: "4px solid #00A89D",
+          contentVisibility: "auto",
+          containIntrinsicSize: "0 600px",
+        }}
+      >
         {/* Faint wave illustration backdrop */}
         <img
           src={heroKrabi}
@@ -298,13 +431,25 @@ function Index() {
             ))}
           </div>
         </div>
-        <svg className="relative block w-full h-auto mt-16 -mb-px" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-          <path fill="#EBF6F8" d="M0,40 C240,80 480,0 720,32 C960,64 1200,80 1440,40 L1440,80 L0,80 Z" />
+        <svg
+          className="relative block w-full h-auto mt-16 -mb-px"
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            fill="#EBF6F8"
+            d="M0,40 C240,80 480,0 720,32 C960,64 1200,80 1440,40 L1440,80 L0,80 Z"
+          />
         </svg>
       </section>
 
       {/* PORTFOLIO / PACKAGES */}
-      <section id="portfolio" className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0" style={{ contentVisibility: "auto", containIntrinsicSize: "0 800px" }}>
+      <section
+        id="portfolio"
+        className="relative overflow-hidden bg-soft-teal pt-20 md:pt-24 pb-0"
+        style={{ contentVisibility: "auto", containIntrinsicSize: "0 800px" }}
+      >
         {/* Faint wave illustration backdrop */}
         <img
           src={heroKrabi}
@@ -347,20 +492,20 @@ function Index() {
             <div className="flex items-center gap-3 text-primary">
               <span className="text-sm md:text-base font-semibold">Demo Switcher</span>
               <div className="flex items-center gap-1">
-                {([
-                  { key: "desktop", icon: Monitor, label: "Desktop" },
-                  { key: "tablet", icon: Tablet, label: "Tablet" },
-                  { key: "mobile", icon: PhoneIcon, label: "Mobile" },
-                ] as const).map(({ key, icon: Icon, label }) => (
+                {(
+                  [
+                    { key: "desktop", icon: Monitor, label: "Desktop" },
+                    { key: "tablet", icon: Tablet, label: "Tablet" },
+                    { key: "mobile", icon: PhoneIcon, label: "Mobile" },
+                  ] as const
+                ).map(({ key, icon: Icon, label }) => (
                   <button
                     key={key}
                     onClick={() => setDevice(key)}
                     aria-label={label}
                     aria-pressed={device === key}
                     className={`rounded-full p-2 transition-colors ${
-                      device === key
-                        ? "bg-primary text-white"
-                        : "text-primary hover:bg-secondary"
+                      device === key ? "bg-primary text-white" : "text-primary hover:bg-secondary"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -368,8 +513,13 @@ function Index() {
                 ))}
               </div>
             </div>
-            <Button className="rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-6 font-semibold">
-              ดูหน้าเว็บทั้งหมด <ArrowRight className="ml-2 h-4 w-4" />
+            <Button
+              asChild
+              className="rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-6 font-semibold"
+            >
+              <Link to="/demo">
+                ดูหน้าเว็บทั้งหมด <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </div>
 
@@ -408,9 +558,19 @@ function Index() {
           {/* Thumbnail grid (other examples) */}
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {portfolioItems[activeCat].map((item, i) => (
-              <Card key={i} className="group overflow-hidden rounded-xl border-border/60 bg-white p-0 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
+              <Card
+                key={i}
+                className="group overflow-hidden rounded-xl border-border/60 bg-white p-0 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+              >
                 <div className="aspect-[4/3] overflow-hidden bg-secondary/30">
-                  <img src={item.img} alt={item.name} width={1280} height={800} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    width={1280}
+                    height={800}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
                 <div className="px-4 py-3 text-center">
                   <p className="text-sm font-semibold text-primary truncate">{item.name}</p>
@@ -422,8 +582,16 @@ function Index() {
 
         {/* Wave to CTA */}
         <div className="relative mt-20 -mb-px">
-          <svg className="block w-full h-auto" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
-            <path fill="#1B4F9B" d="M0,60 C240,10 480,100 720,50 C960,0 1200,80 1440,30 L1440,100 L0,100 Z" />
+          <svg
+            className="block w-full h-auto"
+            viewBox="0 0 1440 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              fill="#1B4F9B"
+              d="M0,60 C240,10 480,100 720,50 C960,0 1200,80 1440,30 L1440,100 L0,100 Z"
+            />
           </svg>
         </div>
       </section>
@@ -440,7 +608,8 @@ function Index() {
             ].map((s) => (
               <div key={s.label} className="rounded-xl bg-white p-6 shadow-[var(--shadow-elegant)]">
                 <div className="font-display text-3xl md:text-4xl font-bold text-primary">
-                  {s.value}{s.suffix}
+                  {s.value}
+                  {s.suffix}
                 </div>
                 <div className="mt-1 text-sm md:text-base text-foreground/70">{s.label}</div>
               </div>
@@ -452,20 +621,37 @@ function Index() {
       {/* CTA */}
       <section className="bg-deep-blue text-white py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 md:px-8 text-center">
-          <h2 className="text-white" style={{ fontSize: "clamp(1.75rem, 4.5vw, 2.25rem)", fontWeight: 700, color: "#ffffff" }}>
+          <h2
+            className="text-white"
+            style={{
+              fontSize: "clamp(1.75rem, 4.5vw, 2.25rem)",
+              fontWeight: 700,
+              color: "#ffffff",
+            }}
+          >
             พร้อมเริ่มต้นเว็บไซต์ของคุณแล้วหรือยัง?
           </h2>
           <p className="mt-4 text-base md:text-lg text-white/85" style={{ lineHeight: 1.7 }}>
-            <span className="whitespace-nowrap">ปรึกษาฟรี ไม่มีค่าใช้จ่าย — ทีมงานพร้อมแนะนำแพ็กเกจ</span>ที่ใช่สำหรับธุรกิจคุณ
+            <span className="whitespace-nowrap">
+              ปรึกษาฟรี ไม่มีค่าใช้จ่าย — ทีมงานพร้อมแนะนำแพ็กเกจ
+            </span>
+            ที่ใช่สำหรับธุรกิจคุณ
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Link to="/quote">
-              <Button size="lg" className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold">
+              <Button
+                size="lg"
+                className="h-14 rounded-full bg-orange text-orange-foreground hover:bg-orange/90 shadow-[var(--shadow-warm)] px-8 text-base font-semibold"
+              >
                 ปรึกษาฟรี <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <a href="tel:0996252499">
-              <Button size="lg" variant="outline" className="h-14 rounded-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary px-8 text-base font-semibold">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 rounded-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary px-8 text-base font-semibold"
+              >
                 โทร 099-625-2499
               </Button>
             </a>
